@@ -38,4 +38,4 @@ userSchema.index({ username: 1 }, {
 
 const User = model('User', userSchema);
 
-exports.User = User;
+module.exports = User;

@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require("mongoose");
 
 const leaveSchema = new Schema({
-  employee_id: {
+  employee: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify the employee'],

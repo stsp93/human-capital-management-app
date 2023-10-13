@@ -1,12 +1,12 @@
 const { Schema, model, Types } = require("mongoose");
 
 const performanceReviewSchema = new Schema({
-  employee_id: {
+  employee: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify the reviewed employee'],
   },
-  reviewer_id: {
+  reviewer: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify the reviewer'],
@@ -20,6 +20,10 @@ const performanceReviewSchema = new Schema({
   comments: {
     type: String,
   },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = model('PerformanceReview', performanceReviewSchema);
