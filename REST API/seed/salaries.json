@@ -1,0 +1,27 @@
+[
+    {
+        "employee": { "$oid": "6528f1f614ef860dd1468fbd" },
+      "bonuses": [
+        {
+          "type": "Performance Bonus",
+          "amount": 5000
+        },
+        {
+          "type": "Year-End Bonus",
+          "amount": 3000
+        }
+      ],
+      "currency": { "$oid": "6528fd7283c6c41d5d8ee6c6" }
+    },
+    {
+        "employee": { "$oid": "6528f1f614ef860dd1468fbe" },
+      "bonuses": [
+        {
+          "type": "Performance Bonus",
+          "amount": 4000
+        }
+      ],
+      "currency": { "$oid": "6528fd7283c6c41d5d8ee6c7" }
+    }
+  ]
+  

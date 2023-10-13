@@ -1,0 +1,7 @@
+[
+{ "_id":{"$oid": "65284f7a14ef860dd1468fb4"}, "name": "Software Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"3000" },
+{ "name": "DevOps Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"4000" },
+{"_id": {"$oid": "65284f7a14ef860dd1468fb6"}, "name": "Quality Assurance Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"5000" },
+{ "name": "HR Manager","department":{"$oid":"65284d0514ef860dd1468f9e"}, "base_salary":"6000" },
+{ "name": "Recruitment Specialist","department":{"$oid":"65284d0514ef860dd1468f9e"}, "base_salary":"7000" }
+]

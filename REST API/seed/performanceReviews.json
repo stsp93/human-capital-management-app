@@ -1,0 +1,17 @@
+[
+    {
+        "employee": { "$oid": "6528f1f614ef860dd1468fbd" },
+        "reviewer": { "$oid": "6528f1f614ef860dd1468fbe" },
+      "rating": 8,
+      "comments": "Excellent work on the project.",
+      "date": {"$date": "2023-05-10"}
+    },
+    {
+        "employee": { "$oid": "6528f1f614ef860dd1468fbe" },
+      "reviewer": { "$oid": "6528f1f614ef860dd1468fbd" },
+      "rating": 7,
+      "comments": "Good performance overall.",
+      "date": {"$date": "2023-06-30"}
+    }
+  ]
+  

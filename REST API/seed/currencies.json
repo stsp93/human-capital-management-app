@@ -1,0 +1,5 @@
+[
+    {"_id": { "$oid": "6528fd7283c6c41d5d8ee6c6" },"name": "USD"},
+    {"_id": { "$oid": "6528fd7283c6c41d5d8ee6c7" },"name": "EUR"},
+    {"name": "BGN"}
+  ]

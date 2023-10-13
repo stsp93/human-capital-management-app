@@ -1,0 +1,22 @@
+[
+  {
+    "_id": { "$oid": "6528f1f614ef860dd1468fbd" },
+    "name": "John Doe",
+    "position": { "$oid": "65284f7a14ef860dd1468fb4" },
+    "email": "john.doe@example.com",
+    "phone": "123-456-7890",
+    "country": { "$oid": "65284b6914ef860dd1468f87" },
+    "address": "123 Main St, City, Country",
+    "start_date": { "$date": "2022-12-01" }
+  },
+  {
+    "_id": { "$oid": "6528f1f614ef860dd1468fbe" },
+    "name": "Alice Smith",
+    "position": { "$oid": "65284f7a14ef860dd1468fb6" },
+    "email": "alice.smith@example.com",
+    "phone": "987-654-3210",
+    "country": { "$oid": "65284b6914ef860dd1468f88" },
+    "address": "456 Elm St, Town, Country",
+    "start_date": { "$date": "2023-01-15" }
+  }
+]

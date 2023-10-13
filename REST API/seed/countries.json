@@ -1,0 +1,12 @@
+[
+  {"_id": {"$oid": "65284b6914ef860dd1468f87"}, "name": "United States" },
+  { "_id": {"$oid": "65284b6914ef860dd1468f88"}, "name": "United Kingdom" },
+  { "name": "Canada" },
+  { "name": "Australia" },
+  { "name": "Germany" },
+  { "name": "France" },
+  { "name": "Japan" },
+  { "name": "India" },
+  { "name": "China" },
+  { "name": "South Africa" }
+]
