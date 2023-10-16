@@ -20,60 +20,82 @@
       src="https://kit.fontawesome.com/48ed1957d1.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <section class="container-fluid">
-      <div class="auth-content row bg-success text-center">
-        <div class="col-md-4 text-center company__info">
-          <span class="company__logo"
-            ><h2><i class="fa-solid fa-id-card"></i></h2
-          ></span>
-          <h4 class="company_title">Human Capital Management</h4>
+    <header class="container-fluid">
+      <div class="row justify-content-between p-2">
+        <div class="col-sm-8 logo">
+          <h3>
+            <button class="sideBar-btn">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            Human Capital Management
+          </h3>
         </div>
-        <div class="py-4 col-md-8 col-xs-12 col-sm-12 auth-form">
-          <div class="container-fluid">
-            <div class="row">
-              <h2 class="auth-title">Register</h2>
-            </div>
-            <div class="row">
-              <form class="form-group">
-                <div class="row">
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                  />
-                </div>
-                <div class="row">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="row">
-                  <input
-                    type="password"
-                    name="rePassword"
-                    id="rePassword"
-                    placeholder="Repeat Password"
-                  />
-                </div>
-                <p class="auth-error">Fill the fields</p>
-                <div class="row justify-content-center">
-                  <button type="submit" class="btn auth-btn">Submit</button>
-                </div>
-              </form>
-            </div>
-            <div class="row">
-              <p>Have an account? <a href="#">Login Here</a></p>
-            </div>
-          </div>
+        <div
+          class="col-xl-1 col-sm-3 col-md-2 dropdown d-flex align-content-center dropdownUser"
+        >
+          <a
+            href="#"
+            class="d-flex align-items-center dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-user"></i>
+            <span class="d-none-inline mx-1">User</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
         </div>
       </div>
-    </section>
+    </header>
+    <main>
+      <!-- SIDEBAR -->
+      <aside class="sideBar">
+        <ul class="list-group sideBar-links">
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-house"></i>
+              <span>HOME</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-house"></i>
+              <span>HOME</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- CONTENT -->
+      <section class="content p-2 px-5">Content here</section>
+    </main>
+
+    <!-- TODO: In separate file? -->
+    <script>
+      const sideBarBtn = document.querySelector('.sideBar-btn');
+      const sideBar = document.querySelector('.sideBar');
+      const sideBarLinks = document.querySelector('.sideBar-links')
+
+      sideBarBtn.addEventListener('click', function () {
+        sideBar.classList.toggle('sideBar-hide');
+
+          sideBarLinks.classList.toggle('sideBar-links-hide');
+ 
+      });
+      
+      window.addEventListener("resize", () => {
+        if (window.innerWidth <= 576) {
+          sideBar.classList.add("sideBar-hide");
+          sideBarLinks.classList.add('sideBar-links-hide');
+        } else {
+          sideBar.classList.remove("sideBar-hide");
+          sideBarLinks.classList.remove('sideBar-links-hide');
+        }
+        });
+    </script>
   </body>
 </html>

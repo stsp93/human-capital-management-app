@@ -1,87 +1,161 @@
 :root {
-    --indigo: #4c6ef5;
-    --white: #fff;
-    --dark-gray: #343a40;
-    --gray: #adb5bd;
-    --light-gray: #dee2e6;
-    --red: #e03131;
+  --indigo: #4c6ef5;
+  --white: #fff;
+  --dark-gray: #343a40;
+  --gray: #adb5bd;
+  --gray-9: #212529;
+  --light-gray: #dee2e6;
+  --red: #e03131;
 }
 
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
-.auth-content{
-	width: 70%;
-    max-width: 800px;
-	border-radius: 10px;
-	box-shadow: 0 5px 5px rgba(0,0,0,.4);
-	margin: 5rem auto;
-}
-.company__info{
-	background-color: var(--indigo);
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	color: var(--white);
+header {
+  background-color: var(--white);
+  color: var(--dark-gray);
 }
 
-.company__logo i{
-	font-size:7rem;
+.dropdownUser {
+  font-size: 24px;
 }
 
-.auth-title{
-	color:var(--indigo);
+main {
+  display: flex;
 }
 
-.auth-form{
-	background-color: var(--white);
-	border-top-right-radius:10px;
-	border-bottom-right-radius:10px;
-	border-top:1px solid var(--gray);
-	border-right:1px solid var(--gray);
+/* SIDEBAR */
+
+.sideBar-heading {
+  color: var(--white);
 }
 
-.auth-form input{
-	width: 80%;
-	border:0px solid transparent;
-	border-radius: 0;
-	border-bottom: 1px solid var(--dark-gray);
-	padding: 1rem;
-	outline:none;
-	margin:.5rem auto;
-	transition: all .5s ease;
+.sideBar {
+  height: 100vh;
+  width: 250px;
+  padding: 10px;
+  background-color: var(--dark-gray);
+  transition: width 1s;
 }
-.auth-form input:focus{
-	border-bottom-color: var(--indigo);
-	box-shadow: 0 0 5px rgba(0,80,80,.4); 
-	border-radius: 4px;
+
+.sideBar-hide {
+	width: 0;
+	padding: 0;
+  transition: width 1s;
 }
-.auth-btn{
-	transition: all .5s ease;
-	width: 50%;
-	border-radius: 20px;
-	color:var(--indigo);
-	font-weight: 600;
-	background-color: var(--white);
-	border: 1px solid var(--indigo);
-	margin-top: 1.5rem;
-	margin-bottom: 1rem;
+.sideBar-links-hide {
+  display: none;
 }
-.auth-btn:hover, .auth-btn:focus{
-	background-color: var(--indigo);
-	color:var(--white);
+
+@media screen and (max-width: 576px) {
+  main {
+    flex-direction: column;
+  }
+
+  .dropdownUser {
+    justify-content: center;
+  }
+
+  .sideBar {
+	height: unset;
+    position: absolute;
+  }
+
+  .sideBar a {
+    text-align: center;
+  }
+}
+
+.sideBar a {
+  width: 100%;
+  display: inline-block;
+  padding: 1rem;
+  color: var(--white);
+  border-radius: 10px;
+}
+
+.sideBar a:hover {
+  background-color: var(--white);
+  color: var(--dark-gray);
+}
+
+/* AUTH VIEWS */
+
+.auth-content {
+  width: 70%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  margin: 5rem auto;
+}
+.company__info {
+  background-color: var(--indigo);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--white);
+}
+
+.company__logo i {
+  font-size: 7rem;
+}
+
+.auth-title {
+  color: var(--indigo);
+}
+
+.auth-form {
+  background-color: var(--white);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
+}
+
+.auth-form input {
+  width: 80%;
+  border: 0px solid transparent;
+  border-radius: 0;
+  border-bottom: 1px solid var(--dark-gray);
+  padding: 1rem;
+  outline: none;
+  margin: 0.5rem auto;
+  transition: all 0.5s ease;
+}
+.auth-form input:focus {
+  border-bottom-color: var(--indigo);
+  box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
+  border-radius: 4px;
+}
+.auth-btn {
+  transition: all 0.5s ease;
+  width: 50%;
+  border-radius: 20px;
+  color: var(--indigo);
+  font-weight: 600;
+  background-color: var(--white);
+  border: 1px solid var(--indigo);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+.auth-btn:hover,
+.auth-btn:focus {
+  background-color: var(--indigo);
+  color: var(--white);
 }
 
 .auth-error {
-    color: var(--red);
+  color: var(--red);
 }
 
 @media screen and (max-width: 567px) {
-	.main-content{width: 90%;}
-	.company__info{
-		display: none;
-	}
+  .main-content {
+    width: 90%;
+  }
+  .company__info {
+    display: none;
+  }
 }
