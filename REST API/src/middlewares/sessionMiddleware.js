@@ -1,4 +1,5 @@
 const { verifyToken } = require("../services/userService");
+const errorHandler = require("../utilities/errorHandler");
 
 
 module.exports = () => async (req, res, next) => {
@@ -10,9 +11,9 @@ module.exports = () => async (req, res, next) => {
             req.user = user
             req.token = token
         } catch (error) {
-            if(error.name === 'TokenExpiredError') return res.status(403).json(error);
+            if(error.name === 'TokenExpiredError') return res.status(403).json(errorHandler(error));
 
-           return res.status(401).json(error);
+            return res.status(401).json(errorHandler(error));
         }
     }
 

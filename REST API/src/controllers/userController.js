@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const errorHandler = require('../utilities/errorHandler');
 const router = require('express').Router();
 
 
@@ -8,6 +9,7 @@ router.post('/register', async (req, res) => {
         res.status(201).json(user)
     } catch (error) {
         console.log(error);
+        res.status(400).json(errorHandler(error));
     }
 })
 
@@ -17,6 +19,7 @@ router.post('/login', async (req, res) => {
         return res.json(user)
     } catch (error) {
         console.log(error);
+        res.status(400).json(errorHandler(error));
     }
 })
 
