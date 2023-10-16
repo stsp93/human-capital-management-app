@@ -4,6 +4,7 @@ const { PORT } = require('./config/constants');
 const dbInit = require('./config/database');
 const router = require('./router');
 const cors = require('./middlewares/cors');
+const sessionMiddleware = require('./middlewares/sessionMiddleware');
 
 const app = express();
 
