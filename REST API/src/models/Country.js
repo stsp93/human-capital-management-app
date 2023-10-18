@@ -7,4 +7,6 @@ const countrySchema = new Schema({
   },
 });
 
-module.exports = model('Country', countrySchema);
+const Country = model('Country', countrySchema);
+
+module.exports = Country;

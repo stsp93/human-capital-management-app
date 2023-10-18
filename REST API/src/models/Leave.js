@@ -25,4 +25,6 @@ const leaveSchema = new Schema({
   },
 });
 
-module.exports = model('Leave', leaveSchema);
+const Leave = model('Leave', leaveSchema);
+
+module.exports = Leave;

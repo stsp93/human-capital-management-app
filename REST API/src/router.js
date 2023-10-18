@@ -3,11 +3,11 @@ const router = require('express').Router();
 const userController = require('./controllers/userController');
 
 
-router.use('/', (req, res) => {
+router.get('/', (req, res) => {
     res.json(['Hello World']);
 });
 
-router.use('/users', userController)
+router.use('/users', userController);
 
 
 module.exports = router

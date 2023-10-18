@@ -26,4 +26,6 @@ const performanceReviewSchema = new Schema({
   }
 });
 
-module.exports = model('PerformanceReview', performanceReviewSchema);
+const PerformanceReview = model('PerformanceReview', performanceReviewSchema);
+
+module.exports = PerformanceReview

@@ -6,6 +6,10 @@ const salarySchema = new Schema({
     ref: 'Employee',
     required: [true, 'Please specify the employee'],
   },
+  salary: {
+    type: Number,
+    required:[true, 'Please specify the salary'],
+  },
   bonuses: [
     {
       type: {
@@ -19,11 +23,12 @@ const salarySchema = new Schema({
     },
   ],
   currency: {
-    type: Types.ObjectId,
-    ref:'Currency',
-    required: [true, 'Please specify the currency'],
+    type: String,
+    enum: ['USD','EUR', 'BGN'],
   },
   // amount: Number, // TODO: to be calculated
 });
 
-module.exports = model('Salary', salarySchema);
+const Salary = model('Salary', salarySchema);
+
+module.exports = Salary

@@ -10,10 +10,17 @@ const positionSchema = new Schema({
     ref: 'Department',
     required: [true, 'Please specify the department'],
   },
-  base_salary: {
-    type: Number,
-    required: [true, 'Please specify the base salary'],
+  salary: {
+    type: Types.ObjectId,
+    ref:'Salary',
+    required: [true, 'Please specify the salary'],
+  },
+  start_date: {
+    type: Date,
+    required: [true, 'Please specify the start date'],
   },
 });
 
-module.exports = model('Position', positionSchema);
+const Position = model('Position', positionSchema);
+
+module.exports = Position
