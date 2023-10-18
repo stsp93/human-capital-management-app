@@ -1,10 +1,12 @@
 :root {
+  --indigo-light: #dbe4ff;
   --indigo: #4c6ef5;
+  --indigo-dark: #364fc7;
   --white: #fff;
-  --dark-gray: #343a40;
+  --gray-dark: #343a40;
   --gray: #adb5bd;
   --gray-9: #212529;
-  --light-gray: #dee2e6;
+  --gray-light: #dee2e6;
   --red: #e03131;
 }
 
@@ -14,7 +16,8 @@ body {
 
 header {
   background-color: var(--white);
-  color: var(--dark-gray);
+  color: var(--gray-dark);
+  border-bottom: 1px solid var(--gray-light);
 }
 
 .dropdownUser {
@@ -32,21 +35,61 @@ main {
 }
 
 .sideBar {
-  height: 100vh;
+  min-height: 100vh;
   width: 250px;
-  padding: 10px;
-  background-color: var(--dark-gray);
+  padding: 5px;
+  background-color: var(--white);
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.1);
   transition: width 1s;
+}
+
+.sideBar-links {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.sideBar-btn {
+  color: var(--indigo);
+}
+.sideBar-btn:hover, .sideBar-btn:active {
+  color: var(--indigo-dark);
 }
 
 .sideBar-hide {
 	width: 0;
 	padding: 0;
+  box-shadow: none;
   transition: width 1s;
 }
 .sideBar-links-hide {
   display: none;
 }
+
+.sideBar-links a {
+  width: 100%;
+  display: inline-block;
+  padding: 15px;
+  color: var(--gray-dark);
+  font-weight: 700;
+  border-radius: 30px;
+}
+
+.sideBar-links a:hover  {
+  background-color: var(--indigo-light);
+  color: var(--gray-dark);
+}
+
+.sideBar-link-active {
+  background-color: var(--gray-light);
+}
+
+.sideBar-links i{
+  width: 10%;
+}
+
+
 
 @media screen and (max-width: 576px) {
   main {
@@ -62,22 +105,6 @@ main {
     position: absolute;
   }
 
-  .sideBar a {
-    text-align: center;
-  }
-}
-
-.sideBar a {
-  width: 100%;
-  display: inline-block;
-  padding: 1rem;
-  color: var(--white);
-  border-radius: 10px;
-}
-
-.sideBar a:hover {
-  background-color: var(--white);
-  color: var(--dark-gray);
 }
 
 /* AUTH VIEWS */
@@ -119,7 +146,7 @@ main {
   width: 80%;
   border: 0px solid transparent;
   border-radius: 0;
-  border-bottom: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--gray-dark);
   padding: 1rem;
   outline: none;
   margin: 0.5rem auto;
