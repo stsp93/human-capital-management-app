@@ -1,4 +1,5 @@
-const { User } = require('../models/User');
+const User = require('../models/User');
+const Employee  = require('../models/Employee');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/constants');
@@ -11,12 +12,19 @@ const jwtVerifyAsync = promisify(jwt.verify)
 const tokenBlacklist = new Set();
 
 async function register(user) {
+    // create new blank employee and attach to user
+    const newEmployee = await Employee.create({});
+    user.employee_id = newEmployee._id;
+
+    console.log(newEmployee);
+    // create user
     const newUser = await User.create(user)
 
     // sign jwt
     const payload = {
         username: newUser.username,
         role: newUser.role,
+        employee_id: newUser.employee_id,
         _id: newUser._id,
     }
     const token = await jwtSignAsync(payload, JWT_SECRET, { expiresIn: '1d' });
@@ -26,6 +34,7 @@ async function register(user) {
         username: newUser.username,
         _id: newUser._id,
         role: newUser.role,
+        employee_id: newUser.employee_id,
         token
     }
 }
