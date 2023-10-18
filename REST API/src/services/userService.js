@@ -16,7 +16,6 @@ async function register(user) {
     const newEmployee = await Employee.create({});
     user.employee_id = newEmployee._id;
 
-    console.log(newEmployee);
     // create user
     const newUser = await User.create(user)
 
@@ -50,15 +49,17 @@ async function login(user) {
     const payload = {
         username: existing.username,
         role: existing.role,
+        employee_id: existing.employee_id,
         _id: existing._id,
     }
-    const token = await jwtSignAsync(payload, JWT_SECRET, { expiresIn: '2d' });
+    const token = await jwtSignAsync(payload, JWT_SECRET, { expiresIn: '1d' });
 
     // return user with token
     return {
         username: existing.username,
         _id: existing._id,
         role: existing.role,
+        employee_id: existing.employee_id,        
         token
     }
 
