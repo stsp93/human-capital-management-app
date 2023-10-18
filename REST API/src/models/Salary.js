@@ -1,14 +1,10 @@
 const { Schema, model, Types } = require("mongoose");
 
 const salarySchema = new Schema({
-  employee: {
-    type: Types.ObjectId,
-    ref: 'Employee',
-    required: [true, 'Please specify the employee'],
-  },
   salary: {
     type: Number,
     required:[true, 'Please specify the salary'],
+    default: 0,
   },
   bonuses: [
     {
@@ -24,9 +20,9 @@ const salarySchema = new Schema({
   ],
   currency: {
     type: String,
-    enum: ['USD','EUR', 'BGN'],
+    enum: {values:['USD','EUR', 'BGN'], message: 'Currency should be USD, EUR or BGN'},
+    default: 'USD'
   },
-  // amount: Number, // TODO: to be calculated
 });
 
 const Salary = model('Salary', salarySchema);

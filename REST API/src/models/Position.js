@@ -13,11 +13,10 @@ const positionSchema = new Schema({
   salary: {
     type: Types.ObjectId,
     ref:'Salary',
-    required: [true, 'Please specify the salary'],
   },
   start_date: {
     type: Date,
-    required: [true, 'Please specify the start date'],
+    required: [true, 'Please specify the start_date'],
   },
 });
 

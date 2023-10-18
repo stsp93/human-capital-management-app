@@ -23,6 +23,7 @@ const employeeSchema = new Schema({
   address: {
     type: String,
   },
+  
 
 });
 

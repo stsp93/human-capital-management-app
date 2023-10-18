@@ -4,6 +4,7 @@ const departmentSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Please enter the department name'],
+        unique: true,
     },
 });
 
