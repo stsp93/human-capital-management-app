@@ -10,11 +10,9 @@ const salarySchema = new Schema({
     {
       type: {
         type: String,
-        required: [true, 'Please specify the bonus type'],
       },
       amount: {
         type: Number,
-        required: [true, 'Please specify the bonus amount'],
       },
     },
   ],
