@@ -14,6 +14,6 @@ router.get('/', salaryController.getAll);
 router.get('/:id', salaryController.getById);
 router.post('/', salaryController.create);
 router.put('/:id', salaryController.update);
-router.delete('/:id', salaryController.delete)
+router.delete('/:id', salaryController.delete);
 
 module.exports = router;

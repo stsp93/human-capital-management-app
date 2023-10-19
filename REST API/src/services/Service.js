@@ -16,9 +16,14 @@ class Service {
     }
   
     async update(id, input) {
-      const item = await this.model.findById(id);
-      Object.assign(item, input);
-      return await item.save();
+      const entity = await this.model.findById(id);
+      if(entity === null) {
+        const error = new Error('Entity not found');
+        error.status = 404;
+        throw error;
+      } 
+      Object.assign(entity, input);
+      return await entity.save();
     }
   
     async deleteById(id) {
