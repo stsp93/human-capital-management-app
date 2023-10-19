@@ -17,10 +17,17 @@ const leaveSchema = new Schema({
   end_date: {
     type: Date,
     required: [true, 'Please specify the end date'],
+    validate: {
+      validator: function(value) {
+        // Ensure start_date is before end_date
+        return value > this.start_date;
+      },
+      message: 'end_date should be before than start_date',
+    },
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected'],
+    enum: {values:['pending', 'approved', 'rejected'], message:"Status should be pending, approved or rejected"},
     default: 'pending',
   },
 });
