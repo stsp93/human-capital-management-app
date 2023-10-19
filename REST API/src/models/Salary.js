@@ -1,6 +1,10 @@
 const { Schema, model, Types } = require("mongoose");
 
 const salarySchema = new Schema({
+  position_id: {
+    type: Types.ObjectId,
+    ref: 'Position',
+  },
   salary: {
     type: Number,
     required:[true, 'Please specify the salary'],

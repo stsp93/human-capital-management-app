@@ -5,10 +5,6 @@ const employeeSchema = new Schema({
   name: {
     type: String,
   },
-  position: {
-    type: Types.ObjectId,
-    ref: 'Position',
-  },
   email: {
     type: String,
     match: [emailPattern, 'Please add a valid email address.'],
@@ -16,15 +12,10 @@ const employeeSchema = new Schema({
   phone: {
     type: String,
   },
-  country: {
-    type: Types.ObjectId,
-    ref: 'Country',
-  },
   address: {
     type: String,
   },
   
-
 });
 
 const Employee = model('Employee', employeeSchema);

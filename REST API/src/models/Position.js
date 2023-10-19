@@ -10,6 +10,10 @@ const positionSchema = new Schema({
     ref: 'Department',
     required: [true, 'Please specify the department'],
   },
+  employee_id: {
+    type: Types.ObjectId,
+    ref: 'Employee',
+  },
   salary: {
     type: Types.ObjectId,
     ref:'Salary',
@@ -18,6 +22,14 @@ const positionSchema = new Schema({
     type: Date,
     required: [true, 'Please specify the start_date'],
   },
+  end_date: {
+    type: Date,
+  },
+  active: {
+    type: String,
+    enum: ['active', 'inactive'],
+    default: 'active'
+  }
 });
 
 const Position = model('Position', positionSchema);
