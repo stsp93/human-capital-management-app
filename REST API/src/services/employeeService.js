@@ -17,7 +17,7 @@ class EmployeeService extends Service {
 
 
     // User can change only his own record
-    if (isAuthorizedUser(user.employee_id,id)) {
+    if (isAuthorizedUser(user.employeeId,id)) {
       throw new CustomError('Unauthorized: Users can only update their own records', 401);
     }
 

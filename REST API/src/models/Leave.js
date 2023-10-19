@@ -10,18 +10,18 @@ const leaveSchema = new Schema({
     type: String,
     required: [true, 'Please specify the leave type'],
   },
-  start_date: {
+  startDate: {
     type: Date,
     required: [true, 'Please specify the start date'],
   },
-  end_date: {
+  endDate: {
     type: Date,
     required: [true, 'Please specify the end date'],
     validate: {
       validator: function(value) {
-        return value > this.start_date;
+        return value > this.startDate;
       },
-      message: 'end_date should be before than start_date',
+      message: 'endDate should be before than startDate',
     },
   },
   status: {

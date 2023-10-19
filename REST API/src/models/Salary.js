@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require("mongoose");
 
 const salarySchema = new Schema({
-  position_id: {
+  positionId: {
     type: Types.ObjectId,
     ref: 'Position',
   },

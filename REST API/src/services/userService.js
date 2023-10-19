@@ -17,13 +17,13 @@ class UserService extends Service {
 
   async create(user) {
     const newEmployee = await Employee.create({});
-    user.employee_id = newEmployee._id;
+    user.employeeId = newEmployee._id;
     const newUser = await this.model.create(user);
 
     const payload = {
       username: newUser.username,
       role: newUser.role,
-      employee_id: newUser.employee_id,
+      employeeId: newUser.employeeId,
       _id: newUser._id,
     };
 
@@ -33,7 +33,7 @@ class UserService extends Service {
       username: newUser.username,
       _id: newUser._id,
       role: newUser.role,
-      employee_id: newUser.employee_id,
+      employeeId: newUser.employeeId,
       token,
     };
   }
@@ -49,7 +49,7 @@ class UserService extends Service {
     const payload = {
       username: existing.username,
       role: existing.role,
-      employee_id: existing.employee_id,
+      employeeId: existing.employeeId,
       _id: existing._id,
     };
 
@@ -59,7 +59,7 @@ class UserService extends Service {
       username: existing.username,
       _id: existing._id,
       role: existing.role,
-      employee_id: existing.employee_id,
+      employeeId: existing.employeeId,
       token,
     };
   }

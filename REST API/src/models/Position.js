@@ -10,7 +10,7 @@ const positionSchema = new Schema({
     ref: 'Department',
     required: [true, 'Please specify the department'],
   },
-  employee_id: {
+  employeeId: {
     type: Types.ObjectId,
     ref: 'Employee',
   },
@@ -18,11 +18,11 @@ const positionSchema = new Schema({
     type: Types.ObjectId,
     ref:'Salary',
   },
-  start_date: {
+  startDate: {
     type: Date,
-    required: [true, 'Please specify the start_date'],
+    required: [true, 'Please specify the startDate'],
   },
-  end_date: {
+  endDate: {
     type: Date,//TODO:end date logic on active change
   },
   active: {

@@ -14,7 +14,7 @@ const userSchema = new Schema({
         required: [true, 'Please enter Password'],
         minLength: [3, 'Password should be at least 3 characters long']
     },
-    employee_id: {
+    employeeId: {
         type: Types.ObjectId,
         ref: 'Employee'
     },
