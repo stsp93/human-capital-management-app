@@ -1,4 +1,6 @@
 const Employee = require("../models/Employee");
+const CustomError = require("../utilities/CustomError");
+const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 const Service = require("./Service");
 
 class EmployeeService extends Service {
@@ -9,22 +11,17 @@ class EmployeeService extends Service {
   async update(id, input, user) {
     const entity = await this.model.findById(id);
 
-    if (!entity) {
-      throw {
-        message: 'Employee not found',
-        status: 404,
-      }
+    if (!entity) { 
+      throw new CustomError('Employee not found', 404) ;
     }
 
-    // User can change only his own data
-    if (user.role === "user" && user.employee_id !== id) {
-      throw {
-        message: 'Unauthorized: Users can only update their own records',
-        status: 401
-      }
+
+    // User can change only his own record
+    if (isAuthorizedUser(user.employee_id,id)) {
+      throw new CustomError('Unauthorized: Users can only update their own records', 401);
     }
 
-    // Update other fields
+    // Update fields
     Object.assign(entity, input);
 
     return await entity.save();
