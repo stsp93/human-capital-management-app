@@ -1,7 +1,30 @@
 [
-{ "_id":{"$oid": "65284f7a14ef860dd1468fb4"}, "name": "Software Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"3000" },
-{ "name": "DevOps Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"4000" },
-{"_id": {"$oid": "65284f7a14ef860dd1468fb6"}, "name": "Quality Assurance Engineer","department":{"$oid":"65284d0514ef860dd1468f9d"}, "base_salary":"5000" },
-{ "name": "HR Manager","department":{"$oid":"65284d0514ef860dd1468f9e"}, "base_salary":"6000" },
-{ "name": "Recruitment Specialist","department":{"$oid":"65284d0514ef860dd1468f9e"}, "base_salary":"7000" }
-]
+    {
+      "name": "Position 1",
+      "department": {"$oid":"65284d0514ef860dd1468f9d"},
+      "employeeId": {"$oid":"652ff7cca8694cecbef0878a"},
+      "salary": "<SalaryId1>",
+      "startDate": "2023-01-01T00:00:00Z",
+      "endDate": null,
+      "active": true
+    },
+    {
+      "name": "Position 2",
+      "department": {"$oid":"65284d0514ef860dd1468f9e"},
+      "employeeId": {"$oid":"65312808924dce2e1f2e4ec4"},
+      "salary": "<SalaryId2>",
+      "startDate": "2023-02-01T00:00:00Z",
+      "endDate": null,
+      "active": true
+    },
+    {
+      "name": "Position 3",
+      "department": {"$oid":"65284d0514ef860dd1468f9d"},
+      "employeeId": {"$oid":"652ff8536c05132b5d37f398"},
+      "salary": "<SalaryId3>",
+      "startDate": "2023-03-01T00:00:00Z",
+      "endDate": "2023-12-31T23:59:59Z",
+      "active": false
+    }
+  ]
+  
