@@ -51,7 +51,7 @@ class Controller {
 
     delete = async (req, res) => {
         // Only admins can delete
-        if (req?.user.role === 'admin') {
+        if (req.user.role === 'admin') {
             const id = req.params.id;
             try {
                 await this.service.deleteById(id);

@@ -1,3 +1,5 @@
+const CustomError = require("../utilities/CustomError");
+
 class Service {
     constructor(model) {
       this.model = model;
@@ -17,11 +19,8 @@ class Service {
   
     async update(id, input) {
       const entity = await this.model.findById(id);
-      if(entity === null) {
-        const error = new Error('Entity not found');
-        error.status = 404;
-        throw error;
-      } 
+      if(entity === null) throw new CustomError('Entity not found', 404)
+  
       Object.assign(entity, input);
       return await entity.save();
     }

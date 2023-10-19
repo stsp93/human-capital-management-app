@@ -23,12 +23,11 @@ const positionSchema = new Schema({
     required: [true, 'Please specify the start_date'],
   },
   end_date: {
-    type: Date,
+    type: Date,//TODO:end date logic on active change
   },
   active: {
-    type: String,
-    enum: ['active', 'inactive'],
-    default: 'active'
+    type: Boolean,
+    default: true
   }
 });
 

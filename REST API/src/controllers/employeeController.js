@@ -18,6 +18,7 @@ router.put('/:id', employeeController.update);
 
 // Auth access
 router.post('/',requireRoles('admin', 'hr'), employeeController.create);
+// Admin access
 router.delete('/:id', employeeController.delete);
 
 module.exports = router;
