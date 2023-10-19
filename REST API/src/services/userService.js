@@ -42,7 +42,6 @@ class UserService extends Service {
     const existing = await this.model
       .findOne({ username: user.username })
       .collation({ locale: 'en' });
-
     if (!existing || !(await bcrypt.compare(user.password, existing.password))) {
       throw new Error('Username or Password are incorrect');
     }

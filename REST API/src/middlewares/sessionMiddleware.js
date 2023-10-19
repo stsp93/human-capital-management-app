@@ -8,8 +8,8 @@ module.exports = () => async (req, res, next) => {
     if (token) {
         try {
             const user = await verifyToken(token);
-            req.user = user
-            req.token = token
+            req.user = user;
+            req.token = token;
         } catch (error) {
             if(error.name === 'TokenExpiredError') return res.status(403).json(errorHandler(error));
 
