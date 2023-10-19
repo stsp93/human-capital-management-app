@@ -1,55 +1,19 @@
 const leavesService = require('../services/leavesService');
-const errorHandler = require('../utilities/errorHandler');
+const Controller = require('./Controller');
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
-    const results = await leavesService.getAll();
-    return res.json(results)
-})
-
-router.get('/:id', async (req, res) => {
-    try {
-        const result = await leavesService.getById(req.params.id);
-        return res.json(result);
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(errorHandler(error));
+class LeaveController extends Controller {
+    constructor() {
+        super(leavesService);
     }
-});
+}
 
-router.post('/',async (req,res) => {
-    const input = req.body;
-    try {
-        const newLeave = await leavesService.create(input);
-        res.json(newLeave);
-    } catch (error) {
-        console.log(error);
-        res.status(error.status || 400).json(errorHandler(error));
-    }
-});
+const leaveController = new LeaveController();
 
-router.put('/:id', async (req, res) => {
-    const input = req.body;
-    const id = req.params.id;
-    try {
-        const editedLeave = await leavesService.update(id, input);
-        res.json(editedLeave)
-    } catch (error) {
-        console.log(error);
-        res.status(error.status || 400).json(errorHandler(error));
-    }
-})
-
-router.delete('/:id', async (req, res) => {
-    const id = req.params.id;
-    try {
-        await leavesService.deleteById(id);
-        res.status(204).json({})
-    } catch (error) {
-        console.log(error);
-        res.status(error.status || 400).json(errorHandler(error));
-    }
-});
-
+router.get('/', leaveController.getAll);
+router.get('/:id', leaveController.getById);
+router.post('/', leaveController.create);
+router.put('/:id', leaveController.update);
+router.delete('/:id', leaveController.delete)
 
 module.exports = router;

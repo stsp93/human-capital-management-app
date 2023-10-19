@@ -1,31 +1,33 @@
-const userService = require('../services/userService');
+const Controller = require('./Controller');
+const UserService = require('../services/userService');
 const errorHandler = require('../utilities/errorHandler');
 const router = require('express').Router();
 
+class UserController extends Controller {
+  constructor() {
+    super(UserService);
+  }
 
-router.post('/register', async (req, res) => {
+  login = async(req, res) => {
     try {
-        const user = await userService.register(req.body);
-        res.status(201).json(user)
+      const user = await this.service.login(req.body);
+      return res.json(user);
     } catch (error) {
-        console.log(error);
-        res.status(400).json(errorHandler(error));
+      console.log(error);
+      res.status(400).json(errorHandler(error));
     }
-})
+  }
 
-router.post('/login', async (req, res) => {
-    try {
-        const user = await userService.login(req.body);
-        return res.json(user)
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(errorHandler(error));
-    }
-})
-
-router.get('/logout', (req, res) => {
-    userService.logout(req.token);
+  logout = async (req, res) => {
+    this.service.logout(req.token);
     res.status(204).end();
-})
+  }
+}
+
+const userController = new UserController();
+
+router.post('/register', userController.create);
+router.post('/login', userController.login);
+router.get('/logout', userController.logout);
 
 module.exports = router;

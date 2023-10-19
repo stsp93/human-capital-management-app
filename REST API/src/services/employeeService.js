@@ -1,32 +1,9 @@
 const Employee = require("../models/Employee");
+const Service = require("./Service");
 
-async function getAll() {
-    return await Employee.find();
+class EmployeeService extends Service {
+    constructor() {
+      super(Employee);
+    }
 }
-
-async function getById(id) {
-    return await Employee.findById(id);
-}
-
-async function update(id, input) {
-    const employee = await Employee.findById(id);
-
-    Object.entries(input).forEach(([k, v]) => employee[k] = v);
-
-
-    return await employee.save();
-}
-
-async function deleteById(id) {
-    const employee = await Employee.findById(id);
-
-    return await employee.deleteOne();
-}
-
-module.exports = {
-    getAll,
-    getById,
-    update,
-    deleteById
-}
-
+module.exports = new EmployeeService()

@@ -1,34 +1,9 @@
 const Leave = require("../models/Leave");
+const Service = require("./Service");
 
-async function getAll() {
-    return await Leave.find();
+class LeaveService extends Service {
+    constructor() {
+      super(Leave);
+    }
 }
-
-async function getById(id) {
-    return await Leave.findById(id);
-}
-
-async function create(input) {
-    return await Leave.create(input);
-}
-
-async function update(id, input) {
-    const leave = await Leave.findById(id);
-    Object.entries(input).forEach(([k, v]) => leave[k] = v);
-
-    return await leave.save();
-}
-
-async function deleteById(id) {
-    const leave = await Leave.findById(id);
-
-    return await leave.deleteOne();
-}
-
-module.exports = {
-    getAll,
-    getById,
-    create,
-    update,
-    deleteById
-}
+module.exports = new LeaveService()

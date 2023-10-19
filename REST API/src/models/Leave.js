@@ -19,7 +19,6 @@ const leaveSchema = new Schema({
     required: [true, 'Please specify the end date'],
     validate: {
       validator: function(value) {
-        // Ensure start_date is before end_date
         return value > this.start_date;
       },
       message: 'end_date should be before than start_date',
