@@ -7,27 +7,6 @@ class ReviewController extends Controller {
     constructor() {
         super(reviewsService);
     }
-
-    getAll = async (req, res) => {
-        const user = req.user
-        try {
-            const results = await this.service.getAll(user);
-            return res.json(results);
-        } catch (error) {
-            this.errorResponse(res, error)
-        }
-    }
-
-    getById = async (req, res) => {
-        const user = req.user;
-        const reviewId = req.params.id;
-        try {
-            const result = await this.service.getById(reviewId, user);
-            return res.json(result);
-        } catch (error) {
-            this.errorResponse(res,error)
-        }
-    }
 }
 
 const reviewController = new ReviewController();

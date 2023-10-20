@@ -7,29 +7,6 @@ class PositionController extends Controller {
     constructor() {
         super(positionService);
     }
-
-    getAll = async (req, res) => {
-        // Limiting access based on role
-        const userRole = req.user.role
-        try {
-            const results = await this.service.getAll(userRole);
-            return res.json(results);
-        } catch (error) {
-            this.errorResponse(res, error);
-        }
-    }
-
-    getById = async (req, res) => {
-        // Limiting access based on user employeeid
-        const positionId = req.params.id;
-        const user = req.user
-        try {
-            const result = await this.service.getById(positionId, user);
-            return res.json(result);
-        } catch (error) {
-            this.errorResponse(res, error);
-        }
-    }
 }
 
 const positionController = new PositionController();

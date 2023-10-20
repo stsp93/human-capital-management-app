@@ -9,27 +9,6 @@ class LeaveController extends Controller {
         super(leavesService);
     }
 
-    getAll = async (req, res) => {
-        const user = req.user
-        try {
-            const results = await this.service.getAll(user);
-            return res.json(results);
-        } catch (error) {
-            this.errorResponse(res, error);
-        }
-    }
-
-    getById = async (req, res) => {
-        const leaveId = req.params.id;
-        const user = req.user
-        try {
-            const result = await this.service.getById(leaveId, user);
-            return res.json(result);
-        } catch (error) {
-            this.errorResponse(res, error);
-        }
-    }
-
     resolve = async (req,res) => {
         const id = req.params.id;
         const userRole = req.user.role;

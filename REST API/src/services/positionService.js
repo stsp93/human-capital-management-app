@@ -8,8 +8,8 @@ class PositionService extends Service {
     }
 
     // Override limiting user role
-    async getAll(userRole) {
-      if(userRole === 'user') {
+    async getAll(user) {
+      if(user.role === 'user') {
         return await this.model.select('name department employeeId startDate active');
       }
       return this.model.find()

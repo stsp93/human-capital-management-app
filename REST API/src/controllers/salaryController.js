@@ -7,17 +7,6 @@ class SalaryController extends Controller {
     constructor() {
         super(salaryService);
     }
-
-    getById = async (req, res) => {
-        const salaryId = req.params.id;
-        const user = req.user
-        try {
-            const result = await this.service.getById(salaryId, user);
-            return res.json(result);
-        } catch (error) {
-            this.errorResponse(res, error)
-        }
-    }
 }
 
 const salaryController = new SalaryController();

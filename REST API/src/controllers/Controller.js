@@ -11,8 +11,9 @@ class Controller {
     }
 
     getAll = async (req, res) => {
+        const user = req.user
         try {
-            const results = await this.service.getAll();
+            const results = await this.service.getAll(user);
             return res.json(results);
         } catch (error) {
             this.errorResponse(res, error)
@@ -20,8 +21,10 @@ class Controller {
     }
 
     getById = async (req, res) => {
+        const entityId = req.params.id;
+        const user = req.user
         try {
-            const result = await this.service.getById(req.params.id);
+            const result = await this.service.getById(entityId, user);
             return res.json(result);
         } catch (error) {
             this.errorResponse(res,error)
@@ -30,8 +33,9 @@ class Controller {
 
     create = async (req, res) => {
         const input = req.body;
+        const user = req.user;
         try {
-            const newEntity = await this.service.create(input);
+            const newEntity = await this.service.create(input, user);
             res.status(201).json(newEntity);
         } catch (error) {
             this.errorResponse(res,error)
