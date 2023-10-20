@@ -7,6 +7,18 @@ class PositionController extends Controller {
     constructor() {
         super(positionService);
     }
+
+    getAll = async (req, res) => {
+        // Limiting access based on role
+        try {
+            const user = req.user
+            const results = await this.service.getAll(user);
+            return res.json(results);
+        } catch (error) {
+            this.errorResponse(res, error);
+        }
+    }
+
 }
 
 const positionController = new PositionController();
@@ -18,7 +30,7 @@ router.get('/:id', positionController.getById);
 // Admin access
 router.delete('/:id', positionController.delete)
 // Auth access
-router.use(requireRoles('admin','manager'))
+router.use(requireRoles('admin','manager'));
 router.post('/', positionController.create);
 router.put('/:id', positionController.update);
 
