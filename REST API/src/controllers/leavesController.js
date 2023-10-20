@@ -1,7 +1,6 @@
 const { requireRoles } = require('../middlewares/authMiddleware');
 const leavesService = require('../services/leavesService');
 const CustomError = require('../utilities/CustomError');
-const errorHandler = require('../utilities/errorHandler');
 const Controller = require('./Controller');
 const router = require('express').Router();
 
@@ -16,8 +15,7 @@ class LeaveController extends Controller {
             const results = await this.service.getAll(user);
             return res.json(results);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res, error);
         }
     }
 
@@ -28,8 +26,7 @@ class LeaveController extends Controller {
             const result = await this.service.getById(leaveId, user);
             return res.json(result);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res, error);
         }
     }
 
@@ -42,8 +39,7 @@ class LeaveController extends Controller {
             const resolvedLeave = await this.service.resolve(id, status);
             res.json(resolvedLeave);
         } catch (error) {
-            console.log(error);
-            res.status(error.status || 400).json(errorHandler(error));
+            this.errorResponse(res, error);
         }
     }
 }

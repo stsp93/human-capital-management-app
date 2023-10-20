@@ -1,6 +1,5 @@
 const Controller = require('./Controller');
 const UserService = require('../services/userService');
-const errorHandler = require('../utilities/errorHandler');
 const router = require('express').Router();
 
 class UserController extends Controller {
@@ -13,8 +12,7 @@ class UserController extends Controller {
       const user = await this.service.login(req.body);
       return res.json(user);
     } catch (error) {
-      console.log(error);
-      res.status(400).json(errorHandler(error));
+      this.errorResponse(res, error);
     }
   }
 

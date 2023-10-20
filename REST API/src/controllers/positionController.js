@@ -15,8 +15,7 @@ class PositionController extends Controller {
             const results = await this.service.getAll(userRole);
             return res.json(results);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res, error);
         }
     }
 
@@ -28,8 +27,7 @@ class PositionController extends Controller {
             const result = await this.service.getById(positionId, user);
             return res.json(result);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res, error);
         }
     }
 }

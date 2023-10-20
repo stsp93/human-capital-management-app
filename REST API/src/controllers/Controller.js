@@ -5,13 +5,17 @@ class Controller {
         this.service = service;
     }
 
+    errorResponse = (resBody, error) => {
+        console.log(error);
+        return resBody.status(error.status ||400).json(errorHandler(error));
+    }
+
     getAll = async (req, res) => {
         try {
             const results = await this.service.getAll();
             return res.json(results);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res, error)
         }
     }
 
@@ -20,8 +24,7 @@ class Controller {
             const result = await this.service.getById(req.params.id);
             return res.json(result);
         } catch (error) {
-            console.log(error);
-            res.status(400).json(errorHandler(error));
+            this.errorResponse(res)
         }
     }
 
@@ -31,8 +34,7 @@ class Controller {
             const newEntity = await this.service.create(input);
             res.status(201).json(newEntity);
         } catch (error) {
-            console.log(error);
-            res.status(error.status || 400).json(errorHandler(error));
+            this.errorResponse(res)
         }
     }
 
@@ -44,8 +46,7 @@ class Controller {
             const updatedEntity = await this.service.update(id, input, user);
             res.json(updatedEntity);
         } catch (error) {
-            console.log(error);
-            res.status(error.status || 400).json(errorHandler(error));
+            this.errorResponse(res)
         }
     }
 
@@ -57,8 +58,7 @@ class Controller {
                 await this.service.deleteById(id);
                 res.status(204).json({});
             } catch (error) {
-                console.log(error);
-                res.status(error.status || 400).json(errorHandler(error));
+                this.errorResponse(res, error);
             }
         } else {
             return res.status(401).json({ message: "Unauthorized" })
