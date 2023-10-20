@@ -7,7 +7,7 @@ class Controller {
 
     errorResponse = (resBody, error) => {
         console.log(error);
-        return resBody.status(error.status ||400).json(errorHandler(error));
+        return resBody.status(error.status || 400).json(errorHandler(error));
     }
 
     getAll = async (req, res) => {
@@ -24,7 +24,7 @@ class Controller {
             const result = await this.service.getById(req.params.id);
             return res.json(result);
         } catch (error) {
-            this.errorResponse(res)
+            this.errorResponse(res,error)
         }
     }
 
@@ -34,7 +34,7 @@ class Controller {
             const newEntity = await this.service.create(input);
             res.status(201).json(newEntity);
         } catch (error) {
-            this.errorResponse(res)
+            this.errorResponse(res,error)
         }
     }
 
@@ -46,7 +46,7 @@ class Controller {
             const updatedEntity = await this.service.update(id, input, user);
             res.json(updatedEntity);
         } catch (error) {
-            this.errorResponse(res)
+            this.errorResponse(res,error)
         }
     }
 

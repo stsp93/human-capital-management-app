@@ -18,7 +18,7 @@ router.get('/:id', departmentController.getById);
 // Admin access
 router.delete('/:id', departmentController.delete);
 // Auth Access
-router.use(requireRoles('admin', 'hr'));
+router.use(requireRoles('admin', 'manager'));
 router.post('/', departmentController.create);
 router.put('/:id', departmentController.update);
 

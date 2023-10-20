@@ -41,7 +41,7 @@ router.get('/:id', positionController.getById);
 // Admin access
 router.delete('/:id', positionController.delete)
 // Auth access
-router.use(requireRoles('admin','hr'))
+router.use(requireRoles('admin','manager'))
 router.post('/', positionController.create);
 router.put('/:id', positionController.update);
 

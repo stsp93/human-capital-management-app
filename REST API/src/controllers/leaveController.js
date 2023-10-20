@@ -1,5 +1,5 @@
 const { requireRoles } = require('../middlewares/authMiddleware');
-const leavesService = require('../services/leavesService');
+const leavesService = require('../services/leaveService');
 const CustomError = require('../utilities/CustomError');
 const Controller = require('./Controller');
 const router = require('express').Router();
@@ -54,7 +54,7 @@ router.get('/', leaveController.getAll);
 router.delete('/:id', leaveController.delete);
 router.put('/:id/:status(approved|rejected)', leaveController.resolve);
 // Auth access
-router.use(requireRoles('admin','hr'));
+router.use(requireRoles('admin','manager'));
 router.post('/', leaveController.create);
 router.put('/:id', leaveController.update);
 

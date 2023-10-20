@@ -17,7 +17,7 @@ router.get('/:id', employeeController.getById);
 router.put('/:id', employeeController.update);
 
 // Auth access
-router.post('/',requireRoles('admin', 'hr'), employeeController.create);
+router.post('/',requireRoles('admin', 'manager'), employeeController.create);
 // Admin access
 router.delete('/:id', employeeController.delete);
 

@@ -29,7 +29,7 @@ router.get('/:id', salaryController.getById);
 router.delete('/:id', salaryController.delete);
 
 // Auth access
-router.use(requireRoles('admin', 'hr'))
+router.use(requireRoles('admin', 'manager'))
 router.get('/', salaryController.getAll);
 router.post('/', salaryController.create);
 router.put('/:id', salaryController.update);

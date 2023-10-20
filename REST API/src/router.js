@@ -5,8 +5,8 @@ const employeeController = require('./controllers/employeeController');
 const departmentController = require('./controllers/departmentController');
 const positionController = require('./controllers/positionController');
 const salaryController = require('./controllers/salaryController');
-const leavesController = require('./controllers/leavesController');
-const reviewsController = require('./controllers/reviewsController');
+const leavesController = require('./controllers/leaveController');
+const reviewsController = require('./controllers/reviewController');
 
 
 router.get('/', (req, res) => {
