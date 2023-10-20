@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require("mongoose");
+const Salary = require("./Salary");
 
 const positionSchema = new Schema({
   name: {
@@ -29,6 +30,12 @@ const positionSchema = new Schema({
     type: Boolean,
     default: true
   }
+});
+
+// Cascade delete the related Salary
+positionSchema.pre('deleteOne',async function(next) {
+  await Salary.deleteOne({positionId: this.getQuery()._id});
+  next();
 });
 
 const Position = model('Position', positionSchema);

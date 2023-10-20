@@ -26,7 +26,7 @@ class Service {
     }
   
     async deleteById(id) {
-      return await this.model.findByIdAndDelete(id);
+      return await this.model.deleteOne({_id: id});
     }
   }
   
