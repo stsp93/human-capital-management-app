@@ -11,54 +11,52 @@ class Controller {
     }
 
     getAll = async (req, res) => {
-        const user = req.user
         try {
+            const user = req.user
             const results = await this.service.getAll(user);
             return res.json(results);
         } catch (error) {
             this.errorResponse(res, error)
         }
     }
-
     getById = async (req, res) => {
-        const entityId = req.params.id;
-        const user = req.user
         try {
+            const entityId = req.params.id;
+            const user = req.user
             const result = await this.service.getById(entityId, user);
             return res.json(result);
         } catch (error) {
-            this.errorResponse(res,error)
+            this.errorResponse(res, error)
         }
     }
-
     create = async (req, res) => {
-        const input = req.body;
-        const user = req.user;
         try {
+            const input = req.body;
+            const user = req.user;
             const newEntity = await this.service.create(input, user);
             res.status(201).json(newEntity);
         } catch (error) {
-            this.errorResponse(res,error)
+            this.errorResponse(res, error)
         }
     }
 
     update = async (req, res) => {
-        const input = req.body;
-        const id = req.params.id;
-        const user = req.user;
         try {
+            const input = req.body;
+            const id = req.params.id;
+            const user = req.user;
             const updatedEntity = await this.service.update(id, input, user);
             res.json(updatedEntity);
         } catch (error) {
-            this.errorResponse(res,error)
+            this.errorResponse(res, error)
         }
     }
 
     delete = async (req, res) => {
         // Only admins can delete
         if (req.user.role === 'admin') {
-            const id = req.params.id;
             try {
+                const id = req.params.id;
                 await this.service.deleteById(id);
                 res.status(204).json({});
             } catch (error) {

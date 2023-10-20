@@ -9,12 +9,12 @@ class LeaveController extends Controller {
         super(leavesService);
     }
 
-    resolve = async (req,res) => {
-        const id = req.params.id;
-        const userRole = req.user.role;
-        const status = req.params.status;
+    resolve = async (req, res) => {
         try {
-            if(userRole !== 'admin') throw new CustomError('Unauthorized operation')
+            const id = req.params.id;
+            const userRole = req.user.role;
+            const status = req.params.status;
+            if (userRole === 'user') throw new CustomError('Unauthorized operation')
             const resolvedLeave = await this.service.resolve(id, status);
             res.json(resolvedLeave);
         } catch (error) {
@@ -31,9 +31,9 @@ router.get('/', leaveController.getAll);
 
 // Admin access
 router.delete('/:id', leaveController.delete);
-router.put('/:id/:status(approved|rejected)', leaveController.resolve);
 // Auth access
-router.use(requireRoles('admin','manager'));
+router.put('/:id/:status(approved|rejected)', leaveController.resolve);
+router.use(requireRoles('admin', 'manager'));
 router.post('/', leaveController.create);
 router.put('/:id', leaveController.update);
 

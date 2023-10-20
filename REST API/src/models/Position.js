@@ -14,6 +14,7 @@ const positionSchema = new Schema({
   employeeId: {
     type: Types.ObjectId,
     ref: 'Employee',
+    required: [true, 'Please specify employee ID'],
   },
   salary: {
     type: Types.ObjectId,
