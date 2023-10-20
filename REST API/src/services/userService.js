@@ -15,9 +15,10 @@ class UserService extends Service {
     super(User);
   }
 
-  async create(user) {
+  async register(user) {
     const newEmployee = await Employee.create({});
     user.employeeId = newEmployee._id;
+    user.role = 'user';
     const newUser = await this.model.create(user);
 
     const payload = {
