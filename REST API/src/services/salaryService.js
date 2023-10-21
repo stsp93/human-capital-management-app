@@ -5,23 +5,36 @@ const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 const Service = require("./Service");
 
 class SalaryService extends Service {
-    constructor() {
-      super(Salary);
+  constructor() {
+    super(Salary);
+  }
+
+  async getById(id, user) {
+    // Get Salary
+    const salary = await this.model.findById(id);
+    if (salary === null) throw new CustomError('Salary record not found', 404);
+    // Get Position
+    const position = await Position.findById(salary.positionId);
+
+    if (!isAuthorizedUser(user.role, user.employeeId, position?.employeeId)) {
+      throw new CustomError('Unauthorized: User may only read its own salary');
     }
 
-    async getById(id, user) {
-      // Get Salary
-      const salary = await this.model.findById(id);
-      if(salary === null) throw new CustomError('Salary record not found', 404);
-      // Get Position
-      const position = await Position.findById(salary.positionId);
-      if(position === null) throw new CustomError('Salary related position not found', 404);
-      // Check if auth to read salary
-      if(!isAuthorizedUser(user.role, user.employeeId, position.employeeId)) {
-        throw new CustomError('Unauthorized: User may only read its own salary');
-      }
+    return salary;
+  }
 
-      return salary;
-    }
+  async addBonus(salaryId, bonus) {
+    let error = '';
+    if (!bonus.type) error += 'Specify bonus type. ';
+    if (!bonus.amount) error += 'Specify bonus amount.';
+    if(error) throw new CustomError(error);
+    return await this.model.findByIdAndUpdate(salaryId, { $push: { bonuses:{type:bonus.type,amount: bonus.amount} } }, { new: true });
+  }
+
+  async removeBonus(salaryId, bonus) {
+    if (!bonus._id) throw new CustomError('Specify bonus id');
+    return await this.model.findByIdAndUpdate(salaryId, { $pull: { bonuses: { _id: bonus._id } } }, { new: true });
+
+  }
 }
 module.exports = new SalaryService()
