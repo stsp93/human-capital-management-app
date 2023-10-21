@@ -55,7 +55,8 @@ To use this API, you need to authenticate and include a valid token in your requ
   - GET `/salary/` - Retrieve all salaries.
   - POST `/salary/` - Create salary.
   - PUT `/salary/:id` - Update salary.
-  - PUT `/salary/:id/:action(addBonus|removeBonus)` - Add/Remove bonus to salary.
+  - DELETE `/salary/:id/removeBonus?bonusId=` - Add/Remove bonus to salary.
+  - POST `/salary/:id/addBonus|removeBonus` - Add/Remove bonus to salary.
 
 #### Leave
 

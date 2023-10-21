@@ -8,11 +8,11 @@ class ReviewService extends Service {
       super(Review);
     }
 
-    async getAll(user) {
+    async getAll(user, query) {
       if(user.role === 'user') {
-        return await this.model.find({revieweeId: user.employeeId});
+        return await this.model.find({revieweeId: user.employeeId}).populate('revieweeId reviewerId');
       }
-      return await this.model.find();
+      return await this.model.find(query).populate('revieweeId reviewerId');
     }
 
     async getById(reviewId, user) {
@@ -20,7 +20,7 @@ class ReviewService extends Service {
       if(!isAuthorizedUser(user.role, user.employeeId, review.revieweeId)) {
         throw new CustomError('Unauthorized: Users can access only their own reviews', 401)
       }
-      return review;
+      return await review.populate('revieweeId reviewerId');
     }
 }
 module.exports = new ReviewService()

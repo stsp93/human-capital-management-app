@@ -31,9 +31,9 @@ class SalaryService extends Service {
     return await this.model.findByIdAndUpdate(salaryId, { $push: { bonuses:{type:bonus.type,amount: bonus.amount} } }, { new: true });
   }
 
-  async removeBonus(salaryId, bonus) {
-    if (!bonus._id) throw new CustomError('Specify bonus id');
-    return await this.model.findByIdAndUpdate(salaryId, { $pull: { bonuses: { _id: bonus._id } } }, { new: true });
+  async removeBonus(salaryId, bonusId) {
+    if (!bonusId) throw new CustomError('Specify bonus id');
+    return await this.model.findByIdAndUpdate(salaryId, { $pull: { bonuses: { _id: bonusId } } }, { new: true });
 
   }
 }

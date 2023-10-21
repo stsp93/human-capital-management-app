@@ -7,6 +7,7 @@ const positionController = require('./controllers/positionController');
 const salaryController = require('./controllers/salaryController');
 const leavesController = require('./controllers/leaveController');
 const reviewsController = require('./controllers/reviewController');
+const { requireRoles } = require('./middlewares/authMiddleware');
 
 
 router.get('/', (req, res) => {
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.use('/users', userController);
+router.use(requireRoles('admin', 'manager', 'user'));
 router.use('/employees', employeeController);
 router.use('/departments', departmentController);
 router.use('/positions', positionController);

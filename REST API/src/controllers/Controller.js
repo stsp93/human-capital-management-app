@@ -10,15 +10,18 @@ class Controller {
         return resBody.status(error.status || 400).json(errorHandler(error));
     }
 
+   
     getAll = async (req, res) => {
         try {
             const user = req.user
-            const results = await this.service.getAll(user);
+            const query = req.query
+            const results = await this.service.getAll(user, query);
             return res.json(results);
         } catch (error) {
-            this.errorResponse(res, error)
+            this.errorResponse(res, error);
         }
     }
+    
     getById = async (req, res) => {
         try {
             const entityId = req.params.id;

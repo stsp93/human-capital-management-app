@@ -9,11 +9,11 @@ class PositionService extends Service {
     }
 
     // Override limiting user role
-    async getAll(user) {
+    async getAll(user, query) {
       if(user.role === 'user') {
-        return await this.model.select('name department employeeId startDate active');
+        return await this.model.find({ query }).select('-salary').populate('employeeId department');
       }
-      return this.model.find()
+      return await this.model.find(query ).populate('employeeId department salaryId');
     }
 
     // Override limiting user role
@@ -22,10 +22,12 @@ class PositionService extends Service {
       if(position == null) throw new CustomError('Position not found', 404);
       
       // Check and return partial data
+      console.log(user.employeeId);
+      console.log(position.employeeId);
       if(!isAuthorizedUser(user.role, user.employeeId, position.employeeId)) {
-        return await this.model.findById(id).select('name department employeeId startDate active')
+        return await this.model.findById(id).select('name department employeeId startDate active');
       }
-      return position;
+      return position.populate('employeeId department salaryId');
     }
 
     async create(position) {

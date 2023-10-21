@@ -7,17 +7,6 @@ class PositionController extends Controller {
     constructor() {
         super(positionService);
     }
-
-    getAll = async (req, res) => {
-        try {
-            const user = req.user
-            const results = await this.service.getAll(user);
-            return res.json(results);
-        } catch (error) {
-            this.errorResponse(res, error);
-        }
-    }
-
 }
 
 const positionController = new PositionController();

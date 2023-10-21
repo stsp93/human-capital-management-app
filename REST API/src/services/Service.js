@@ -5,8 +5,8 @@ class Service {
       this.model = model;
     }
   
-    async getAll() {
-      return await this.model.find();
+    async getAll(query) {
+      return await this.model.find(query || {});
     }
   
     async getById(id) {
