@@ -9,7 +9,6 @@ class PositionController extends Controller {
     }
 
     getAll = async (req, res) => {
-        // Limiting access based on role
         try {
             const user = req.user
             const results = await this.service.getAll(user);

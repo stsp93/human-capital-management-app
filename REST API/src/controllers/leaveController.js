@@ -1,6 +1,5 @@
 const { requireRoles } = require('../middlewares/authMiddleware');
 const leavesService = require('../services/leaveService');
-const CustomError = require('../utilities/CustomError');
 const Controller = require('./Controller');
 const router = require('express').Router();
 
@@ -12,9 +11,8 @@ class LeaveController extends Controller {
     resolve = async (req, res) => {
         try {
             const id = req.params.id;
-            const userRole = req.user.role;
             const status = req.params.status;
-            if (userRole === 'user') throw new CustomError('Unauthorized operation')
+
             const resolvedLeave = await this.service.resolve(id, status);
             res.json(resolvedLeave);
         } catch (error) {
@@ -32,8 +30,8 @@ router.get('/', leaveController.getAll);
 // Admin access
 router.delete('/:id', leaveController.delete);
 // Auth access
-router.put('/:id/:status(approved|rejected)', leaveController.resolve);
 router.use(requireRoles('admin', 'manager'));
+router.put('/:id/:status(approved|rejected)', leaveController.resolve);
 router.post('/', leaveController.create);
 router.put('/:id', leaveController.update);
 
