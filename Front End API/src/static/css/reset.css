@@ -1,0 +1,24 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+button {
+    border: 0;
+    background-color: unset;
+    cursor: pointer;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/48ed1957d1.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+  </head>
+  <body>
+    <header class="container-fluid">
+      <div class="row justify-content-between p-2">
+        <div class="col-sm-8 logo">
+          <h3>
+            <button class="sideBar-btn">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            Human Capital Management
+          </h3>
+        </div>
+        <div
+          class="col-xl-1 col-sm-3 col-md-2 dropdown d-flex align-content-center dropdownUser"
+        >
+          <a
+            href="#"
+            class="d-flex align-items-center dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-circle-user"></i>
+            <span class="d-none-inline mx-1">User</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <hr />
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- SIDEBAR -->
+      <aside class="sideBar">
+        <ul class="list-group sideBar-links">
+          <li>
+            <a href="#" class="sideBar-link-active">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-user"></i>
+              <span>Employees</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-people-roof"></i>
+              <span>Departments</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>
+              <span>Leaves</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa-solid fa-file-pen"></i>
+              <span>Reviews</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- CONTENT -->
+      <section class="container-fluid content p-5">
+        <hr class="container employee-details bg-white p-5 rounded-4">
+          <div class="row employee-header">
+            <div class="col d-flex gap-3 align-items-end">
+              <span><i class="far fa-circle-user fa-6x"></i></span>
+              <div>
+                <h2>John Doe</h2>
+                
+              </div>
+            </div>
+            <div class="col d-flex flex-column justify-content-start align-items-end">
+              <a href="" class="btn btn-edit btn-cta rounded-5"
+                >Edit Infomation</a
+              >
+              <a href="" class="btn action-link">Assign new Position</a>
+              <a href="" class="btn action-link">Edit current Position</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <p><strong>Email:</strong> asd@abv.bg</p>
+              <p><strong>Phone:</strong> (123) 456-7890</p>
+              <p><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
+              <p><strong>Email:</strong> john.doe@example.com</p>
+
+            </div>
+            <div class="col">
+              <div>
+                <p><strong>Department:</strong> Engineering</p>
+                <p><strong>Position:</strong> Web Developer</p>
+                <p><strong>Start Date:</strong> 01/05/23</p>
+                <p><strong>Salary:</strong> 80,000 USD</p>
+              </div>
+              <div class="mt-4">
+                <h5>Previous Positions:</h5>
+                <ul>
+                  <li>
+                    <p>Software Engineer, 05/22 - 08/23</p>
+                  </li>
+                  <li>
+                    <p>Software Engineer, 05/22 - 08/23</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
