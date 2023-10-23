@@ -1,6 +1,6 @@
 [
   {
-    "positionId":  { "$oid": "65319e80d5989828daaed62c" },
+    "_id": {"$oid":"65362ec7d5989828daaed69f"},
     "salary": 2000,
     "bonuses": [
       { "type": "Signing Bonus", "amount": 100 },
@@ -9,8 +9,16 @@
     "currency": "USD"
   },
   {
-    "positionId": { "$oid": "65319e80d5989828daaed62b" },
+    "_id": {"$oid":"65362ec7d5989828daaed6a0"},
     "salary": 3000,
+    "bonuses": [
+      { "type": "Signing Bonus", "amount": 150 }
+    ],
+    "currency": "EUR"
+  },
+  {
+    "_id": {"$oid":"65362ec7d5989828daaed6a1"},
+    "salary": 3500,
     "bonuses": [
       { "type": "Signing Bonus", "amount": 150 }
     ],

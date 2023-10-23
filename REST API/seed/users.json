@@ -1,17 +1,20 @@
 [
     {
+      "employeeId": { "$oid": "6528f1f614ef860dd1468fbd" },
       "username": "admin",
-      "password": "123",
+      "password": "$2b$10$74xspqXl2Dt01zIwCn27e.z6etz/dAQwmkcHbAsBeDO8vtFo5X7xi",
       "role": "admin"
     },
     {
-      "username": "user1",
-      "password": "123",
-      "role": "associate"
+      "employeeId": { "$oid": "6528f1f614ef850dd1468fbe" },
+      "username": "manager",
+      "password": "$2b$10$74xspqXl2Dt01zIwCn27e.z6etz/dAQwmkcHbAsBeDO8vtFo5X7xi",
+      "role": "manager"
     },
     {
-      "username": "user2",
-      "password": "123",
-      "role": "associate"
+      "employeeId": { "$oid": "6528f1f614ef860dd1468fbe" },
+      "username": "user",
+      "password": "$2b$10$74xspqXl2Dt01zIwCn27e.z6etz/dAQwmkcHbAsBeDO8vtFo5X7xi",
+      "role": "user"
     }
   ]

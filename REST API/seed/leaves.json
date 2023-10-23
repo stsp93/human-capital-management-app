@@ -1,13 +1,13 @@
 [
   {
-    "employee": { "$oid": "6528f1f614ef860dd1468fbd" },
+    "employeeId": { "$oid": "6528f1f614ef860dd1468fbd" },
     "type": "Vacation",
     "startDate": { "$date": "2023-07-10" },
     "endDate": { "$date": "2023-07-20" },
     "status": "approved"
   },
   {
-    "employee": { "$oid": "6528f1f614ef860dd1468fbe" },
+    "employeeId": { "$oid": "6528f1f614ef860dd1468fbe" },
     "type": "Sick Leave",
     "startDate": { "$date": "2023-09-05" },
     "endDate": { "$date": "2023-09-10" },

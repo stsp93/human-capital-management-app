@@ -10,17 +10,17 @@ class ReviewService extends Service {
 
     async getAll(user, query) {
       if(user.role === 'user') {
-        return await this.model.find({revieweeId: user.employeeId}).populate('revieweeId reviewerId');
+        return await this.model.find({employeeId: user.employeeId}).populate('employeeId reviewerId');
       }
-      return await this.model.find(query).populate('revieweeId reviewerId');
+      return await this.model.find(query).populate('employeeId reviewerId');
     }
 
     async getById(reviewId, user) {
       const review = await this.model.findById(reviewId);
-      if(!isAuthorizedUser(user.role, user.employeeId, review.revieweeId)) {
+      if(!isAuthorizedUser(user.role, user.employeeId, review.employeeId)) {
         throw new CustomError('Unauthorized: Users can access only their own reviews', 401)
       }
-      return await review.populate('revieweeId reviewerId');
+      return await review.populate('employeeId reviewerId');
     }
 }
 module.exports = new ReviewService()

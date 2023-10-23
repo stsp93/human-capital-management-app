@@ -1,14 +1,14 @@
 [
     {
-        "employee": { "$oid": "6528f1f614ef860dd1468fbd" },
-        "reviewer": { "$oid": "6528f1f614ef860dd1468fbe" },
+        "employeeId": { "$oid": "6528f1f614ef860dd1468fbd" },
+        "reviewerId": { "$oid": "6528f1f614ef850dd1468fbe" },
       "rating": 8,
       "comments": "Excellent work on the project.",
       "date": {"$date": "2023-05-10"}
     },
     {
-        "employee": { "$oid": "6528f1f614ef860dd1468fbe" },
-      "reviewer": { "$oid": "6528f1f614ef860dd1468fbd" },
+        "employeeId": { "$oid": "6528f1f614ef860dd1468fbe" },
+      "reviewerId": { "$oid": "6528f1f614ef850dd1468fbe" },
       "rating": 7,
       "comments": "Good performance overall.",
       "date": {"$date": "2023-06-30"}

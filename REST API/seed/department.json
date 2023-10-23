@@ -1,1 +1,9 @@
-[{ "name": "Engineering" }, { "name": "Human Resources" }]
+[{ 
+    "_id": {"$oid":"65284d0514ef860dd1468f9d"},
+    "name": "Engineering" 
+}, 
+{ 
+    "_id": {"$oid":"65284d0514ef860dd1468f9c"},
+    "name": "Human Resources" 
+}
+]

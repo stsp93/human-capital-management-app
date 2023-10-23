@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require("mongoose");
 
 const performanceReviewSchema = new Schema({
-  revieweeId: {
+  employeeId: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify the reviewed employee'],
