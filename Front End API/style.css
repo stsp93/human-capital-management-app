@@ -107,6 +107,44 @@ main {
 
 }
 
+/* CONTENT */
+
+/* Table */
+.table-wrapper,.employee-details { 
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta {
+  color: var(--white);
+}
+
+.btn-cta:hover, .btn-cta:focus {
+  color: var(--white);
+  filter: brightness(0.8);
+}
+
+.btn-edit, .btn-edit:hover, .btn-edit:focus{
+  background-color: var(--indigo);
+}
+
+.btn-delete, .btn-delete:hover, .btn-delete:focus{
+  background-color: var(--red);
+}
+.clickable-row:hover {
+  cursor: pointer;
+  filter: brightness(0.97);
+}
+
+/* Details */
+
+.action-link {
+  text-decoration: underline;
+}
+
+.action-link:hover,.action-link:focus  {
+  color: var(--gray);
+}
+
 /* AUTH VIEWS */
 
 .auth-content {

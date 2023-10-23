@@ -43,10 +43,12 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-          <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-circle-user"></i>
             <span class="d-none-inline mx-1">User</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <hr />
             <li><a class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </div>
@@ -89,40 +91,88 @@
         </ul>
       </aside>
       <!-- CONTENT -->
-      <section class="content container-fluid p-4">
-        <div class="content-header d-flex justify-content-between">
-          <h3 class="content-title">Employees</h3>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+      <section class="container-fluid content p-5">
+        <div class="container employee-details bg-white p-5 rounded-4">
+          <div class="row employee-header">
+            <div class="col d-flex gap-3 align-items-end">
+              <span><i class="far fa-circle-user fa-6x"></i></span>
+              <div>
+                <h2>John Doe</h2>
+                
+              </div>
+            </div>
+            <div class="col d-flex flex-column justify-content-start align-items-end">
+              <a href="" class="btn btn-edit btn-cta rounded-5"
+                >Edit Infomation</a
+              >
+              <a href="" class="btn action-link">Assign new Position</a>
+              <a href="" class="btn action-link">Edit current Position</a>
+            </div>
           </div>
-          <button class="btn btn-primary btn-add rounded-5"><i class="fa-solid fa-person-circle-plus"></i> Add New Employee</button>
-        </div>
+          <hr />
+          <div class="row">
+            <div class="col">
+              <p><strong>Email:</strong> asd@abv.bg</p>
+              <p><strong>Phone:</strong> (123) 456-7890</p>
+              <p><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
+              <p><strong>Email:</strong> john.doe@example.com</p>
 
+            </div>
+            <div class="col">
+              <div>
+                <p><strong>Department:</strong> Engineering</p>
+                <p><strong>Position:</strong> Web Developer</p>
+                <p><strong>Start Date:</strong> 01/05/23</p>
+                <p><strong>Salary:</strong> 80,000 USD</p>
+              </div>
+              <div class="mt-4">
+                <h5>Previous Positions:</h5>
+                <ul>
+                  <li>
+                    <p>Software Engineer, 05/22 - 08/23</p>
+                  </li>
+                  <li>
+                    <p>Software Engineer, 05/22 - 08/23</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+          </div>
+        </div>
       </section>
     </main>
     <!-- TODO: In separate file? -->
     <script>
-      const sideBarBtn = document.querySelector('.sideBar-btn');
-      const sideBar = document.querySelector('.sideBar');
-      const sideBarLinks = document.querySelector('.sideBar-links')
+      const sideBarBtn = document.querySelector(".sideBar-btn");
+      const sideBar = document.querySelector(".sideBar");
+      const sideBarLinks = document.querySelector(".sideBar-links");
+      const clickableRows = document.querySelectorAll(".clickable-row");
 
-      sideBarBtn.addEventListener('click', function () {
-        sideBar.classList.toggle('sideBar-hide');
+      sideBarBtn.addEventListener("click", function () {
+        sideBar.classList.toggle("sideBar-hide");
 
-          sideBarLinks.classList.toggle('sideBar-links-hide');
- 
+        sideBarLinks.classList.toggle("sideBar-links-hide");
       });
-      
+
       window.addEventListener("resize", () => {
         if (window.innerWidth <= 576) {
           sideBar.classList.add("sideBar-hide");
-          sideBarLinks.classList.add('sideBar-links-hide');
+          sideBarLinks.classList.add("sideBar-links-hide");
         } else {
           sideBar.classList.remove("sideBar-hide");
-          sideBarLinks.classList.remove('sideBar-links-hide');
+          sideBarLinks.classList.remove("sideBar-links-hide");
         }
+      });
+
+      clickableRows.forEach((el) => {
+        el.addEventListener("click", (ev) => {
+          window.document.location = el.dataset.href;
         });
+      });
     </script>
   </body>
 </html>

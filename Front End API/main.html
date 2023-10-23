@@ -47,6 +47,8 @@
             <span class="d-none-inline mx-1">User</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <hr>
             <li><a class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </div>
@@ -89,7 +91,7 @@
         </ul>
       </aside>
       <!-- CONTENT -->
-      <section class="content p-2 px-5">Content here</section>
+      <section class="container-fluid content p-5">Content here</section>
     </main>
     <!-- TODO: In separate file? -->
     <script>
@@ -113,6 +115,12 @@
           sideBarLinks.classList.remove('sideBar-links-hide');
         }
         });
+        
+        clickableRows.forEach((el) => {
+        el.addEventListener("click", (ev) => {
+          window.document.location = el.dataset.href;
+        });
+      });
     </script>
   </body>
 </html>
