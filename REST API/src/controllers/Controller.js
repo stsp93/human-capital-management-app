@@ -65,7 +65,7 @@ class Controller {
 
                 // delete entity
                 await this.service.deleteById(id);
-                res.status(204).json({});
+                res.status(204).end()
             } catch (error) {
                 this.errorResponse(res, error);
             }
