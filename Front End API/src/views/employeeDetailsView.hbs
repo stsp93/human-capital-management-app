@@ -38,15 +38,16 @@
           {{/if}}
         </div>
         <div class="mt-4">
+          {{#if employee.prevPositions}}
           <h5>Previous Positions:</h5>
           <ul>
+            {{#each employee.prevPositions}}
             <li>
-              <p>Software Engineer, 05/22 - 08/23</p>
+              <p>{{name}}, {{formatDate startDate}} - {{formatDate endDate}}</p>
             </li>
-            <li>
-              <p>Software Engineer, 05/22 - 08/23</p>
-            </li>
+            {{/each}}
           </ul>
+          {{/if}}
         </div>
       </div>
     </div>

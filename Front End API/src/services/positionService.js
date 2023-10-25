@@ -1,11 +1,11 @@
 const Requester = require('./Requester');
 
-class EmployeeService extends Requester {
+class PositionService extends Requester {
     constructor() {
         super();
         this.endpoints = {
             'getById':(id) => `/positions/${id}`,
-            'getPrevPositions' : (id) => `/positions?employee=${id}`,
+            'getPrevPositions' : (id) => `/positions?employee=${id}&active=false`,
         }
     }
 
@@ -22,6 +22,6 @@ class EmployeeService extends Requester {
     
 }
 
-const employeeService = new EmployeeService();
+const positionService = new PositionService();
 
-module.exports = employeeService;
+module.exports = positionService;

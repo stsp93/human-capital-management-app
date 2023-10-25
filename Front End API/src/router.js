@@ -6,7 +6,7 @@ const { isAuth } = require('./middlewares/authMiddleware');
 
 // Guest access
 router.get('/', (req,res) => {
-    req.user ? res.redirect('/employees/profile'): res.redirect('/auth/login')
+    req.user ? res.redirect(`/employees/${req.user.employeeId}`): res.redirect('/auth/login')
 });
 router.use('/auth', authController);
 router.use(isAuth);

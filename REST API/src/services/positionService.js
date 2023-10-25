@@ -18,7 +18,9 @@ class PositionService extends Service {
 
     // get by employee id
     async getById(employee,user) {
+      console.log( await this.model.find({employee, active: true}));
       const position = await this.model.findOne({employee, active: true});
+      console.log(employee);
       if(position == null) return null;
       // Check and return partial data
       if(!isAuthorizedUser(user.role, user.employeeId, position.employee)) {

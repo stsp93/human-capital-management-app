@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         try {
                 const newUser = await authService.register(input);
                 res.cookie('session', newUser.token, { httpOnly: true });
-                res.status(201).redirect('/employees/profile');
+                res.status(201).redirect(`/employees/${user.employeeId}`);
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('registerView', { ...authLayout, error, input });
@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
         try {
                 const user = await authService.login(input);
                 res.cookie('session', user.token, { httpOnly: true });
-                res.status(201).redirect('/employees/profile');
+                res.status(201).redirect(`/employees/${user.employeeId}`);
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('loginView', { ...authLayout, error, input });
