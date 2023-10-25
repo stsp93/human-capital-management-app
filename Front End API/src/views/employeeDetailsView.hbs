@@ -1,0 +1,58 @@
+
+<div class="container employee-details bg-white p-5 rounded-4">
+    <div class="row employee-header">
+      <div class="col d-flex gap-3 align-items-end">
+        <span><i class="far fa-circle-user fa-6x"></i></span>
+        <div>
+          <h2>{{employee.name}}</h2>
+          
+        </div>
+      </div>
+      <div class="col d-flex flex-column justify-content-start align-items-end">
+        {{#if employee.allowEdit}}
+        <a href="" class="btn btn-edit btn-cta rounded-5"
+          >Edit Infomation</a
+        >
+        {{/if}}
+        {{#requireManager user.role}}
+        <a href="" class="btn action-link">Assign new Position</a>
+        <a href="" class="btn action-link">Edit current Position</a>
+        {{/requireManager}}
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col">
+        <p><strong>Email:</strong> {{employee.email}}</p>
+        <p><strong>Phone:</strong> {{employee.phone}}</p>
+        <p><strong>Address:</strong> {{employee.address}}</p>
+
+      </div>
+      <div class="col">
+        <div>
+          <p><strong>Department:</strong> {{employee.activePosition.department.name}}</p>
+          <p><strong>Position:</strong> {{employee.activePosition.name}}</p>
+          <p><strong>Start Date:</strong> {{formatDate employee.activePosition.startDate}}</p>
+          {{#if employee.activePosition.salary}}
+          <p><strong>Salary:</strong> {{employee.activePosition.salary.salary}} {{employee.activePosition.salary.currency}}</p>
+          {{/if}}
+        </div>
+        <div class="mt-4">
+          <h5>Previous Positions:</h5>
+          <ul>
+            <li>
+              <p>Software Engineer, 05/22 - 08/23</p>
+            </li>
+            <li>
+              <p>Software Engineer, 05/22 - 08/23</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {{#requireAdmin user.role}}
+    <div class="d-flex justify-content-end">
+      <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+    </div>
+    {{/requireAdmin}}
+  </div>

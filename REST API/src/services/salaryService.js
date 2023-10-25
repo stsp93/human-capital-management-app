@@ -12,7 +12,7 @@ class SalaryService extends Service {
   async getById(id, user) {
     // Get Salary
     const salary = await this.model.findById(id);
-    if (salary === null) throw new CustomError('Salary record not found', 404);
+    if (salary === null) return null;
     // Get Position
     const position = await Position.findById(salary.positionId);
 

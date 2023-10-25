@@ -11,28 +11,25 @@ class PositionService extends Service {
     // Override limiting user role
     async getAll(user, query) {
       if(user.role === 'user') {
-        return await this.model.find({ query }).select('-salary').populate('employeeId department');
+        return await this.model.find(query ).select('-salary').populate('department');
       }
-      return await this.model.find(query ).populate('employeeId department salaryId');
+      return await this.model.find(query).populate('employee department salary');
     }
 
-    // Override limiting user role
-    async getById(id,user) {
-      const position = await this.model.findById(id);
-      if(position == null) throw new CustomError('Position not found', 404);
-      
+    // get by employee id
+    async getById(employee,user) {
+      const position = await this.model.findOne({employee, active: true});
+      if(position == null) return null;
       // Check and return partial data
-      console.log(user.employeeId);
-      console.log(position.employeeId);
-      if(!isAuthorizedUser(user.role, user.employeeId, position.employeeId)) {
-        return await this.model.findById(id).select('name department employeeId startDate active');
+      if(!isAuthorizedUser(user.role, user.employeeId, position.employee)) {
+        return await this.model.findOne({employee, active: true}).select('-salary').populate('department');
       }
-      return position.populate('employeeId department salaryId');
+      return position.populate('employee department salary');
     }
 
     async create(position) {
       // Change recent active position to inactive and set end date
-      const recentPosition = await this.model.findOne({employeeId: position.employeeId, active: true}).exec();
+      const recentPosition = await this.model.findOne({employee: position.employee, active: true}).exec();
       recentPosition.active = false;
       recentPosition.endDate = position.startDate;
       recentPosition.save();

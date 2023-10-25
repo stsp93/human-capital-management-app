@@ -1,9 +1,9 @@
 const { Schema, model, Types } = require("mongoose");
 
 const salarySchema = new Schema({
-  salary: {
+  amount: {
     type: Number,
-    required:[true, 'Please specify the salary'],
+    required:[true, 'Please specify the amount'],
     default: 0,
   },
   bonuses: [

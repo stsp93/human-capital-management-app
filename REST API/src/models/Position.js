@@ -11,12 +11,12 @@ const positionSchema = new Schema({
     ref: 'Department',
     required: [true, 'Please specify the department'],
   },
-  employeeId: {
+  employee: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify employee ID'],
   },
-  salaryId: {
+  salary: {
     type: Types.ObjectId,
     ref:'Salary',
   },
