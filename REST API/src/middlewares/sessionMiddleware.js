@@ -3,8 +3,8 @@ const errorHandler = require("../utilities/errorHandler");
 
 
 module.exports = () => async (req, res, next) => {
-
-    const token = req.headers['JWT-Auth'];
+    const token = req.headers['jwt-auth'];
+    console.log(req.originalUrl);
     if (token) {
         try {
             const user = await verifyToken(token);

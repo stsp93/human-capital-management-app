@@ -1,7 +1,7 @@
 const { REST_API_URL } =require("../config/constants") ;
 
 class Requester {
-    async request(method, path, payload, token) {
+    async request(method, path,token , payload ) {
         const options = {
             method,
             headers: {
@@ -10,17 +10,16 @@ class Requester {
         }
     
         if (token) {
-            options.headers['JWT-Auth'] = token;
+            options.headers['jwt-auth'] = token;
         }
         if (payload !== undefined) {
             options['body'] = JSON.stringify(payload);
         }
-
             const res = await fetch(REST_API_URL + path, options);
-    
             if (!res.ok) {
                 const error = await res.json();
-                throw new Error(error.errors);
+                error.status = res.status;
+                throw error;
             }
     
             if (res.status === 204) {
@@ -35,13 +34,13 @@ class Requester {
        return this.request('GET', path, token);
     }
     postReq(path, payload, token) {
-       return this.request('POST', path, payload, token);
+       return this.request('POST', path,  token, payload);
     }
     putReq(path, payload, token) {
-       return this.request('PUT', path, payload, token);
+       return this.request('PUT', path,  token, payload);
     }
     deleteReq(path, payload, token) {
-       return this.request('DELETE', path, payload, token);
+       return this.request('DELETE', path,  token, payload);
     }
 }
 

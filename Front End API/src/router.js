@@ -1,14 +1,18 @@
 const router = require('express').Router();
 const authController = require('./controllers/authController');
-const employeesController = require('./controllers/employeesController');
-const { auth, checkAuth } = require('./middlewares/authMiddleware');
+const employeeController = require('./controllers/employeeController');
+const { isAuth } = require('./middlewares/authMiddleware');
 
 
-
-router.use(auth);
-router.get('/', checkAuth);
+// Guest access
+router.get('/', (req,res) => {
+    req.user ? res.redirect('/employees/profile'): res.redirect('/auth/login')
+});
 router.use('/auth', authController);
-router.use('/employees', employeesController);
+router.use(isAuth);
+
+// Auth access
+router.use('/employees', employeeController);
 
 
 module.exports = router

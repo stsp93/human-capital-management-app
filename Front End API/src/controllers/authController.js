@@ -1,4 +1,4 @@
-const userService = require('../services/userService');
+const authService = require('../services/authService');
 const router = require('express').Router();
 const authLayout = { layout: 'auth.hbs' }
 
@@ -15,9 +15,9 @@ router.get('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
         const input = req.body;
         try {
-                const newUser = await userService.register(input);
+                const newUser = await authService.register(input);
                 res.cookie('session', newUser.token, { httpOnly: true });
-                res.status(201).redirect('/');
+                res.status(201).redirect('/employees/profile');
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('registerView', { ...authLayout, error, input });
@@ -27,9 +27,9 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
         const input = req.body;
         try {
-                const user = await userService.login(input);
+                const user = await authService.login(input);
                 res.cookie('session', user.token, { httpOnly: true });
-                res.status(201).redirect('/');
+                res.status(201).redirect('/employees/profile');
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('loginView', { ...authLayout, error, input });
@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', async (req, res) => {
 
-        await userService.logout(req.token);
+        await authService.logout(req.token);
         res.clearCookie('session');
         res.redirect('/');
 
