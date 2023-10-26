@@ -1,4 +1,4 @@
-const queryString = require('../helpers/queryString');
+const {attachPaginationHrefs} = require('../helpers/pagination');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
 const router = require('express').Router();
@@ -32,14 +32,8 @@ router.get('/', async (req, res) => {
                 if(!req.query.page) req.query.page = 1;
                 
                 const positions = await positionService.getAll(req.query, req.token);
-                if(positions.nextPage) {
-                        req.query.page = positions.nextPage
-                        positions.nextPage = queryString(req.query);
-                } 
-                if(positions.prevPage) {
-                        req.query.page = positions.prevPage
-                        positions.prevPage = queryString(req.query);
-                } 
+                attachPaginationHrefs(positions, req.query);
+
                 res.render('employeesList', {positions});
         }catch(error) {
                 console.log(error);
