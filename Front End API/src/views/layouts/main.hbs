@@ -54,6 +54,10 @@
           </ul>
         </div>
       </div>
+      {{!-- Error --}}
+      {{#if error}}
+      <div class="alert alert-danger">{{error.message}}</div>
+      {{/if}}
     </header>
     <main>
       <!-- SIDEBAR -->
@@ -87,6 +91,7 @@
       </aside>
       <!-- CONTENT -->
       <section class="container-fluid content p-5">
+        
         {{{body}}}
       </section>
     </main>

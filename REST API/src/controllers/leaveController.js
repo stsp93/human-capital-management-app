@@ -32,7 +32,7 @@ router.post('/', leaveController.create);
 router.delete('/:id', leaveController.delete);
 // Auth access
 router.use(requireRoles('admin', 'manager'));
-router.put('/:id/:status(approved|rejected)', leaveController.resolve);
+router.get('/:id/:status(approved|rejected)', leaveController.resolve);
 router.put('/:id', leaveController.update);
 
 module.exports = router;

@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
                 res.render('departmentsList', {departments});
         }catch(error) {
                 console.log(error);
+                res.render('departmentsList', {error});
         }
 })
 

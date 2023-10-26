@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
         }catch(error) {
                 console.log(error);
                 if(error.status === 401) res.redirect('/auth/login');
-                res.json(error.message)
+                res.render('employeeDetailsView', {error});
         }
 });
 
@@ -37,6 +37,7 @@ router.get('/', async (req, res) => {
                 res.render('employeesList', {positions});
         }catch(error) {
                 console.log(error);
+                res.render('employeesList', {error});
         }
 })
 
