@@ -1,0 +1,26 @@
+        <div class="container bg-white p-5 rounded-3 table-wrapper">
+            <!-- content header -->
+            <div class="content-header d-flex justify-content-between">
+              <h3 class="content-title">Departments List</h3>
+              <button class="btn btn-primary btn-add rounded-5">
+                <i class="fa-solid fa-plus"></i> Add New Department
+              </button>
+            </div>
+            <!-- table -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each departments.results}}
+                <tr class="clickable-row" data-href="/departments/{{_id}}">
+                  <td>{{name}}</td>
+                  <td><a class="link" href="/employees?department={{_id}}">Check Employees <i class="fa-solid fa-arrow-right"></i></a></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            {{>pagination departments}}
+          </div>
