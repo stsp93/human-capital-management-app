@@ -14,9 +14,14 @@ function formatDate(dateString) {
     return role === 'admin' || role ==='manager' ? options.fn(this) : options.inverse(this);
   }
 
+  function leaveNotResolved(status, options) {
+    return status === 'pending' ? options.fn(this) : options.inverse(this);
+  }
+
 
 module.exports = {
     formatDate,
     requireAdmin,
     requireManager,
+    leaveNotResolved
 }

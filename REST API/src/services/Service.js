@@ -7,17 +7,13 @@ class Service {
 
   async getAll(query) {
     const { page = 1, limit = 1, ...filters } = query;
-    console.log(query);
-    const count = await this.model.countDocuments(filters);
-    const totalPages = Math.ceil(count / limit);
-    const nextPage = +page < totalPages ? +page + 1 : null;
-    const prevPage = +page > 1 ? +page - 1 : null;
+    const pagination = await this.createPagination(page, limit, query);
 
     const results = await this.model
       .find(filters || {})
       .limit(+limit)
       .skip((page - 1) * limit);
-    return { results, totalPages, currentPage: +page, nextPage, prevPage }
+    return { results, ...pagination }
   }
 
   async getById(id) {
@@ -38,6 +34,15 @@ class Service {
 
   async deleteById(id) {
     return await this.model.deleteOne({ _id: id });
+  }
+
+  async createPagination(page, limit, filters) {
+    const docsCount = await this.model.countDocuments(filters);
+    const totalPages = Math.ceil(docsCount / limit);
+    const nextPage = +page < totalPages ? +page + 1 : null;
+    const prevPage = +page > 1 ? +page - 1 : null;
+
+    return { totalPages, currentPage: +page, nextPage, prevPage }
   }
 }
 

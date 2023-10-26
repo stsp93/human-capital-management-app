@@ -12,9 +12,8 @@ class PositionService extends Service {
   async getAll(query, user) {
     // pagination
     const { page = 1, limit = 1, ...filters } = query;
-    const totalPages =await  this.model.countDocuments(filters);
-    const nextPage = +page < totalPages ? +page + 1 : null;
-    const prevPage = +page > 1 ? +page - 1 : null;
+    const pagination = await this.createPagination(page, limit, query);
+
     let results;
 
     if (user.role === 'user') {
@@ -23,14 +22,14 @@ class PositionService extends Service {
         .skip((page - 1) * limit)
         .select('-salary')
         .populate('employee department');
-    }
-
-    results = await this.model.find(filters)
+    } else {
+      results = await this.model.find(filters)
       .limit(+limit)
       .skip((page - 1) * limit)
       .populate('employee department salary');
+    }
 
-      return { results, totalPages, currentPage: +page, nextPage, prevPage }
+      return { results, ...pagination}
   }
 
   // get by employee id

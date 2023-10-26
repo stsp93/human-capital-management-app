@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authController = require('./controllers/authController');
 const employeeController = require('./controllers/employeeController');
 const departmentController = require('./controllers/departmentController');
+const leavesController = require('./controllers/leavesController');
 const { isAuth } = require('./middlewares/authMiddleware');
 
 
@@ -15,6 +16,7 @@ router.use(isAuth);
 // Auth access
 router.use('/employees', employeeController);
 router.use('/departments', departmentController);
+router.use('/leaves', leavesController);
 
 
 module.exports = router

@@ -1,0 +1,40 @@
+        <div class="container bg-white p-4 rounded-3 table-wrapper">
+            <!-- content header -->
+            <div class="content-header d-flex justify-content-between">
+              <h3 class="content-title">Employees List</h3>
+              <button class="btn btn-primary btn-add rounded-5">
+                <i class="fa-solid fa-person-circle-plus"></i> Add New Employee
+              </button>
+            </div>
+            <!-- table -->
+            <table class="table table-striped">
+              <thead>
+                
+                <tr>
+                  <th scope="col">Employee Name</th>
+                  <th scope="col">Leave Type</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each leaves.results}}
+                <tr class="clickable-row" data-href="/leaves/{{_id}}">
+                  <td>{{employeeId.name}}</td>
+                  <td>{{type}}</td>
+                  <td>{{formatDate startDate}}</td>
+                  <td>{{formatDate endDate}}</td>
+                  <td>{{status}}</td>
+                  {{#leaveNotResolved status}}
+                    {{#requireManager ../user.role}}
+                        <td scope="col"><a class="btn btn-cta btn-edit" href="/leaves/{{_id}}/approve">Approve</a></td>
+                        <td scope="col"><a class="btn btn-cta btn-delete" href="/leaves/{{_id}}/reject">Reject</a></td>
+                    {{/requireManager}}
+                  {{/leaveNotResolved}}
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            {{> pagination leaves}}
+          </div>
