@@ -9,7 +9,7 @@ class PositionService extends Service {
   }
 
   // Override limiting user role
-  async getAll(user, query) {
+  async getAll(query, user) {
     // pagination
     const { page = 1, limit = 1, ...filters } = query;
     const totalPages =await  this.model.countDocuments(filters);

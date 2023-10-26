@@ -8,12 +8,12 @@ class LeaveService extends Service {
       super(Leave);
     }
 
-    async getAll(user) {
+    async getAll(query, user) {
       // User limited access(only own leaves)
       if(user.role === 'user') {
         return await this.model.find({employeeId: user.employeeId});
       }
-      return await this.model.find();
+      return await this.model.find(query);
     }
       
     async getById(id, user) {
@@ -32,6 +32,13 @@ class LeaveService extends Service {
       leave.status = status;
 
       return await leave.save()
+    }
+
+    async create(input, user) {
+      input.employeeId = user.employeeId;
+      input.status = 'pending'
+
+      return await this.model.create(input);
     }
 }
 module.exports = new LeaveService()

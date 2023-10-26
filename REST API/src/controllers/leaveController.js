@@ -26,13 +26,13 @@ const leaveController = new LeaveController();
 // User access
 router.get('/:id', leaveController.getById);
 router.get('/', leaveController.getAll);
+router.post('/', leaveController.create);
 
 // Admin access
 router.delete('/:id', leaveController.delete);
 // Auth access
 router.use(requireRoles('admin', 'manager'));
 router.put('/:id/:status(approved|rejected)', leaveController.resolve);
-router.post('/', leaveController.create);
 router.put('/:id', leaveController.update);
 
 module.exports = router;

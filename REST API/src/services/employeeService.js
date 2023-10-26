@@ -8,7 +8,7 @@ class EmployeeService extends Service {
     super(Employee);
   }
 
-  async update(id, input, user) {
+  async update(input, user, id) {
     const entity = await this.model.findById(id);
 
     if (!entity) { 

@@ -15,7 +15,7 @@ class Controller {
         try {
             const user = req.user
             const query = req.query
-            const results = await this.service.getAll(user, query);
+            const results = await this.service.getAll(query,user);
             return res.json(results);
         } catch (error) {
             this.errorResponse(res, error);
@@ -48,7 +48,7 @@ class Controller {
             const input = req.body;
             const id = req.params.id;
             const user = req.user;
-            const updatedEntity = await this.service.update(id, input, user);
+            const updatedEntity = await this.service.update(input, user, id);
             res.json(updatedEntity);
         } catch (error) {
             this.errorResponse(res, error)

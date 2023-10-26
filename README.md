@@ -63,9 +63,9 @@ To use this API, you need to authenticate and include a valid token in your requ
 - User Access (Own leaves only)
   - GET `/leaves/:id` - Retrieve one leave.
   - GET `/leaves/` - Retrieve all leaves.
+  - POST `/leaves/` - Create leave request.
 - Admin/Manager Access
   - PUT `/leaves/:id/:status(approved|rejected)` - Approve/Reject a leave request.
-  - POST `/leaves/` - Create leave request.
   - PUT `/leaves/:id` - Update leave request.
 
 #### Performance Review

@@ -5,7 +5,7 @@ class Service {
     this.model = model;
   }
 
-  async getAll(user, query) {
+  async getAll(query) {
     const { page = 1, limit = 1, ...filters } = query;
     console.log(query);
     const count = await this.model.countDocuments(filters);
@@ -24,8 +24,8 @@ class Service {
     return await this.model.findById(id);
   }
 
-  async create(input) {
-    return await this.model.create(input);
+  async create(input, user) {
+    return await this.model.create(input, user);
   }
 
   async update(id, input) {

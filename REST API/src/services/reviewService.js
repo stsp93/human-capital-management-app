@@ -8,7 +8,7 @@ class ReviewService extends Service {
       super(Review);
     }
 
-    async getAll(user, query) {
+    async getAll(query, user) {
       if(user.role === 'user') {
         return await this.model.find({employeeId: user.employeeId}).populate('employeeId reviewerId');
       }
