@@ -28,8 +28,8 @@
                   <td>{{status}}</td>
                   {{#leaveNotResolved status}}
                     {{#requireManager ../user.role}}
-                        <td scope="col"><a class="btn btn-cta btn-edit" href="/leaves/{{_id}}/approve">Approve</a></td>
-                        <td scope="col"><a class="btn btn-cta btn-delete" href="/leaves/{{_id}}/reject">Reject</a></td>
+                        <td><a class="btn-cta btn-edit rounded-5 px-2 py-1" href="/leaves/{{_id}}/approved?page={{../leaves.currentPage}}">Approve</a>
+                        <a class="btn-cta btn-delete rounded-5 px-2 py-1" href="/leaves/{{_id}}/rejected?page={{../leaves.currentPage}}">Reject</a></td>
                     {{/requireManager}}
                   {{/leaveNotResolved}}
                 </tr>
@@ -38,3 +38,4 @@
             </table>
             {{> pagination leaves}}
           </div>
+          
