@@ -13,8 +13,6 @@ class EmployeeService extends Requester {
         return user;
     }
     
-
-    
 }
 
 const employeeService = new EmployeeService();

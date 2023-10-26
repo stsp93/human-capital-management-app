@@ -30,7 +30,7 @@ class PositionService extends Service {
       .skip((page - 1) * limit)
       .populate('employee department salary');
 
-      return { results, totalPages, currentPage: page, nextPage, prevPage }
+      return { results, totalPages, currentPage: +page, nextPage, prevPage }
   }
 
   // get by employee id

@@ -1,0 +1,38 @@
+<div class="container bg-white p-4 rounded-3 table-wrapper">
+  <!-- content header -->
+  <div class="content-header d-flex justify-content-between">
+    <h3 class="content-title">Employees List</h3>
+    {{#requireManager user.role}}
+      <button class="btn btn-primary btn-add rounded-5">
+        <i class="fa-solid fa-user-plus"></i>
+        Add New Employee
+      </button>
+    {{/requireManager}}
+  </div>
+  <!-- table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Department</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each positions.results}}
+        <tr class="clickable-row" data-href="/employees/{{employee._id}}">
+          <td>{{employee.name}}</td>
+          <td>{{name}}</td>
+          <td>{{department.name}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.phone}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <!-- Pagination buttons -->
+  
+  {{>pagination positions}}
+</div>

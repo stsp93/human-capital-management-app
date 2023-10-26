@@ -5,15 +5,19 @@ class Service {
     this.model = model;
   }
 
-  async getAll(query) {
+  async getAll(user, query) {
     const { page = 1, limit = 1, ...filters } = query;
+    console.log(query);
     const count = await this.model.countDocuments(filters);
     const totalPages = Math.ceil(count / limit);
     const nextPage = +page < totalPages ? +page + 1 : null;
     const prevPage = +page > 1 ? +page - 1 : null;
 
-    const results = await this.model.find(filters || {});
-    return { results, totalPages, currentPage: page, nextPage, prevPage }
+    const results = await this.model
+      .find(filters || {})
+      .limit(+limit)
+      .skip((page - 1) * limit);
+    return { results, totalPages, currentPage: +page, nextPage, prevPage }
   }
 
   async getById(id) {

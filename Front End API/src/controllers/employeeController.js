@@ -1,7 +1,7 @@
+const queryString = require('../helpers/queryString');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
 const router = require('express').Router();
-
 
 
 router.get('/:id', async (req, res) => {
@@ -18,15 +18,33 @@ router.get('/:id', async (req, res) => {
                         employee.allowEdit = true;
                 }
 
-
-                res.render('employeeDetailsView', {employee});
+                res.render('employeeDetailsView', employee);
         }catch(error) {
                 console.log(error);
                 if(error.status === 401) res.redirect('/auth/login');
                 res.json(error.message)
         }
-        
 });
+
+
+router.get('/', async (req, res) => {
+        try {
+                if(!req.query.page) req.query.page = 1;
+                
+                const positions = await positionService.getAll(req.query, req.token);
+                if(positions.nextPage) {
+                        req.query.page = positions.nextPage
+                        positions.nextPage = queryString(req.query);
+                } 
+                if(positions.prevPage) {
+                        req.query.page = positions.prevPage
+                        positions.prevPage = queryString(req.query);
+                } 
+                res.render('employeesList', {positions});
+        }catch(error) {
+                console.log(error);
+        }
+})
 
 
 

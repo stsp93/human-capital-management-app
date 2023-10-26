@@ -4,12 +4,12 @@
       <div class="col d-flex gap-3 align-items-end">
         <span><i class="far fa-circle-user fa-6x"></i></span>
         <div>
-          <h2>{{employee.name}}</h2>
+          <h2>{{name}}</h2>
           
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
-        {{#if employee.allowEdit}}
+        {{#if allowEdit}}
         <a href="" class="btn btn-edit btn-cta rounded-5"
           >Edit Infomation</a
         >
@@ -23,25 +23,25 @@
     <hr />
     <div class="row">
       <div class="col">
-        <p><strong>Email:</strong> {{employee.email}}</p>
-        <p><strong>Phone:</strong> {{employee.phone}}</p>
-        <p><strong>Address:</strong> {{employee.address}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Phone:</strong> {{phone}}</p>
+        <p><strong>Address:</strong> {{address}}</p>
 
       </div>
       <div class="col">
         <div>
-          <p><strong>Department:</strong> {{employee.activePosition.department.name}}</p>
-          <p><strong>Position:</strong> {{employee.activePosition.name}}</p>
-          <p><strong>Start Date:</strong> {{formatDate employee.activePosition.startDate}}</p>
-          {{#if employee.activePosition.salary}}
-          <p><strong>Salary:</strong> {{employee.activePosition.salary.salary}} {{employee.activePosition.salary.currency}}</p>
+          <p><strong>Department:</strong> {{activePosition.department.name}}</p>
+          <p><strong>Position:</strong> {{activePosition.name}}</p>
+          <p><strong>Start Date:</strong> {{formatDate activePosition.startDate}}</p>
+          {{#if activePosition.salary}}
+          <p><strong>Salary:</strong> {{activePosition.salary.salary}} {{activePosition.salary.currency}}</p>
           {{/if}}
         </div>
         <div class="mt-4">
-          {{#if employee.prevPositions}}
+          {{#if prevPositions}}
           <h5>Previous Positions:</h5>
           <ul>
-            {{#each employee.prevPositions}}
+            {{#each prevPositions}}
             <li>
               <p>{{name}}, {{formatDate startDate}} - {{formatDate endDate}}</p>
             </li>

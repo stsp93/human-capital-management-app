@@ -6,6 +6,7 @@ class PositionService extends Requester {
         this.endpoints = {
             'getById':(id) => `/positions/${id}`,
             'getPrevPositions' : (id) => `/positions?employee=${id}&active=false`,
+            'getAll' :(query) =>  `/positions?active=true&${query}`
         }
     }
 
@@ -16,7 +17,13 @@ class PositionService extends Requester {
 
     async getPrevPositions(id,token) {
         const prevPositions = await this.getReq(this.endpoints.getPrevPositions(id),token);
-        return prevPositions;
+        return prevPositions.results;
+    }
+
+    async getAll(query,token) {
+        const queryString = Object.entries(query).map(q => q[0]+'='+q[1]).join('&');
+        const positions = await this.getReq(this.endpoints.getAll(queryString), token);
+        return positions;
     }
 
     
