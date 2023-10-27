@@ -6,13 +6,14 @@ class Service {
   }
 
   async getAll(query) {
-    const { page = 1, limit = 1, ...filters } = query;
+    const { page = 1, limit = 1,sort = '_id', order = 'asc', ...filters } = query;
     const pagination = await this.createPagination(page, limit, query);
 
     const results = await this.model
-      .find(filters || {})
-      .limit(+limit)
-      .skip((page - 1) * limit);
+    .find(filters || {})
+    .sort({[sort]: order})
+    .limit(+limit)
+    .skip((page - 1) * limit)
     return { results, ...pagination }
   }
 

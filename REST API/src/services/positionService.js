@@ -1,5 +1,4 @@
 const Position = require("../models/Position");
-const CustomError = require("../utilities/CustomError");
 const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 const Service = require("./Service");
 
@@ -11,43 +10,37 @@ class PositionService extends Service {
   // Override limiting user role
   async getAll(query, user) {
     // pagination
-    const { page = 1, limit = 1, ...filters } = query;
-    const pagination = await this.createPagination(page, limit, query);
-
+    const { page = 1, limit = 3, ...filters } = query;
+    const pagination = await this.createPagination(page, limit, filters);
     let results;
-
-    if (user.role === 'user') {
-      results =  await this.model.find(filters)
-        .limit(+limit)
-        .skip((page - 1) * limit)
-        .select('-salary')
-        .populate('employee department');
+    if(user.role === 'user') {
+      results = await this.model.find(filters)
+      .limit(+limit)
+      .skip((page - 1) * limit)
+      .select('-salaryId')
     } else {
       results = await this.model.find(filters)
       .limit(+limit)
       .skip((page - 1) * limit)
-      .populate('employee department salary');
     }
-
+    
       return { results, ...pagination}
   }
 
   // get by employee id
-  async getById(employee, user) {
-    console.log(await this.model.find({ employee, active: true }));
-    const position = await this.model.findOne({ employee, active: true });
-    console.log(employee);
+  async getById(employeeId, user) {
+    const position = await this.model.findOne({ employeeId, active: true });
     if (position == null) return null;
     // Check and return partial data
-    if (!isAuthorizedUser(user.role, user.employeeId, position.employee)) {
-      return await this.model.findOne({ employee, active: true }).select('-salary').populate('employee department');
+    if (!isAuthorizedUser(user.role, user.employeeId, position.employeeId)) {
+      return await this.model.findOne({ employeeId, active: true }).select('-salaryId');
     }
-    return position.populate('employee department salary');
+    return position;
   }
 
   async create(position) {
     // Change recent active position to inactive and set end date
-    const recentPosition = await this.model.findOne({ employee: position.employee, active: true }).exec();
+    const recentPosition = await this.model.findOne({ employee: position.employeeId, active: true }).exec();
     recentPosition.active = false;
     recentPosition.endDate = position.startDate;
     recentPosition.save();

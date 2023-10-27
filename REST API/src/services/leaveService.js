@@ -11,24 +11,25 @@ class LeaveService extends Service {
 
 
   async getAll(query, user) {
-    let { page = 1, limit = 1, ...filters } = query;
+    let { page = 1, limit = 5, sort = '_id', order = 'asc', ...filters } = query;
     let results;
     // User limited access(only own leaves)
     if (user.role === 'user') {
       filters = { employeeId: user.employeeId };
       results = await this.model.find(filters)
+        .sort({ [sort]: order })
         .limit(+limit)
         .skip((page - 1) * limit)
         .populate('employeeId', 'name');
-    } else{
+    } else {
       results = await this.model.find(query)
+        .sort({ [sort]: order })
         .limit(+limit)
         .skip((page - 1) * limit)
         .populate('employeeId', 'name')
         ;
     }
     const paginationObj = await this.createPagination(page, limit, filters);
-
     return { results, ...paginationObj }
   }
 

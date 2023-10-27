@@ -6,17 +6,17 @@ const positionSchema = new Schema({
     type: String,
     required: [true, 'Please enter the position name'],
   },
-  department: {
+  departmentId: {
     type: Types.ObjectId,
     ref: 'Department',
     required: [true, 'Please specify the department'],
   },
-  employee: {
+  employeeId: {
     type: Types.ObjectId,
     ref: 'Employee',
     required: [true, 'Please specify employee ID'],
   },
-  salary: {
+  salaryId: {
     type: Types.ObjectId,
     ref:'Salary',
   },
