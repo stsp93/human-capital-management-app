@@ -11,7 +11,7 @@
       <div class="col d-flex flex-column justify-content-start align-items-end">
         {{#if allowEdit}}
         <a href="" class="btn btn-edit btn-cta rounded-5"
-          >Edit Infomation</a
+          ><i class="fa-solid fa-wrench"></i> Edit Infomation</a
         >
         {{/if}}
         {{#requireManager user.role}}
@@ -30,11 +30,11 @@
       </div>
       <div class="col">
         <div>
-          <p><strong>Department:</strong> {{activePosition.department.name}}</p>
+          <p><strong>Department:</strong> {{department.name}}</p>
           <p><strong>Position:</strong> {{activePosition.name}}</p>
           <p><strong>Start Date:</strong> {{formatDate activePosition.startDate}}</p>
-          {{#if activePosition.salary}}
-          <p><strong>Salary:</strong> {{activePosition.salary.salary}} {{activePosition.salary.currency}}</p>
+          {{#if salary}}
+          <p><strong>Salary:</strong> {{salary.salary}} {{salary.currency}}</p>
           {{/if}}
         </div>
         <div class="mt-4">

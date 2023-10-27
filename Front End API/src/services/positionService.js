@@ -1,3 +1,4 @@
+const { toQueryString } = require('../helpers/pagination');
 const Requester = require('./Requester');
 
 class PositionService extends Requester {
@@ -21,7 +22,7 @@ class PositionService extends Requester {
     }
 
     async getAll(query,token) {
-        const queryString = Object.entries(query).map(q => q[0]+'='+q[1]).join('&');
+        const queryString = toQueryString(query);
         const positions = await this.getReq(this.endpoints.getAll(queryString), token);
         return positions;
     }

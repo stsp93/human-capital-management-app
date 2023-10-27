@@ -1,0 +1,30 @@
+        <div class="container bg-white p-4 rounded-3 table-wrapper">
+            <!-- content header -->
+            <div class="content-header d-flex justify-content-between">
+              <h3 class="content-title">Reviews List</h3>
+              <button class="btn btn-primary btn-add rounded-5">
+                <i class="fa-solid fa-plus"></i> Write a review
+              </button>
+            </div>
+            <!-- table -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Reviewee</th>
+                  <th scope="col">Reviewer</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each reviews.results}}
+                <tr class="clickable-row" data-href="/users/asd">
+                  <td>{{employeeId.name}}</td>
+                  <td>{{reviewerId.name}}</td>
+                  <td>{{rating}}</td>
+                  <td>{{formatDate date}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>

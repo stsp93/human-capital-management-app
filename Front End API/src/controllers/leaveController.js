@@ -4,8 +4,8 @@ const router = require('express').Router();
 
 router.get('/', async (req, res) => {
         try {
-                const page = req.query.page || 1
-                const leaves = await leaveService.getAll(page, req.token)
+            if(!req.query.page) req.query.page = 1;
+                const leaves = await leaveService.getAll(req.query, req.token)
                 attachPaginationHrefs(leaves, req.query)
                 
                 res.render('leavesList', {leaves});

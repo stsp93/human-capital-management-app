@@ -4,7 +4,8 @@ class DepartmentService extends Requester {
     constructor() {
         super();
         this.endpoints = {
-            'getAll' :(page) => `/departments?page=${page}`
+            'getAll' :(page) => `/departments?page=${page}`,
+            'getById':(id) => `/departments/${id}`,
         }
     }
 
@@ -14,7 +15,10 @@ class DepartmentService extends Requester {
         return departments;
     }
 
-    
+    async getById(id,token) {
+        const department = await this.getReq(this.endpoints.getById(id),token);
+        return department;
+    }
 }
 
 const departmentService = new DepartmentService();

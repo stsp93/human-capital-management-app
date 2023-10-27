@@ -1,17 +1,19 @@
+const { toQueryString } = require('../helpers/pagination');
 const Requester = require('./Requester');
 
 class LeaveService extends Requester {
     constructor() {
         super();
         this.endpoints = {
-            'getAll' :(page) => `/leaves?page=${page}`,
+            'getAll' :(queryString) => `/leaves?${queryString}`,
             'resolve': (id,status) => `/leaves/${id}/${status}`
         }
     }
 
 
-    async getAll(page,token) {
-        const leaves = await this.getReq(this.endpoints.getAll(page), token);
+    async getAll(query,token) {
+        const queryString = toQueryString(query);
+        const leaves = await this.getReq(this.endpoints.getAll(queryString), token);
         return leaves;
     }
 

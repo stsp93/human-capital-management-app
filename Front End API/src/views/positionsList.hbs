@@ -1,0 +1,26 @@
+        <div class="container bg-white p-5 rounded-3 table-wrapper">
+            <!-- content header -->
+            <div class="content-header d-flex justify-content-between">
+              <h3 class="content-title">{{department.name}} Department</h3>
+            </div>
+            <!-- table -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Start Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each positions.results}}
+                <tr class="clickable-row" data-href="/employees/{{employeeId}}">
+                  <td>{{employee.name}}</td>
+                  <td>{{name}}</td>
+                  <td>{{formatDate startDate}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            {{>pagination positions}}
+          </div>
