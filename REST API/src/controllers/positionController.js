@@ -12,8 +12,9 @@ class PositionController extends Controller {
 const positionController = new PositionController();
 
 // User access
-router.get('/', positionController.getAll);
+router.get('/total', positionController.count);
 router.get('/:id', positionController.getById);
+router.get('/', positionController.getAll);
 
 // Admin access
 router.delete('/:id', positionController.delete)

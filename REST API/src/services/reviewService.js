@@ -34,7 +34,7 @@ class ReviewService extends Service {
     if (!isAuthorizedUser(user.role, user.employeeId, review.employeeId)) {
       throw new CustomError('Unauthorized: Users can access only their own reviews', 401)
     }
-    return await review.populate('employeeId reviewerId', 'name name');
+    return await review;
   }
 }
 module.exports = new ReviewService()

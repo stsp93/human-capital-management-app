@@ -38,12 +38,17 @@ class Service {
   }
 
   async createPagination(page, limit, filters) {
-    const docsCount = await this.model.countDocuments(filters);
+    const docsCount = await this.countDocs(filters);
     const totalPages = Math.ceil(docsCount / limit);
     const nextPage = +page < totalPages ? +page + 1 : null;
     const prevPage = +page > 1 ? +page - 1 : null;
 
     return { totalPages, currentPage: +page, nextPage, prevPage }
+  }
+
+  async countDocs(query) {
+    const docsCount = await this.model.countDocuments(query);
+    return docsCount;
   }
 }
 

@@ -72,8 +72,15 @@ class Controller {
         } else {
             return res.status(401).json({ message: "Unauthorized" })
         }
+    }
 
-
+    count = async (req, res) => {
+        try {
+            const totalEntities = await this.service.countDocs(req.query);
+            res.json(totalEntities);
+        }catch(error) {
+            this.errorResponse(res, error);
+        }
     }
 }
 
