@@ -2,9 +2,11 @@
             <!-- content header -->
             <div class="content-header d-flex justify-content-between">
               <h3 class="content-title">Departments List</h3>
+              {{#requireManager user.role}}
               <button class="btn btn-primary btn-add rounded-5">
                 <i class="fa-solid fa-plus"></i> Add New Department
               </button>
+              {{/requireManager}}
             </div>
             <!-- table -->
             <table class="table table-striped">

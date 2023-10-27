@@ -43,6 +43,7 @@ To use this API, you need to authenticate and include a valid token in your requ
 - User Access (Own position and partial record of others)
   - GET `/positions/` - Retrieve a list of positions.
   - GET `/positions/:id`- Retrieve one position.
+  - GET `/positions/total`- Retrieve position count.
 - Admin/Manager Access
   - POST `/positions/` - Create position.
   - PUT `/positions/:id` - Update position.
