@@ -6,6 +6,7 @@ class LeaveService extends Requester {
         super();
         this.endpoints = {
             'getAll' :(queryString) => `/leaves?${queryString}`,
+            'getById' :(id) => `/leaves/${id}`,
             'resolve': (id,status) => `/leaves/${id}/${status}`
         }
     }
@@ -19,6 +20,10 @@ class LeaveService extends Requester {
 
     async resolve(id, status,token) {
         return await this.getReq(this.endpoints.resolve(id,status), token)
+    }
+
+    async getById(id, token) {
+        return await this.getReq(this.endpoints.getById(id), token)
     }
 }
 

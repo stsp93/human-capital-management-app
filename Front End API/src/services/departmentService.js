@@ -19,6 +19,7 @@ class DepartmentService extends Requester {
         const department = await this.getReq(this.endpoints.getById(id),token);
         return department;
     }
+
 }
 
 const departmentService = new DepartmentService();

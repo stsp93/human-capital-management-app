@@ -7,7 +7,8 @@ class PositionService extends Requester {
         this.endpoints = {
             'getById':(id) => `/positions/${id}`,
             'getPrevPositions' : (id) => `/positions?employee=${id}&active=false`,
-            'getAll' :(query) =>  `/positions?active=true&${query}`
+            'getAll' :(query) =>  `/positions?active=true&${query}`,
+            'totalActiveInDepartment' : (departmentId) => `/positions/total?active=true&departmentId=${departmentId}`
         }
     }
 
@@ -27,7 +28,10 @@ class PositionService extends Requester {
         return positions;
     }
 
-    
+    async totalActiveInDepartment(departmentId,token) {
+        const positions = await this.getReq(this.endpoints.totalActiveInDepartment(departmentId), token);
+        return positions;
+    }
 }
 
 const positionService = new PositionService();

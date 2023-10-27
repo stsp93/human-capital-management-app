@@ -18,10 +18,10 @@
               </thead>
               <tbody>
                 {{#each reviews.results}}
-                <tr class="clickable-row" data-href="/users/asd">
+                <tr class="clickable-row" data-href="/reviews/{{_id}}">
                   <td>{{employeeId.name}}</td>
                   <td>{{reviewerId.name}}</td>
-                  <td>{{rating}}</td>
+                  <td>{{rating}}/10</td>
                   <td>{{formatDate date}}</td>
                 </tr>
                 {{/each}}

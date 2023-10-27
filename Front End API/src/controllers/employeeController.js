@@ -19,11 +19,11 @@ router.get('/:id', async (req, res) => {
                         employee.allowEdit = true;
                 }
 
-                res.render('employeeDetailsView', employee);
+                res.render('details/employeeDetailsView', employee);
         } catch (error) {
                 console.log(error);
                 if (error.status === 401) res.redirect('/auth/login');
-                res.render('employeeDetailsView', { error });
+                res.render('details/employeeDetailsView', { error });
         }
 });
 
@@ -44,10 +44,10 @@ router.get('/', async (req, res) => {
                 });
 
                 attachPaginationHrefs(employees, req.query);
-                res.render('employeesList', { employees });
+                res.render('tables/employeesList', { employees });
         } catch (error) {
                 console.log(error);
-                res.render('employeesList', { error });
+                res.render('tables/employeesList', { error });
         }
 })
 

@@ -5,7 +5,8 @@ class ReviewService extends Requester {
     constructor() {
         super();
         this.endpoints = {
-            'getAll' :(query) => `/reviews?${query}`
+            'getAll' :(query) => `/reviews?${query}`,
+            'getById': (id) => `/reviews/${id}`
         }
     }
 
@@ -16,7 +17,10 @@ class ReviewService extends Requester {
         return reviews;
     }
 
-
+    async getById(id,token) {
+        const review= await this.getReq(this.endpoints.getById(id), token);
+        return review
+    }
 }
 
 const reviewService = new ReviewService();
