@@ -1,3 +1,4 @@
+const { QUERY_DEFAULTS } = require("../config/constants");
 const Leave = require("../models/Leave");
 const CustomError = require("../utilities/CustomError");
 const isAuthorizedUser = require("../utilities/isAuthorizedUser");
@@ -11,7 +12,11 @@ class LeaveService extends Service {
 
 
   async getAll(query, user) {
-    let { page = 1, limit = 5, sort = '_id', order = 'asc', ...filters } = query;
+    let { page = QUERY_DEFAULTS.page,
+      limit = QUERY_DEFAULTS.limit,
+      sort = QUERY_DEFAULTS.sort,
+      order = QUERY_DEFAULTS.order,
+      ...filters } = query;
     let results;
     // User limited access(only own leaves)
     if (user.role === 'user') {

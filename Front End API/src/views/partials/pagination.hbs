@@ -8,10 +8,11 @@
       </li>
     {{/if}}
 
+{{#if totalPages}}
     <li class="page-item">
       <a class="page-link">{{currentPage}}</a>
     </li>
-
+{{/if}}
     {{#if nextPage}}
       <li class="page-item">
         <a class="page-link" href="?{{nextPage}}" aria-label="Next">

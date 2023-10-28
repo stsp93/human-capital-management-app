@@ -12,7 +12,7 @@ class SalaryService extends Service {
   async getById(id, user) {
     // Get Salary
     const salary = await this.model.findById(id);
-    if (salary === null) return null;
+    if (salary === null) return {};
     // Get Position
     const position = await Position.findById(salary.positionId);
 

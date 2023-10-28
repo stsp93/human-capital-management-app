@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         if (!req.query.page) req.query.page = 1;
         const leaves = await leaveService.getAll(req.query, req.token)
         attachPaginationHrefs(leaves, req.query)
-
+        console.log(leaves);
         res.render('tables/leavesList', { leaves });
     } catch (error) {
         console.log(error);
@@ -24,7 +24,6 @@ router.get('/:id', async (req, res) => {
         const employee = await employeeService.getById(leave.employeeId, req.token);
         leave.employee = employee;
         
-        console.log(leave);
         res.render('details/leavesDetailsView', leave);
     } catch (error) {
         console.log(error);

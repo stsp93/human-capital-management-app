@@ -11,9 +11,9 @@ router.get('/:id', async (req, res) => {
 
                 const employee = await employeeService.getById(employeeId, req.token);
                 employee.activePosition = await positionService.getById(employeeId, req.token);
-                employee.department = await departmentService.getById(employee.activePosition.departmentId, req.token);
+                employee.activePosition ?? (employee.department = await departmentService.getById(employee.activePosition?.departmentId, req.token));
                 employee.prevPositions = await positionService.getPrevPositions(employeeId, req.token);
-                console.log(employee);
+
                 // Check if allowed to edit info
                 if (req.user.role !== 'user' || req.user.employeeId === employee._id) {
                         employee.allowEdit = true;

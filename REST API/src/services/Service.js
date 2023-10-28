@@ -1,3 +1,4 @@
+const { QUERY_DEFAULTS } = require("../config/constants");
 const CustomError = require("../utilities/CustomError");
 
 class Service {
@@ -6,19 +7,24 @@ class Service {
   }
 
   async getAll(query) {
-    const { page = 1, limit = 1,sort = '_id', order = 'asc', ...filters } = query;
+    const { page = QUERY_DEFAULTS.page,
+      limit = QUERY_DEFAULTS.limit,
+      sort = QUERY_DEFAULTS.sort,
+      order = QUERY_DEFAULTS.order,
+      ...filters } = query;
     const pagination = await this.createPagination(page, limit, query);
 
     const results = await this.model
-    .find(filters || {})
-    .sort({[sort]: order})
-    .limit(+limit)
-    .skip((page - 1) * limit)
+      .find(filters || {})
+      .sort({ [sort]: order })
+      .limit(+limit)
+      .skip((page - 1) * limit)
     return { results, ...pagination }
   }
 
   async getById(id) {
-    return await this.model.findById(id);
+    const result = await this.model.findById(id);
+    return result || {};
   }
 
   async create(input, user) {

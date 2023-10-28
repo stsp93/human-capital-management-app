@@ -12,7 +12,9 @@ class ReviewService extends Requester {
 
 
     async getAll(query,token) {
+        console.log(query);
         const queryString = toQueryString(query);
+        console.log(queryString);
         const reviews = await this.getReq(this.endpoints.getAll(queryString), token);
         return reviews;
     }

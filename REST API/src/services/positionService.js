@@ -1,5 +1,6 @@
 const Position = require("../models/Position");
 const isAuthorizedUser = require("../utilities/isAuthorizedUser");
+const { QUERY_DEFAULTS } = require('../config/constants')
 const Service = require("./Service");
 
 class PositionService extends Service {
@@ -10,27 +11,30 @@ class PositionService extends Service {
   // Override limiting user role
   async getAll(query, user) {
     // pagination
-    const { page = 1, limit = 3, ...filters } = query;
+    const { page = QUERY_DEFAULTS.page,
+      limit = QUERY_DEFAULTS.limit,
+      ...filters } = query;
     const pagination = await this.createPagination(page, limit, filters);
+    
     let results;
-    if(user.role === 'user') {
+    if (user.role === 'user') {
       results = await this.model.find(filters)
-      .limit(+limit)
-      .skip((page - 1) * limit)
-      .select('-salaryId')
+        .limit(+limit)
+        .skip((page - 1) * limit)
+        .select('-salaryId')
     } else {
       results = await this.model.find(filters)
-      .limit(+limit)
-      .skip((page - 1) * limit)
+        .limit(+limit)
+        .skip((page - 1) * limit)
     }
-    
-      return { results, ...pagination}
+
+    return { results, ...pagination }
   }
 
   // get by employee id
   async getById(employeeId, user) {
     const position = await this.model.findOne({ employeeId, active: true });
-    if (position == null) return null;
+    if (position == null) return {};
     // Check and return partial data
     if (!isAuthorizedUser(user.role, user.employeeId, position.employeeId)) {
       return await this.model.findOne({ employeeId, active: true }).select('-salaryId');
