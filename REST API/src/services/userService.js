@@ -16,7 +16,9 @@ class UserService extends Service {
   }
 
   async register(user) {
-    const newEmployee = await Employee.create({});
+    // Create blank employee linked with the user
+    const newEmployee = await Employee.create({name:'New employee '+ user.username});
+
     user.employeeId = newEmployee._id;
     user.role = 'user';
     const newUser = await this.model.create(user);

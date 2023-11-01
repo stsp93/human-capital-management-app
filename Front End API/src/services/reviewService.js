@@ -12,7 +12,6 @@ class ReviewService extends Requester {
 
 
     async getAll(query,token) {
-        console.log(query);
         const queryString = toQueryString(query);
         console.log(queryString);
         const reviews = await this.getReq(this.endpoints.getAll(queryString), token);
@@ -20,8 +19,15 @@ class ReviewService extends Requester {
     }
 
     async getById(id,token) {
+        if(!id) return;
         const review= await this.getReq(this.endpoints.getById(id), token);
         return review
+    }
+
+    async edit(id, input, token) {
+        if(!id) return;
+        const review = await this.putReq(this.endpoints.getById(id),input,token);
+        return review;
     }
 }
 

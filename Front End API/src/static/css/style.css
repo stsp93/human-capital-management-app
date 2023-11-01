@@ -228,6 +228,16 @@ main {
   color: var(--red);
 }
 
+/* EFFECTS */
+
+@keyframes blink {
+  0%, 100% {background-color:var(--red);}
+  50% {background-color: var(--gray-light);}
+}
+.blink {
+  animation: blink 2s linear infinite;
+}
+
 @media screen and (max-width: 567px) {
   .main-content {
     width: 90%;

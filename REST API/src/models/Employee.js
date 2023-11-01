@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require("mongoose");
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const phonePattern = /^\+?[a-zA-Z0-9\-().\s]{10,15}$/;
 
 const employeeSchema = new Schema({
   name: {
@@ -11,6 +12,7 @@ const employeeSchema = new Schema({
   },
   phone: {
     type: String,
+    match: [phonePattern, 'Please add a valid phone number.'],
   },
   address: {
     type: String,

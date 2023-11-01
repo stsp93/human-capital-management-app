@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
         if (!req.query.page) req.query.page = 1;
         const leaves = await leaveService.getAll(req.query, req.token)
         attachPaginationHrefs(leaves, req.query)
-        console.log(leaves);
         res.render('tables/leavesList', { leaves });
     } catch (error) {
         console.log(error);
@@ -43,6 +42,26 @@ router.get('/:id/:status(approved|rejected)', async (req, res) => {
     }
 });
 
+router.get('/:id/edit', async (req, res) => {
+    try {
+            const leave = await leaveService.getById(req.params.id, req.token);
+            const employee = await employeeService.getById(leave.employeeId, req.token);
+            leave.employee = employee;
+            res.render('forms/leaveEdit', {leave});
+    }catch(error) {
+            console.log(error);
+            res.render('forms/leaveEdit', {error});
+    }
+})
 
+router.post('/:id/edit', async (req, res) => {
+    try {
+            const leave = await leaveService.edit(req.params.id,req.body, req.token)
+            res.redirect(`/leaves/${leave._id}`)
+    }catch(error) {
+            console.log(error);
+            res.render('forms/leaveEdit', {error,leave:req.body});
+    }
+})
 
 module.exports = router;

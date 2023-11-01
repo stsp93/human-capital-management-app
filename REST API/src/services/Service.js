@@ -31,7 +31,8 @@ class Service {
     return await this.model.create(input, user);
   }
 
-  async update(id, input) {
+  async update( input, id) {
+    console.log(id);
     const entity = await this.model.findById(id);
     if (entity === null) throw new CustomError('Entity not found', 404)
 

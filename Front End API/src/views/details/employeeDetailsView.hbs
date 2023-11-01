@@ -9,13 +9,15 @@
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
         {{#if allowEdit}}
-        <a href="" class="btn btn-edit btn-cta rounded-5"
+        <a href="/employees/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5 {{#unless email}}blink{{/unless}}"
           ><i class="fa-solid fa-wrench"></i> Edit Infomation</a
         >
         {{/if}}
         {{#requireManager user.role}}
-        <a href="" class="btn action-link">Assign new Position</a>
-        <a href="" class="btn action-link">Edit current Position</a>
+        <a href="/positions/{{_id}}/add" class="btn action-link">Assign new Position</a>
+        {{#if activePosition._id}}
+        <a href="/positions/{{_id}}/edit" class="btn action-link">Edit current Position</a>
+        {{/if}}
         {{/requireManager}}
       </div>
     </div>
@@ -29,15 +31,17 @@
       </div>
       <div class="col">
         <div>
+          {{#if activePosition._id}}
           <p><strong>Department:</strong> {{department.name}}</p>
           <p><strong>Position:</strong> {{activePosition.name}}</p>
           <p><strong>Start Date:</strong> {{formatDate activePosition.startDate}}</p>
+          {{/if}}
           {{#if salary}}
           <p><strong>Salary:</strong> {{salary.salary}} {{salary.currency}}</p>
           {{/if}}
         </div>
         <div class="mt-4">
-          {{#if prevPositions}}
+          {{#if prevPositions.length}}
           <h5>Previous Positions:</h5>
           <ul>
             {{#each prevPositions}}

@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         try {
                 const newUser = await authService.register(input);
                 res.cookie('session', newUser.token, { httpOnly: true });
-                res.status(201).redirect(`/employees/${user.employeeId}`);
+                res.status(201).redirect(`/employees/${newUser.employeeId}`);
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('registerView', { ...authLayout, error, input });

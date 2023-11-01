@@ -11,6 +11,7 @@ class EmployeeService extends Requester {
     }
 
     async getById(id,token) {
+        if(!id) return;
         const employee = await this.getReq(this.endpoints.getById(id),token);
         return employee;
     }
@@ -20,7 +21,11 @@ class EmployeeService extends Requester {
         return employees;
     }
 
-    
+    async edit(id, input, token) {
+        if(!id) return;
+        const employee = await this.putReq(this.endpoints.getById(id),input,token);
+        return employee;
+    }
 }
 
 const employeeService = new EmployeeService();

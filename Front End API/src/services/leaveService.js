@@ -19,11 +19,20 @@ class LeaveService extends Requester {
     }
 
     async resolve(id, status,token) {
+        if(!id) return;
         return await this.getReq(this.endpoints.resolve(id,status), token)
     }
 
     async getById(id, token) {
+        if(!id) return;
         return await this.getReq(this.endpoints.getById(id), token)
+    }
+
+    async edit(id, input, token) {
+        console.log(input);
+        if(!id) return;
+        const leave = await this.putReq(this.endpoints.getById(id),input,token);
+        return leave;
     }
 }
 

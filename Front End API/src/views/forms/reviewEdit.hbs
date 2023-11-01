@@ -1,0 +1,61 @@
+<div class="container details bg-white p-5 rounded-4">
+  <h3>Edit Performance Review</h3>
+  <form class="container p-4 m-auto" action="" method="POST">
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="employee" class="form-label">Employee Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="employee"
+          name="employee"
+          value="{{review.employee.name}}"
+          disabled
+        />
+      </div>
+
+      <div class="col mb-3">
+        <label for="reviewer" class="form-label">Reviewer</label>
+        <input
+          type="text"
+          class="form-control"
+          id="reviewer"
+          name="reviewer"
+          value="{{review.reviewer.name}}"
+          disabled
+        />
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <select name="rating" id="rating" class="form-control">
+          {{#generateOptions review.ratings review.rating }}
+          {{/generateOptions}}
+        </select>
+      </div>
+
+      <div class="col mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="date"
+          name="date"
+          value="{{inputDate review.date}}"
+        />
+      </div>
+    </div>
+    <div class="row">
+        <label for="comments" class="form-label">Comments</label>
+        <textarea name="comments" id="comments" cols="30" rows="10">{{review.comments}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Save
+      Changes</button>
+  </form>
+
+</div>

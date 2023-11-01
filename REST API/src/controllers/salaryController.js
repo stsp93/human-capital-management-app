@@ -11,7 +11,7 @@ class SalaryController extends Controller {
     addBonus = async (req, res) => {
         try {
             const salaryId = req.params.id;
-            const salary = await this.service.addBonus(salaryId, bonus);
+            const salary = await this.service.addBonus(salaryId, req.body);
             res.json(salary);
         } catch (error) {
             this.errorResponse(res, error)
@@ -20,7 +20,6 @@ class SalaryController extends Controller {
     removeBonus = async (req, res) => {
         try {
             const bonusId = req.query.bonusId;
-            console.log(bonusId);
             const salaryId = req.params.id;
             const salary = await this.service.removeBonus(salaryId, bonusId);
             res.json(salary);

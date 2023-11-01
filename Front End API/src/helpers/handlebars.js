@@ -18,10 +18,36 @@ function formatDate(dateString) {
     return status === 'pending' ? options.fn(this) : options.inverse(this);
   }
 
+  function generateOptions(values, selectedValue) {
+    const options = values.map(value => {
+      const selected = value === selectedValue ? 'selected' : '';
+      return `<option value="${value}" ${selected}>${value}</option>`;
+    });
+
+    return options.join('');
+  }
+
+  function generateNameOptions(data, selectedValue) {
+  const options = data?.map(obj => {
+    const value = obj._id;
+    const text = obj.name;
+    const selected = value === selectedValue ? 'selected' : '';
+    return `<option value="${value}" ${selected}>${text}</option>`;
+  });
+  return options.join('');
+}
+
+  function inputDate(dateString) {
+    if (!dateString) return '';
+    return dateString.substring(0, 10);
+  }
 
 module.exports = {
     formatDate,
     requireAdmin,
     requireManager,
-    leaveNotResolved
+    leaveNotResolved,
+    generateOptions,
+    inputDate,
+    generateNameOptions
 }

@@ -5,8 +5,7 @@ const router = require('express').Router();
 
 router.get('/', async (req, res) => {
         try {
-                const page = req.query.page || 1
-                const departments = await departmentService.getAll(page, req.token)
+                const departments = await departmentService.getAll(req.query, req.token)
                 attachPaginationHrefs(departments, req.query)
                 res.render('tables/departmentsList', {departments});
         }catch(error) {
@@ -28,6 +27,26 @@ router.get('/:id', async (req, res) => {
         }
 })
 
+router.get('/:id/edit', async (req, res) => {
+        try {
+                const departmentId = req.params.id
+                const department = await departmentService.getById(departmentId, req.token)
+                res.render('forms/departmentEdit', {department});
+        }catch(error) {
+                console.log(error);
+                res.render('forms/departmentEdit', {error});
+        }
+})
+
+router.post('/:id/edit', async (req, res) => {
+        try {
+                const department = await departmentService.edit(req.params.id, req.body,req.token);
+                res.redirect(`/departments/${department._id}`);
+        }catch(error) {
+                console.log(error);
+                res.render('forms/departmentEdit', {error});
+        }
+})
 
 
 module.exports = router

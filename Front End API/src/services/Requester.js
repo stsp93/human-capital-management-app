@@ -8,7 +8,7 @@ class Requester {
                 'Content-Type': 'application/json'
             }
         }
-    
+        
         if (token) {
             options.headers['jwt-auth'] = token;
         }
@@ -17,6 +17,7 @@ class Requester {
         }
             const res = await fetch(REST_API_URL + path, options);
             if (!res.ok) {
+
                 const error = await res.json();
                 error.status = res.status;
                 throw error;
@@ -39,8 +40,8 @@ class Requester {
     putReq(path, payload, token) {
        return this.request('PUT', path,  token, payload);
     }
-    deleteReq(path, payload, token) {
-       return this.request('DELETE', path,  token, payload);
+    deleteReq(path, token) {
+       return this.request('DELETE', path,  token);
     }
 }
 

@@ -48,7 +48,7 @@ class Controller {
             const input = req.body;
             const id = req.params.id;
             const user = req.user;
-            const updatedEntity = await this.service.update(input, user, id);
+            const updatedEntity = await this.service.update(input, id, user);
             res.json(updatedEntity);
         } catch (error) {
             this.errorResponse(res, error)

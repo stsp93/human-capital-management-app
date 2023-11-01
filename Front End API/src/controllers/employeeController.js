@@ -7,15 +7,15 @@ const router = require('express').Router();
 
 router.get('/:id', async (req, res) => {
         try {
-                const employeeId = req.params.id
+                const employeeId = req.params.id;
 
                 const employee = await employeeService.getById(employeeId, req.token);
                 employee.activePosition = await positionService.getById(employeeId, req.token);
-                employee.activePosition ?? (employee.department = await departmentService.getById(employee.activePosition?.departmentId, req.token));
+                // Check if active position and get Department name
+                employee.department = await departmentService.getById(employee.activePosition?.departmentId , req.token);
                 employee.prevPositions = await positionService.getPrevPositions(employeeId, req.token);
-
                 // Check if allowed to edit info
-                if (req.user.role !== 'user' || req.user.employeeId === employee._id) {
+                if (req.user.role !== 'user' || req.user.employeeId === employeeId) {
                         employee.allowEdit = true;
                 }
 
@@ -31,14 +31,14 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
         try {
                 if (!req.query.page) req.query.page = 1;
-                const employees = await employeeService.getAll(req.query, req.token)
+                const employees = await employeeService.getAll(req.query, req.token);
                 // Get positions
                 const positions = await Promise.all(employees.results.map((emp) => positionService.getById(emp._id, req.token)));
                 employees.results.forEach((emp, i) => {
                         emp.position = positions[i];
                 });
                 // get departments
-                const departments = await Promise.all(positions.map((pos) => departmentService.getById(pos.departmentId, req.token)));
+                const departments = await Promise.all(positions.map((pos) => departmentService.getById(pos.departmentId , req.token)));
                 employees.results.forEach((emp, i) => {
                         emp.position.department = departments[i];
                 });
@@ -50,6 +50,28 @@ router.get('/', async (req, res) => {
                 res.render('tables/employeesList', { error });
         }
 })
+
+router.get('/:id/edit', async (req, res) => {
+        try {
+                const employee = await employeeService.getById(req.params.id, req.token);
+                res.render('forms/employeeEdit', {employee});
+        } catch(error) {
+                console.log(error);
+                res.render('details/employeeDetailsView', { error });
+        }
+});
+
+router.post('/:id/edit', async (req, res) => {
+        try {
+                const input = req.body;
+                const employee = await employeeService.edit(req.params.id,input, req.token);
+
+                res.redirect(`/employees/${req.params.id}`)
+        } catch(error) {
+                console.log(error);
+                res.render('forms/employeeEdit', {error, employee: req.body});
+        }
+});
 
 
 
