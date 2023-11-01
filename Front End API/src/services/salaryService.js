@@ -1,4 +1,5 @@
 const { toQueryString } = require('../helpers/pagination');
+const { checkEmptyFields } = require('../helpers/validation');
 const Requester = require('./Requester');
 
 class SalaryService extends Requester {
@@ -9,6 +10,7 @@ class SalaryService extends Requester {
             'getById': (id) => `/salary/${id}`,
             'addBonus': (bonusId) => `/salary/${bonusId}/addBonus`,
             'removeBonus': (salaryId,bonusId) =>  `/salary/${salaryId}/removeBonus?bonusId=${bonusId}`,
+            'main': `/salary/`
         }
     }
 

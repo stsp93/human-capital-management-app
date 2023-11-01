@@ -9,7 +9,7 @@
     </div>
     <div class="col d-flex flex-column justify-content-start align-items-end">
       {{#requireManager user.role}}
-        <a href="/reviews/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5"><i
+        <a href="/reviews/{{review._id}}/edit" class="btn btn-edit btn-cta rounded-5"><i
             class="fa-solid fa-wrench"
           ></i>
           Edit Infomation</a>
@@ -20,18 +20,18 @@
   <div class="row">
     <div class="col">
       <p><strong>Employee:</strong> <a class="details-link" href="/employees/{{employee._id}}">{{employee.name}}</a></p>
-      <p><strong>Rating:</strong> {{rating}}/10</p>
+      <p><strong>Rating:</strong> {{review.rating}}/10</p>
     </div>
     <div class="col">
       <div>
         <p><strong>Reviewer:</strong> <a class="details-link" href="/employees/{{reviewer._id}}">{{reviewer.name}}</a></p>
-        <p><strong>Date:</strong> {{formatDate date}}</p>
+        <p><strong>Date(dd/mm/yy):</strong> {{formatDate review.date}}</p>
       </div>
     </div>
   </div>
   <div class="row">
     <h5>Comments:</h5>
-    <p>{{comments}}</p>
+    <p>{{review.comments}}</p>
   </div>
   {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">

@@ -6,6 +6,7 @@ const router = require('express').Router();
 
 const showAll = async (req, res) => {
         try {
+                if (!req.query.page) req.query.page = 1;
                 const reviews = await reviewsService.getAll(req.query, req.token);
                 attachPaginationHrefs(reviews, req.query);
                 res.render('tables/reviewsList', { reviews });
@@ -20,9 +21,9 @@ const showDetails = async (req, res) => {
         try {
                 const reviewId = req.params.id
                 const review = await reviewsService.getById(reviewId, req.token);
-                review.employee = await employeeService.getById(review.employeeId, req.token)
-                review.reviewer = await employeeService.getById(review.reviewerId, req.token)
-                res.render('details/reviewDetailsView', review);
+                const employee = await employeeService.getById(review.employeeId, req.token)
+                const reviewer = await employeeService.getById(review.reviewerId, req.token)
+                res.render('details/reviewDetailsView', {review, employee,reviewer});
         } catch (error) {
                 console.log(error);
                 res.render('details/reviewDetailsView', { error });

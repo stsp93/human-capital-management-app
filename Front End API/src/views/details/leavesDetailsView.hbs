@@ -25,8 +25,8 @@
       <div class="col">
         <div>
           <p><strong>Leave Type:</strong> {{type}}</p>
-          <p><strong>Start Date:</strong> {{formatDate startDate}}</p>
-          <p><strong>End Date:</strong> {{formatDate endDate}}</p>
+          <p><strong>Start Date(dd/mm/yy):</strong> {{formatDate startDate}}</p>
+          <p><strong>End (dd/mm/yy):</strong> {{formatDate endDate}}</p>
           <p><strong>Rejected/Approved:</strong> {{status}}</p>
           {{#leaveNotResolved status}}
                     {{#requireManager user.role}}

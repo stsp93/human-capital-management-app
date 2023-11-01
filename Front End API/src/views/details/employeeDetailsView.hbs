@@ -34,7 +34,7 @@
           {{#if activePosition._id}}
           <p><strong>Department:</strong> {{department.name}}</p>
           <p><strong>Position:</strong> {{activePosition.name}}</p>
-          <p><strong>Start Date:</strong> {{formatDate activePosition.startDate}}</p>
+          <p><strong>Start Date(dd/mm/yy):</strong> {{formatDate activePosition.startDate}}</p>
           {{/if}}
           {{#if salary}}
           <p><strong>Salary:</strong> {{salary.salary}} {{salary.currency}}</p>

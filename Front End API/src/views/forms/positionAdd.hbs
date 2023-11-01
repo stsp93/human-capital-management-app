@@ -1,0 +1,78 @@
+<div class="container details bg-white p-5 rounded-4">
+  <h3>Edit Position</h3>
+  <form class="container p-4 m-auto" action="" method="POST">
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="employeeName" class="form-label">Employee Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="employeeName"
+          name="employeeName"
+          value="{{employee.name}}"
+          disabled
+        />
+      </div>
+
+      <div class="col mb-3">
+        <label for="rating" class="form-label">Department</label>
+        <select name="rating" id="rating" class="form-control">
+
+          {{#generateNameOptions
+            departments.results position.departmentId
+          }}{{/generateNameOptions}}
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="name" class="form-label">Position</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          value="{{position.name}}"
+        />
+      </div>
+      <div class="col mb-3">
+        <label for="startDate" class="form-label">Start Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          name="startDate"
+          value="{{inputDate position.startDate}}"
+        />
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <h3>Salary</h3>
+    </div>
+    <div class="row">
+      <div class="col mb-3">
+        <h5 class="mb-3">Amount: {{salary.amount}} {{salary.currency}}</h5>
+        {{#if salary.bonuses.length}}
+        <hr>
+        <h6 class="fw-bold">Bonuses:</h6>
+          {{#each salary.bonuses}}
+            <p>{{bonusType}}, {{amount}} {{../salary.currency}}</p>
+          {{/each}}
+        {{/if}}
+      </div>
+
+      <div class="col mb-3">
+        <a href="/salary/{{salary._id}}/edit">Change Salary</a>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Save
+      Changes</button>
+  </form>
+
+</div>

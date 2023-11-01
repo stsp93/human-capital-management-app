@@ -1,0 +1,44 @@
+        <div class="container details bg-white p-5 rounded-4">
+            <h3>Add New Employee</h3>
+            <form class="container p-4 m-auto" method="POST">
+                <div class="row">
+                    
+                    <div class="col mb-3">
+                        <label for="name" class="form-label">Employee Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                    
+                    <div class="col mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    
+                    <div class="col mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
+                    </div>
+                    
+                    <div class="col mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address">
+                    </div>
+                </div>
+
+                {{!-- <div class="row">
+                    
+                    <div class="col mb-3">
+                        <label for="amount" class="form-label">Salary Amount</label>
+                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter Salary Amount">
+                    </div>
+                    <div class="col"></div>
+
+                </div> --}}
+                
+            
+                <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Create Employee</button>
+            </form>
+            
+        </div>

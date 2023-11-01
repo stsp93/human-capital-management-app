@@ -3,10 +3,10 @@
   <div class="content-header d-flex justify-content-between">
     <h3 class="content-title">Employees List</h3>
     {{#requireManager user.role}}
-      <button class="btn btn-primary btn-add rounded-5">
+      <a href="/employees/add" class="btn btn-primary btn-add rounded-5">
         <i class="fa-solid fa-user-plus"></i>
         Add New Employee
-      </button>
+      </a>
     {{/requireManager}}
   </div>
   <!-- table -->

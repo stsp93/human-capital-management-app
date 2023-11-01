@@ -1,7 +1,9 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
+const { checkEmptyFields } = require('../helpers/validation');
 const departmentService = require('../services/departmentService');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
+const salaryService = require('../services/salaryService');
 const router = require('express').Router();
 
 
@@ -73,9 +75,30 @@ const edit = async (req, res) => {
         }
 };
 
+const showAdd = async (req,res) => {
+        try {
+                res.render('forms/employeeAdd');
+        }catch(error) {
+                console.log(error);
+                res.render('forms/employeeAdd', {error});
+        }
+}
 
-router.get('/:id', showDetails);
+const add = async (req,res) => {
+        try {
+                await employeeService.add(req.body, req.token);
+                res.redirect('/employees/')
+        }catch(error) {
+                console.log(error);
+                res.render('forms/employeeAdd', {input: req.body,error});
+        }
+}
+
+
+router.get('/add',showAdd);
+router.post('/add',add);
 router.get('/',showAll);
+router.get('/:id', showDetails);
 router.get('/:id/edit',showEdit);
 router.post('/:id/edit',edit);
 

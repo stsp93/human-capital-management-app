@@ -1,4 +1,5 @@
 const { toQueryString } = require('../helpers/pagination');
+const { checkEmptyFields } = require('../helpers/validation');
 const Requester = require('./Requester');
 
 class EmployeeService extends Requester {
@@ -7,6 +8,7 @@ class EmployeeService extends Requester {
         this.endpoints = {
             'getAll':(query) =>  `/employees?${query}`,
             'getById':(id) => `/employees/${id}`,
+            'main': `/employees/`,
         }
     }
 
@@ -24,6 +26,12 @@ class EmployeeService extends Requester {
     async edit(id, input, token) {
         if(!id) return;
         const employee = await this.putReq(this.endpoints.getById(id),input,token);
+        return employee;
+    }
+
+    async add(input, token) {
+        checkEmptyFields(input);
+        const employee = await this.postReq(this.endpoints.main,input,token);
         return employee;
     }
 }
