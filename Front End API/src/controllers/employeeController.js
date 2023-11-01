@@ -95,9 +95,22 @@ const add = async (req,res) => {
 }
 
 
+const showAddPosition = async (req, res) => {
+        const employee = await employeeService.getById(req.params.id, req.token);
+        const departments = await departmentService.getAll({ limit: 0 }, req.token);
+        try {
+                res.render('forms/positionAdd', { departments , salary});
+        } catch (error) {
+                console.log(error);
+                res.render('forms/positionAdd', { error, input: req.body , departments, employee});
+        }
+}
+
+
 router.get('/add',showAdd);
 router.post('/add',add);
 router.get('/',showAll);
+router.get('/:id/add', showAddPosition);
 router.get('/:id', showDetails);
 router.get('/:id/edit',showEdit);
 router.post('/:id/edit',edit);
