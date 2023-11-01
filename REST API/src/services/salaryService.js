@@ -25,16 +25,14 @@ class SalaryService extends Service {
 
   async addBonus(salaryId, bonus) {
     let error = '';
-    if (!bonus.type) error += 'Specify bonus type. ';
+    if (!bonus.bonusType) error += 'Specify bonus type. ';
     if (!bonus.amount) error += 'Specify bonus amount.';
     if(error) throw new CustomError(error);
-    return await this.model.findByIdAndUpdate(salaryId, { $push: { bonuses:{type:bonus.type,amount: bonus.amount} } }, { new: true });
+    return await this.model.findByIdAndUpdate(salaryId, { $push: { bonuses:{bonusType:bonus.bonusType,amount: bonus.amount} } }, { new: true });
   }
 
   async removeBonus(salaryId, bonusId) {
-    console.log(await this.model.findById(salaryId));
-    console.log(bonusId);
-    if (!bonusId) throw new CustomError('Specify bonus id');
+   if (!bonusId) throw new CustomError('Specify bonus id');
     return await this.model.findByIdAndUpdate(salaryId, { $pull: { bonuses: { _id: bonusId } } });
 
   }

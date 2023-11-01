@@ -31,7 +31,6 @@ router.get('/:id/edit', async (req, res) => {
             const employee = await employeeService.getById(position.employeeId, req.token);
             const departments = await departmentService.getAll({limit:100}, req.token);
             const salary = await salaryService.getById(position.salaryId, req.token);
-            // console.log(salary);
             res.render('forms/positionEdit', {position, departments ,employee, salary});
     }catch(error) {
             console.log(error);

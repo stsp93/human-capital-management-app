@@ -8,7 +8,11 @@ const salarySchema = new Schema({
   },
   bonuses: [
     {
-      type: {
+      _id: {
+        type:Types.ObjectId,
+        default: new Types.ObjectId(),
+      },
+      bonusType: {
         type: String,
       },
       amount: {

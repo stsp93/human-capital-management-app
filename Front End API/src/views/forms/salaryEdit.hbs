@@ -33,7 +33,7 @@
       {{#each salary.bonuses}}
         <li class="list-group-item d-flex justify-content-between">
           <div>
-            <p><strong>Type:</strong> {{type}}</p>
+            <p><strong>Type:</strong> {{bonusType}}</p>
             <p><strong>Amount:</strong> {{amount}} {{../salary.currency}}</p>
           </div>
           <div>
@@ -51,12 +51,12 @@
   <form class="container p-4 m-auto" method="POST" action="/salary/{{salary._id}}/addBonus">
     <div class="row">
     <div class="col mb-3">
-      <label for="type" class="form-label">Type</label>
+      <label for="bonusType" class="form-label">Bonus Type</label>
       <input
         type="text"
         class="form-control"
-        id="type"
-        name="type"
+        id="bonusType"
+        name="bonusType"
         placeholder="Specify type"
       />
     </div>
