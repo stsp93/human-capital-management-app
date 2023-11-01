@@ -4,7 +4,7 @@ const employeeService = require('../services/employeeService');
 const reviewService = require('../services/reviewService');
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
+const showAll = async (req, res) => {
         try {
                 const reviews = await reviewsService.getAll(req.query, req.token);
                 attachPaginationHrefs(reviews, req.query);
@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
                 console.log(error);
                 res.render('tables/reviewsList', { error });
         }
-})
+}
 
 
-router.get('/:id', async (req, res) => {
+const showDetails = async (req, res) => {
         try {
                 const reviewId = req.params.id
                 const review = await reviewsService.getById(reviewId, req.token);
@@ -27,9 +27,9 @@ router.get('/:id', async (req, res) => {
                 console.log(error);
                 res.render('details/reviewDetailsView', { error });
         }
-})
+}
 
-router.get('/:id/edit', async (req, res) => {
+const showEdit = async (req, res) => {
         try {
                 const review = await reviewService.getById(req.params.id, req.token);
                 const employee = await employeeService.getById(review.employeeId, req.token);
@@ -45,9 +45,9 @@ router.get('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/reviewEdit', { error });
         }
-})
+}
 
-router.post('/:id/edit', async (req, res) => {
+const edit = async (req, res) => {
         try {
                 const review = await reviewService.edit(req.params.id, req.body, req.token);
 
@@ -56,7 +56,13 @@ router.post('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/reviewEdit', { error, input: req.body });
         }
-})
+}
+
+
+router.get('/', showAll);
+router.get('/:id', showDetails);
+router.get('/:id/edit', showEdit);
+router.post('/:id/edit', edit);
 
 
 module.exports = router;

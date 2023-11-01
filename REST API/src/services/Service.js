@@ -18,7 +18,7 @@ class Service {
       .find(filters || {})
       .sort({ [sort]: order })
       .limit(+limit)
-      .skip((page - 1) * limit)
+      .skip((page - 1) * limit);
     return { results, ...pagination }
   }
 

@@ -58,9 +58,9 @@
         <h5 class="mb-3">Amount: {{salary.amount}} {{salary.currency}}</h5>
         {{#if salary.bonuses.length}}
         <hr>
-        <h6 class="fw-bold">Bonuses</h6>
+        <h6 class="fw-bold">Bonuses:</h6>
           {{#each salary.bonuses}}
-            <p><strong>Type:</strong> {{type}}, {{amount}} {{../salary.currency}}</p>
+            <p>{{bonusType}}, {{amount}} {{../salary.currency}}</p>
           {{/each}}
         {{/if}}
       </div>

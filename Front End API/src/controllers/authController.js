@@ -4,15 +4,14 @@ const authLayout = { layout: 'auth.hbs' }
 
 
 
-router.get('/register', async (req, res) => {
+const showRegister = async (req, res) => {
         res.render('registerView', authLayout);
-});
-
-router.get('/login', async (req, res) => {
+};
+const showLogin = async (req, res) => {
         res.render('loginView', authLayout);
-});
+};
 
-router.post('/register', async (req, res) => {
+const register = async (req, res) => {
         const input = req.body;
         try {
                 const newUser = await authService.register(input);
@@ -22,9 +21,9 @@ router.post('/register', async (req, res) => {
                 console.log(error);
                 res.status(error.status || 400).render('registerView', { ...authLayout, error, input });
         }
-});
+};
 
-router.post('/login', async (req, res) => {
+const login = async (req, res) => {
         const input = req.body;
         try {
                 const user = await authService.login(input);
@@ -34,14 +33,20 @@ router.post('/login', async (req, res) => {
                 console.log(error);
                 res.status(error.status || 400).render('loginView', { ...authLayout, error, input });
         }
-});
+};
 
-router.get('/logout', async (req, res) => {
+const logout = async (req, res) => {
 
         await authService.logout(req.token);
         res.clearCookie('session');
         res.redirect('/');
 
-})
+}
+
+router.get('/register', showRegister)
+router.get('/login', showLogin)
+router.post('/register', register)
+router.post('/login', login)
+router.get('/logout', logout);
 
 module.exports = router

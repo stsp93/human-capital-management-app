@@ -1,9 +1,10 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
 const departmentService = require('../services/departmentService');
+const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
+const showAll= async (req, res) => {
         try {
                 const departments = await departmentService.getAll(req.query, req.token)
                 attachPaginationHrefs(departments, req.query)
@@ -12,9 +13,26 @@ router.get('/', async (req, res) => {
                 console.log(error);
                 res.render('tables/departmentsList', {error});
         }
-})
+}
 
-router.get('/:id', async (req, res) => {
+const showEmployeesInDepartment = async (req, res) => {
+        try {
+                const query = {departmentId: req.params.id}
+                const positions = await positionService.getAll(query, req.token);
+                const department = await departmentService.getById(query.departmentId, req.token);
+                const employees = await Promise.all(positions.results.map(pos => employeeService.getById(pos.employeeId, req.token)))
+                positions.results.forEach((pos, i) => {
+                    pos.employee = employees[i];
+                });
+                attachPaginationHrefs(positions, query)
+                res.render('tables/departmentEmployeeList', { positions, department });
+            } catch (error) {
+                console.log(error);
+                res.render('tables/departmentEmployeeList', { error });
+            }
+}
+
+const showDetails = async (req, res) => {
         try {
                 const departmentId = req.params.id
                 const department = await departmentService.getById(departmentId, req.token)
@@ -25,9 +43,10 @@ router.get('/:id', async (req, res) => {
                 console.log(error);
                 res.render('details/departmentDetailsView', {error});
         }
-})
+}
 
-router.get('/:id/edit', async (req, res) => {
+
+const showEdit = async (req, res) => {
         try {
                 const departmentId = req.params.id
                 const department = await departmentService.getById(departmentId, req.token)
@@ -36,9 +55,9 @@ router.get('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/departmentEdit', {error});
         }
-})
+}
 
-router.post('/:id/edit', async (req, res) => {
+const edit = async (req, res) => {
         try {
                 const department = await departmentService.edit(req.params.id, req.body,req.token);
                 res.redirect(`/departments/${department._id}`);
@@ -46,7 +65,14 @@ router.post('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/departmentEdit', {error});
         }
-})
+}
+
+router.get('/',showAll);
+router.get('/:id',showDetails) 
+router.get('/:id/employees',showEmployeesInDepartment);
+router.get('/:id/edit',showEdit) 
+router.post('/:id/edit',edit) 
+
 
 
 module.exports = router

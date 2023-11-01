@@ -5,30 +5,30 @@ const positionService = require('../services/positionService');
 const router = require('express').Router();
 
 
-router.get('/:id', async (req, res) => {
+const showDetails = async (req, res) => {
         try {
                 const employeeId = req.params.id;
 
                 const employee = await employeeService.getById(employeeId, req.token);
-                employee.activePosition = await positionService.getById(employeeId, req.token);
+                const activePosition = await positionService.getById(employeeId, req.token);
                 // Check if active position and get Department name
-                employee.department = await departmentService.getById(employee.activePosition?.departmentId , req.token);
-                employee.prevPositions = await positionService.getPrevPositions(employeeId, req.token);
+                const department = await departmentService.getById(activePosition?.departmentId , req.token);
+                const prevPositions = await positionService.getPrevPositions(employeeId, req.token);
                 // Check if allowed to edit info
                 if (req.user.role !== 'user' || req.user.employeeId === employeeId) {
                         employee.allowEdit = true;
                 }
 
-                res.render('details/employeeDetailsView', employee);
+                res.render('details/employeeDetailsView', {employee,activePosition,department,prevPositions});
         } catch (error) {
                 console.log(error);
                 if (error.status === 401) res.redirect('/auth/login');
                 res.render('details/employeeDetailsView', { error });
         }
-});
+};
 
 
-router.get('/', async (req, res) => {
+const showAll = async (req, res) => {
         try {
                 if (!req.query.page) req.query.page = 1;
                 const employees = await employeeService.getAll(req.query, req.token);
@@ -49,9 +49,9 @@ router.get('/', async (req, res) => {
                 console.log(error);
                 res.render('tables/employeesList', { error });
         }
-})
+}
 
-router.get('/:id/edit', async (req, res) => {
+const showEdit = async (req, res) => {
         try {
                 const employee = await employeeService.getById(req.params.id, req.token);
                 res.render('forms/employeeEdit', {employee});
@@ -59,9 +59,9 @@ router.get('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('details/employeeDetailsView', { error });
         }
-});
+};
 
-router.post('/:id/edit', async (req, res) => {
+const edit = async (req, res) => {
         try {
                 const input = req.body;
                 const employee = await employeeService.edit(req.params.id,input, req.token);
@@ -71,7 +71,14 @@ router.post('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/employeeEdit', {error, employee: req.body});
         }
-});
+};
+
+
+router.get('/:id', showDetails);
+router.get('/',showAll);
+router.get('/:id/edit',showEdit);
+router.post('/:id/edit',edit);
+
 
 
 

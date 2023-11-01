@@ -3,7 +3,7 @@ const leaveService = require('../services/leaveService');
 const employeeService = require('../services/employeeService');
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
+const showAll = async (req, res) => {
     try {
         if (!req.query.page) req.query.page = 1;
         const leaves = await leaveService.getAll(req.query, req.token)
@@ -13,9 +13,9 @@ router.get('/', async (req, res) => {
         console.log(error);
         res.render('tables/leavesList', { error });
     }
-});
+};
 
-router.get('/:id', async (req, res) => {
+const showDetails = async (req, res) => {
     try {
         const leaveId = req.params.id;
         const leave = await leaveService.getById(leaveId, req.token);
@@ -28,9 +28,9 @@ router.get('/:id', async (req, res) => {
         console.log(error);
         res.render('details/leavesDetailsView', { error });
     }
-})
+}
 
-router.get('/:id/:status(approved|rejected)', async (req, res) => {
+const resolve = async (req, res) => {
     try {
         const id = req.params.id
         const status = req.params.status
@@ -40,9 +40,10 @@ router.get('/:id/:status(approved|rejected)', async (req, res) => {
         console.log(error);
         res.render('details/leavesDetailsView', { error });
     }
-});
+};
 
-router.get('/:id/edit', async (req, res) => {
+ 
+const showEdit = async (req, res) => {
     try {
             const leave = await leaveService.getById(req.params.id, req.token);
             const employee = await employeeService.getById(leave.employeeId, req.token);
@@ -52,9 +53,9 @@ router.get('/:id/edit', async (req, res) => {
             console.log(error);
             res.render('forms/leaveEdit', {error});
     }
-})
+}
 
-router.post('/:id/edit', async (req, res) => {
+ const edit = async (req, res) => {
     try {
             const leave = await leaveService.edit(req.params.id,req.body, req.token)
             res.redirect(`/leaves/${leave._id}`)
@@ -62,6 +63,13 @@ router.post('/:id/edit', async (req, res) => {
             console.log(error);
             res.render('forms/leaveEdit', {error,leave:req.body});
     }
-})
+}
+
+router.get('/',showAll) ;
+router.get('/:id',showDetails) 
+router.post('/:id/edit',edit)
+
+router.get('/:id/:status(approved|rejected)',resolve) 
+router.get('/:id/edit',showEdit)
 
 module.exports = router;

@@ -3,7 +3,7 @@ const salaryService = require('../services/salaryService');
 const router = require('express').Router();
 
 
-router.get('/:id/edit', async (req, res) => {
+const showEdit = async (req, res) => {
         try {
                 const salary = await salaryService.getById(req.params.id, req.token);
                 const currencies = ['USD', "BGN", "EUR"];
@@ -12,9 +12,9 @@ router.get('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/salaryEdit', { error });
         }
-})
+}
 
-router.post('/:id/edit', async (req, res) => {
+const edit = async (req, res) => {
         try {
                 const salary = await salaryService.edit(req.params.id, req.body, req.token);
                 const position = await positionService.getAll({salaryId: salary._id}, req.token);
@@ -24,9 +24,9 @@ router.post('/:id/edit', async (req, res) => {
                 console.log(error);
                 res.render('forms/salaryEdit', { error, input: req.body });
         }
-})
+}
 
-router.post('/:id/addBonus', async (req, res) => {
+const addBonus = async (req, res) => {
     try {
             const salary = await salaryService.addBonus(req.params.id, req.body, req.token);
             res.redirect(`/salary/${req.params.id}/edit`);
@@ -34,9 +34,9 @@ router.post('/:id/addBonus', async (req, res) => {
             console.log(error);
             res.redirect(`/salary/${req.params.id}/edit`);
     }
-})
+}
 
-router.get('/:id/removeBonus', async (req, res) => {
+const removeBonus = async (req, res) => {
     try {
             const salary =await salaryService.getById(req.params.id, req.token);
             const bonusId = req.query.bonusId
@@ -46,7 +46,12 @@ router.get('/:id/removeBonus', async (req, res) => {
             console.log(error);
             res.redirect(`/salary/${req.params.id}/edit`);
     }
-})
+}
 
+
+router.get('/:id/edit',showEdit) 
+router.post('/:id/edit',edit) 
+router.post('/:id/addBonus',addBonus) 
+router.get('/:id/removeBonus',removeBonus) 
 
 module.exports = router;

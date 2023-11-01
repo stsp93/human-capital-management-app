@@ -3,20 +3,20 @@
       <div class="col d-flex gap-3 align-items-end">
         <span class="details-icon"><i class="far fa-circle-user"></i></span>
         <div>
-          <h2>{{name}}</h2>
+          <h2>{{employee.name}}</h2>
           
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
-        {{#if allowEdit}}
-        <a href="/employees/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5 {{#unless email}}blink{{/unless}}"
+        {{#if employee.allowEdit}}
+        <a href="/employees/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5 {{#unless employee.email}}blink{{/unless}}"
           ><i class="fa-solid fa-wrench"></i> Edit Infomation</a
         >
         {{/if}}
         {{#requireManager user.role}}
-        <a href="/positions/{{_id}}/add" class="btn action-link">Assign new Position</a>
+        <a href="/positions/{{employee._id}}/add" class="btn action-link">Assign new Position</a>
         {{#if activePosition._id}}
-        <a href="/positions/{{_id}}/edit" class="btn action-link">Edit current Position</a>
+        <a href="/positions/{{employee._id}}/edit" class="btn action-link">Edit current Position</a>
         {{/if}}
         {{/requireManager}}
       </div>
@@ -24,9 +24,9 @@
     <hr />
     <div class="row">
       <div class="col">
-        <p><strong>Email:</strong> {{email}}</p>
-        <p><strong>Phone:</strong> {{phone}}</p>
-        <p><strong>Address:</strong> {{address}}</p>
+        <p><strong>Email:</strong> {{employee.email}}</p>
+        <p><strong>Phone:</strong> {{employee.phone}}</p>
+        <p><strong>Address:</strong> {{employee.address}}</p>
 
       </div>
       <div class="col">

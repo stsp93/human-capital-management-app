@@ -4,7 +4,12 @@ const errorHandler = require("../utilities/errorHandler");
 
 module.exports = () => async (req, res, next) => {
     const token = req.headers['jwt-auth'];
-    console.log(req.originalUrl);
+    console.log(req.method+' ' +req.originalUrl);
+    if(Object.keys(req.body).length){
+        console.log('--- body ---');
+        console.log(req.body);
+        console.log('--- body ---');
+    }
     if (token) {
         try {
             const user = await verifyToken(token);
