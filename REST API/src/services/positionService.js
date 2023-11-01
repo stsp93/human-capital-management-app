@@ -2,6 +2,7 @@ const Position = require("../models/Position");
 const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 const { QUERY_DEFAULTS } = require('../config/constants')
 const Service = require("./Service");
+const salaryService = require("./salaryService");
 
 class PositionService extends Service {
   constructor() {
@@ -44,13 +45,35 @@ class PositionService extends Service {
 
   async create(position) {
     // Change recent active position to inactive and set end date
-    const recentPosition = await this.model.findOne({ employee: position.employeeId, active: true }).exec();
-    recentPosition.active = false;
-    recentPosition.endDate = position.startDate;
-    recentPosition.save();
+    const recentPosition = await this.model.findOne({ employeeId: position.employeeId, active: true }).exec();
+    if(recentPosition) {
+      recentPosition.active = false;
+      recentPosition.endDate = position.startDate;
+    }
+    
+    let newPosition;
+    const newSalary = await salaryService.create({});
+    position.salaryId = newSalary._id;
+    try {
+      // Create new position
+      newPosition = await this.model.create(position);
+      recentPosition?.save();
 
-    // Create new position
-    return await this.model.create(position);
+    }catch(error) {
+      await salaryService.deleteById(newSalary._id);
+      throw error;
+    }
+
+    return newPosition;
+  }
+
+  async update( input, id) {
+    const position = await this.model.findOne({employeeId: id, active: true});
+    if (position === null) throw new CustomError('Position not found', 404)
+
+    Object.assign(position, input);
+    await position.save();
+    return position;
   }
 }
 module.exports = new PositionService()

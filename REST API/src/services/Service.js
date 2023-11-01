@@ -33,6 +33,7 @@ class Service {
   }
 
   async update( input, id) {
+    console.log(id);
     const entity = await this.model.findById(id);
     if (entity === null) throw new CustomError('Entity not found', 404)
 

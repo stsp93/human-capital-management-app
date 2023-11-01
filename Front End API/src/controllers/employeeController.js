@@ -13,6 +13,7 @@ const showDetails = async (req, res) => {
 
                 const employee = await employeeService.getById(employeeId, req.token);
                 const activePosition = await positionService.getById(employeeId, req.token);
+                const salary = await salaryService.getById(activePosition?.salaryId, req.token);
                 // Check if active position and get Department name
                 const department = await departmentService.getById(activePosition?.departmentId , req.token);
                 const prevPositions = await positionService.getPrevPositions(employeeId, req.token);
@@ -21,7 +22,7 @@ const showDetails = async (req, res) => {
                         employee.allowEdit = true;
                 }
 
-                res.render('details/employeeDetailsView', {employee,activePosition,department,prevPositions});
+                res.render('details/employeeDetailsView', {employee,activePosition,department,prevPositions, salary});
         } catch (error) {
                 console.log(error);
                 if (error.status === 401) res.redirect('/auth/login');
@@ -44,7 +45,7 @@ const showAll = async (req, res) => {
                 employees.results.forEach((emp, i) => {
                         emp.position.department = departments[i];
                 });
-
+                
                 attachPaginationHrefs(employees, req.query);
                 res.render('tables/employeesList', { employees });
         } catch (error) {
@@ -95,22 +96,11 @@ const add = async (req,res) => {
 }
 
 
-const showAddPosition = async (req, res) => {
-        const employee = await employeeService.getById(req.params.id, req.token);
-        const departments = await departmentService.getAll({ limit: 0 }, req.token);
-        try {
-                res.render('forms/positionAdd', { departments , salary});
-        } catch (error) {
-                console.log(error);
-                res.render('forms/positionAdd', { error, input: req.body , departments, employee});
-        }
-}
 
 
 router.get('/add',showAdd);
 router.post('/add',add);
 router.get('/',showAll);
-router.get('/:id/add', showAddPosition);
 router.get('/:id', showDetails);
 router.get('/:id/edit',showEdit);
 router.post('/:id/edit',edit);

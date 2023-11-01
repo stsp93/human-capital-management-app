@@ -34,7 +34,7 @@ function formatDate(dateString) {
     const selected = value === selectedValue ? 'selected' : '';
     return `<option value="${value}" ${selected}>${text}</option>`;
   });
-  return options.join('');
+  return options?.join('');
 }
 
   function inputDate(dateString) {
