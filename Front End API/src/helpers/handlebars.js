@@ -11,7 +11,7 @@ function formatDate(dateString) {
   }
 
   function requireManager(role, options) {
-    return role === 'admin' || role ==='manager' ? options.fn(this) : options.inverse(this);
+    return role !== 'user' ? options.fn(this) : options.inverse(this);
   }
 
   function leaveNotResolved(status, options) {

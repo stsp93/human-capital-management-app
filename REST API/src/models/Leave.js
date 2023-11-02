@@ -21,7 +21,7 @@ const leaveSchema = new Schema({
       validator: function(value) {
         return value > this.startDate;
       },
-      message: 'endDate should be before than startDate',
+      message: 'endDate should be after than startDate',
     },
   },
   status: {

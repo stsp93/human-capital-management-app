@@ -77,7 +77,7 @@ const add = async (req, res) => {
                 res.redirect(`/departments/`);
         }catch(error) {
                 console.log(error)
-                res.render('forms/departmentAdd', {department: res.body})
+                res.render('forms/departmentAdd', {department: res.body, error})
         }
 }
 

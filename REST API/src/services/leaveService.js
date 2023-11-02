@@ -57,7 +57,9 @@ class LeaveService extends Service {
   }
 
   async create(input, user) {
-    input.employeeId = user.employeeId;
+    if(user.role === 'user') {
+      input.employeeId = user.employeeId;
+    }
     input.status = 'pending';
 
     return await this.model.create(input);

@@ -11,11 +11,13 @@ class Service {
       limit = QUERY_DEFAULTS.limit,
       sort = QUERY_DEFAULTS.sort,
       order = QUERY_DEFAULTS.order,
+      search = QUERY_DEFAULTS.search,
       ...filters } = query;
     const pagination = await this.createPagination(page, limit, query);
 
     const results = await this.model
       .find(filters || {})
+      .find({ name: { $regex: new RegExp(search,'gi') }})
       .sort({ [sort]: order })
       .limit(+limit)
       .skip((page - 1) * limit);

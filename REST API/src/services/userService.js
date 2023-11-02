@@ -9,7 +9,6 @@ const { promisify } = require('util');
 const tokenBlacklist = new Set();
 const jwtSignAsync = promisify(jwt.sign);
 const jwtVerifyAsync = promisify(jwt.verify);
-
 class UserService extends Service {
   constructor() {
     super(User);
