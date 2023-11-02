@@ -4,11 +4,7 @@ const employeeService = require('../services/employeeService');
 const reviewService = require('../services/reviewService');
 const router = require('express').Router();
 
-
-const ratings = []
-for (let i = 0; i < 10; i++) {
-        ratings[i] = String(i + 1);
-}
+const ratings = reviewService.getRatings();
 
 const showAll = async (req, res) => {
         try {
@@ -27,7 +23,7 @@ const getReviewData = async (reviewId, token) => {
         const employee = await employeeService.getById(review.employeeId, token)
         const reviewer = await employeeService.getById(review.reviewerId, token)
 
-        return {review, employee, reviewer}
+        return { review, employee, reviewer }
 }
 
 
@@ -44,7 +40,7 @@ const showDetails = async (req, res) => {
 const showEdit = async (req, res) => {
         try {
                 const reviewData = await getReviewData(req.params.id, req.token)
-                res.render('forms/reviewEdit', { ratings,...reviewData});
+                res.render('forms/reviewEdit', { ratings, ...reviewData });
         } catch (error) {
                 console.log(error);
                 res.render('forms/reviewEdit', { error });
@@ -58,7 +54,7 @@ const edit = async (req, res) => {
         } catch (error) {
                 console.log(error);
                 const reviewData = await getReviewData(req.params.id, req.token);
-                res.render('forms/reviewEdit', { error, ratings,...reviewData});
+                res.render('forms/reviewEdit', { error, ratings, ...reviewData });
         }
 }
 
@@ -101,6 +97,18 @@ const add = async (req, res) => {
                 res.render('forms/reviewAdd', { error, review: req.body, reviewer, employees, ratings });
         }
 }
+
+const remove = async (req, res) => {
+        try {
+                await reviewService.remove(req.params.id, req.token);
+                const message = 'Successfully removed'
+                res.redirect('/reviews')
+        } catch (error) {
+                console.log(error);
+                res.redirect(`/reviews?err=${error}`)
+        }
+}
+router.get('/:id/delete', remove);
 
 router.get('/', showAll);
 router.get('/add', showAdd);

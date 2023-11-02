@@ -38,7 +38,7 @@ const showDetails = async (req, res) => {
                 const department = await departmentService.getById(departmentId, req.token)
                 const totalEmployees = await positionService.totalActiveInDepartment(departmentId, req.token)
                 department.totalEmployees = totalEmployees;
-                res.render('details/departmentDetailsView', department);
+                res.render('details/departmentDetailsView', {department});
         }catch(error) {
                 console.log(error);
                 res.render('details/departmentDetailsView', {error});
@@ -80,6 +80,18 @@ const add = async (req, res) => {
                 res.render('forms/departmentAdd', {department: res.body, error})
         }
 }
+
+const remove = async (req, res) => {
+        try {
+                await departmentService.remove(req.params.id, req.token);
+                const message = 'Successfully removed'
+                res.redirect('/departments')
+        } catch (error) {
+                console.log(error);
+                res.redirect(`/departments?err=${error}`)
+        }
+}
+router.get('/:id/delete', remove);
 
 router.get('/',showAll);
 router.get('/add',showAdd);

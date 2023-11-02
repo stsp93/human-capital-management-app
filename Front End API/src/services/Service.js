@@ -2,7 +2,7 @@ const { toQueryString } = require('../helpers/pagination');
 const { checkEmptyFields } = require('../helpers/validation');
 const Requester = require("./Requester");
 
-module.exports = class Service extends Requester{
+class Service extends Requester{
     constructor() {
         super();
     }
@@ -34,3 +34,6 @@ module.exports = class Service extends Requester{
         return await this.deleteReq(this.endpoints.getById(id),token);
     }
 }
+
+
+module.exports = Service;

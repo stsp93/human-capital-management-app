@@ -4,14 +4,14 @@
       <div class="col d-flex gap-3 align-items-end">
         <span><i class="fa-solid fa-people-roof fa-6x"></i></span>
         <div>
-          <h2>{{name}}</h2>
-          <h5><strong>Total Employees:</strong> {{totalEmployees}}</h5>
-          <a class="link" href="/positions?departmentId={{_id}}">Check Employees <i class="fa-solid fa-arrow-right"></i></a>
+          <h2>{{department.name}}</h2>
+          <h5><strong>Total Employees:</strong> {{department.totalEmployees}}</h5>
+          <a class="link" href="/departments/{{department._id}}/employees">Check Employees <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
         {{#requireManager user.role}}
-        <a href="/departments/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5"
+        <a href="/departments/{{department._id}}/edit" class="btn btn-edit btn-cta rounded-5"
           ><i class="fa-solid fa-wrench"></i> Edit Infomation</a
         >
         {{/requireManager}}
@@ -26,7 +26,9 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+      <a href="/departments/{{department._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
     </div>
     {{/requireAdmin}}
   </div>
+
+  <script src="/js/confirmDelete.js"></script>

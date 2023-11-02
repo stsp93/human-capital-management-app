@@ -1,8 +1,8 @@
 const { toQueryString } = require('../helpers/pagination');
 const { checkEmptyFields } = require('../helpers/validation');
-const Requester = require('./Requester');
+const Service = require('./Service');
 
-class EmployeeService extends Requester {
+class EmployeeService extends Service {
     constructor() {
         super();
         this.endpoints = {
@@ -10,29 +10,6 @@ class EmployeeService extends Requester {
             'getById':(id) => `/employees/${id}`,
             'main': `/employees/`,
         }
-    }
-
-    async getById(id,token) {
-        if(!id) return;
-        const employee = await this.getReq(this.endpoints.getById(id),token);
-        return employee;
-    }
-    async getAll(query,token) {
-        const queryString = toQueryString(query)
-        const employees = await this.getReq(this.endpoints.getAll(queryString),token);
-        return employees;
-    }
-
-    async edit(id, input, token) {
-        if(!id) return;
-        const employee = await this.putReq(this.endpoints.getById(id),input,token);
-        return employee;
-    }
-
-    async add(input, token) {
-        checkEmptyFields(input);
-        const employee = await this.postReq(this.endpoints.main,input,token);
-        return employee;
     }
 }
 

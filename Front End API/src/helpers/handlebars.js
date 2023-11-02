@@ -20,7 +20,7 @@ function formatDate(dateString) {
 
   function generateOptions(values, selectedValue) {
     const options = values.map(value => {
-      const selected = value === selectedValue ? 'selected' : '';
+      const selected = value == selectedValue ? 'selected' : '';
       return `<option value="${value}" ${selected}>${value}</option>`;
     });
 
@@ -31,7 +31,7 @@ function formatDate(dateString) {
   const options = data?.map(obj => {
     const value = obj._id;
     const text = obj.name;
-    const selected = value === selectedValue ? 'selected' : '';
+    const selected = value == selectedValue ? 'selected' : '';
     return `<option value="${value}" ${selected}>${text}</option>`;
   });
   return options?.join('');

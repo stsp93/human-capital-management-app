@@ -96,6 +96,7 @@ const remove = async (req, res) => {
         res.redirect(`/leaves?err=${error}`)
     }
 }
+router.get('/:id/delete', remove);
 
 router.get('/', showAll);
 router.get('/add', showAdd);
@@ -103,7 +104,6 @@ router.post('/add', add);
 router.post('/findEmployee', findEmployee);
 router.get('/:id', showDetails)
 router.post('/:id/edit', edit)
-router.get('/:id/delete', remove);
 
 router.get('/:id/:status(approved|rejected)', resolve)
 router.get('/:id/edit', showEdit)

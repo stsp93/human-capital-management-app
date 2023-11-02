@@ -1,8 +1,7 @@
 const { toQueryString } = require('../helpers/pagination');
-const { checkEmptyFields } = require('../helpers/validation');
-const Requester = require('./Requester');
+const Service = require('./Service');
 
-class SalaryService extends Requester {
+class SalaryService extends Service {
     constructor() {
         super();
         this.endpoints = {

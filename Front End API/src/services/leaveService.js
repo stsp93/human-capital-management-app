@@ -1,5 +1,3 @@
-const { toQueryString } = require('../helpers/pagination');
-
 const Service = require('./Service');
 
 class LeaveService extends Service {

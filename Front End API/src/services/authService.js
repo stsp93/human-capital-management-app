@@ -1,6 +1,7 @@
-const Requester = require('./Requester');
+const { checkEmptyFields } = require('../helpers/validation');
+const Service = require('./Service');
 
-class UserService extends Requester {
+class UserService extends Service {
     constructor() {
         super();
         this.endpoints = {
@@ -10,21 +11,16 @@ class UserService extends Requester {
         }
     }
 
-    checkInput(input) {
-        if(Object.values(input).some(v => v==='')) {
-            throw new Error('Please fill all fields');
-        }
-    }
 
     async login(input) {
-        this.checkInput(input);
+        checkEmptyFields(input);
 
         const user = await this.postReq(this.endpoints.login, input);
         return user;
     }
     
     async register(input) {
-        this.checkInput(input);
+        checkEmptyFields(input);
 
         if (input.password !== input.rePassword) throw new Error('Passwords don\'t match');
         const user = await this.postReq(this.endpoints.register, input);
