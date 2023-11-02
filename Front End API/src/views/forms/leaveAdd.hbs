@@ -1,18 +1,14 @@
 <div class="container details bg-white p-5 rounded-4">
-  <h3>Edit Leave</h3>
+  <h3>Request Leave</h3>
   <form class="container p-4 m-auto" action="" method="POST">
     <div class="row">
 
       <div class="col mb-3">
-        <label for="employeeName" class="form-label">Employee Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="employeeName"
-          name="employeeName"
-          value="{{leave.employee.name}}"
-          disabled
-        />
+        <label for="employeeId" class="form-label">Employee Name</label>
+        <select name="employeeId" id="employeeId" class="form-control">
+          {{#generateNameOptions employees.results}}
+          {{/generateNameOptions}}
+        </select>
       </div>
 
       <div class="col mb-3">
@@ -54,6 +50,32 @@
 
     <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Save
       Changes</button>
+      <hr>
   </form>
 
+  {{#requireManager user.role}}
+    <form
+      class="container p-4 m-auto"
+      action="/leaves/findEmployee"
+      method="POST"
+    >
+      <h3>Find Employee</h3>
+      <div class="row">
+
+        <div class="col mb-3">
+          <label for="search" class="form-label">Employee Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="search"
+            name="search"
+            placeholder="Enter Name"
+          />
+        </div>
+        <div class="col mb-3"></div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Find
+        Employee</button>
+    </form>
+  {{/requireManager}}
 </div>

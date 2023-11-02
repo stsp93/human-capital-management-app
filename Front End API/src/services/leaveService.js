@@ -7,7 +7,8 @@ class LeaveService extends Requester {
         this.endpoints = {
             'getAll' :(queryString) => `/leaves?${queryString}`,
             'getById' :(id) => `/leaves/${id}`,
-            'resolve': (id,status) => `/leaves/${id}/${status}`
+            'resolve': (id,status) => `/leaves/${id}/${status}`,
+            'main': '/leaves/'
         }
     }
 
@@ -29,9 +30,13 @@ class LeaveService extends Requester {
     }
 
     async edit(id, input, token) {
-        console.log(input);
         if(!id) return;
         const leave = await this.putReq(this.endpoints.getById(id),input,token);
+        return leave;
+    }
+
+    async add(input, token) {
+        const leave = await this.postReq(this.endpoints.main,input,token);
         return leave;
     }
 }
