@@ -67,7 +67,23 @@ const edit = async (req, res) => {
         }
 }
 
+const showAdd = async (req, res) => {
+        return res.render('forms/departmentAdd');
+}
+
+const add = async (req, res) => {
+        try {
+                const department = await departmentService.add(req.body,req.token);
+                res.redirect(`/departments/`);
+        }catch(error) {
+                console.log(error)
+                res.render('forms/departmentAdd', {department: res.body})
+        }
+}
+
 router.get('/',showAll);
+router.get('/add',showAdd);
+router.post('/add',add);
 router.get('/:id',showDetails) 
 router.get('/:id/employees',showEmployeesInDepartment);
 router.get('/:id/edit',showEdit) 

@@ -7,6 +7,7 @@ class DepartmentService extends Requester {
         this.endpoints = {
             'getAll' :(query) => `/departments?${query}`,
             'getById':(id) => `/departments/${id}`,
+            'main': '/departments/'
         }
     }
 
@@ -25,6 +26,10 @@ class DepartmentService extends Requester {
     async edit(id, input, token) {
         if(!id) return;
         const department = await this.putReq(this.endpoints.getById(id),input,token);
+        return department;
+    }
+    async add(input, token) {
+        const department = await this.postReq(this.endpoints.main,input,token);
         return department;
     }
 }
