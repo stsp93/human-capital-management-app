@@ -9,7 +9,7 @@
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
         {{#requireManager user.role}}
-        <a href="/leaves/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5"
+        <a href="/leaves/{{leave._id}}/edit" class="btn btn-edit btn-cta rounded-5"
           ><i class="fa-solid fa-wrench"></i> Edit Leave</a
         >
         {{/requireManager}}
@@ -24,34 +24,24 @@
       </div>
       <div class="col">
         <div>
-          <p><strong>Leave Type:</strong> {{type}}</p>
-          <p><strong>Start Date(dd/mm/yy):</strong> {{formatDate startDate}}</p>
-          <p><strong>End (dd/mm/yy):</strong> {{formatDate endDate}}</p>
-          <p><strong>Rejected/Approved:</strong> {{status}}</p>
-          {{#leaveNotResolved status}}
+          <p><strong>Leave Type:</strong> {{leave.type}}</p>
+          <p><strong>Start Date(dd/mm/yy):</strong> {{formatDate leave.startDate}}</p>
+          <p><strong>End (dd/mm/yy):</strong> {{formatDate leave.endDate}}</p>
+          <p><strong>Rejected/Approved:</strong> {{leave.status}}</p>
+          {{#leaveNotResolved leave.status}}
                     {{#requireManager user.role}}
-                        <div><a class="btn btn-cta btn-edit rounded-5 px-3" href="/leaves/{{_id}}/approved">Approve</a>
-                        <a class="btn btn-cta btn-delete rounded-5 px-3" href="/leaves/{{_id}}/rejected">Reject</a></div>
+                        <div><a class="btn btn-cta btn-edit rounded-5 px-3" href="/leaves/{{leave._id}}/approved">Approve</a>
+                        <a class="btn btn-cta btn-delete rounded-5 px-3" href="/leaves/{{leave_id}}/rejected">Reject</a></div>
                     {{/requireManager}}
                   {{/leaveNotResolved}}
-        </div>
-        <div class="mt-4">
-          {{#if prevPositions}}
-          <h5>Previous Positions:</h5>
-          <ul>
-            {{#each prevPositions}}
-            <li>
-              <p>{{name}}, {{formatDate startDate}} - {{formatDate endDate}}</p>
-            </li>
-            {{/each}}
-          </ul>
-          {{/if}}
         </div>
       </div>
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+      <a href="/leaves/{{leave._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 delete">Delete Leave</a>
     </div>
     {{/requireAdmin}}
   </div>
+
+ <script src="/js/confirmDelete.js"></script>

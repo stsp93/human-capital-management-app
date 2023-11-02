@@ -10,8 +10,16 @@
           class="form-control"
           id="employeeName"
           name="employeeName"
-          value="{{leave.employee.name}}"
+          value="{{employee.name}}"
           disabled
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="employeeId"
+          name="employeeId"
+          value="{{employee._id}}"
+          hidden
         />
       </div>
 

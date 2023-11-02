@@ -7,7 +7,7 @@ const router = require('express').Router();
 
 const ratings = []
 for (let i = 0; i < 10; i++) {
-        ratings[i] = i + 1;
+        ratings[i] = String(i + 1);
 }
 
 const showAll = async (req, res) => {
@@ -22,14 +22,19 @@ const showAll = async (req, res) => {
         }
 }
 
+const getReviewData = async (reviewId, token) => {
+        const review = await reviewsService.getById(reviewId, token);
+        const employee = await employeeService.getById(review.employeeId, token)
+        const reviewer = await employeeService.getById(review.reviewerId, token)
+
+        return {review, employee, reviewer}
+}
+
 
 const showDetails = async (req, res) => {
         try {
-                const reviewId = req.params.id
-                const review = await reviewsService.getById(reviewId, req.token);
-                const employee = await employeeService.getById(review.employeeId, req.token)
-                const reviewer = await employeeService.getById(review.reviewerId, req.token)
-                res.render('details/reviewDetailsView', { review, employee, reviewer });
+                const reviewData = await getReviewData(req.params.id, req.token)
+                res.render('details/reviewDetailsView', reviewData);
         } catch (error) {
                 console.log(error);
                 res.render('details/reviewDetailsView', { error });
@@ -38,11 +43,8 @@ const showDetails = async (req, res) => {
 
 const showEdit = async (req, res) => {
         try {
-                const review = await reviewService.getById(req.params.id, req.token);
-                const employee = await employeeService.getById(review.employeeId, req.token);
-                const reviewer = await employeeService.getById(review.reviewerId, req.token);
-                console.log(review);
-                res.render('forms/reviewEdit', { review, ratings, employee, reviewer });
+                const reviewData = await getReviewData(req.params.id, req.token)
+                res.render('forms/reviewEdit', { ratings,...reviewData});
         } catch (error) {
                 console.log(error);
                 res.render('forms/reviewEdit', { error });
@@ -52,14 +54,11 @@ const showEdit = async (req, res) => {
 const edit = async (req, res) => {
         try {
                 const review = await reviewService.edit(req.params.id, req.body, req.token);
-
                 res.redirect(`/reviews/${review._id}`)
         } catch (error) {
                 console.log(error);
-                const review = await reviewService.getById(req.params.id, req.token);
-                const employee = await employeeService.getById(review.employeeId, req.token);
-                const reviewer = await employeeService.getById(review.reviewerId, req.token);
-                res.render('forms/reviewEdit', { error, review,ratings, employee ,reviewer });
+                const reviewData = await getReviewData(req.params.id, req.token);
+                res.render('forms/reviewEdit', { error, ratings,...reviewData});
         }
 }
 
@@ -99,7 +98,7 @@ const add = async (req, res) => {
 
                 res.redirect(`/reviews/${review._id}`)
         } catch (error) {
-                res.render('forms/reviewAdd', { error, review: req.body,  reviewer, employees,ratings });
+                res.render('forms/reviewAdd', { error, review: req.body, reviewer, employees, ratings });
         }
 }
 

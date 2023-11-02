@@ -1,5 +1,4 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
-const { checkEmptyFields } = require('../helpers/validation');
 const departmentService = require('../services/departmentService');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
@@ -9,16 +8,14 @@ const router = require('express').Router();
 
 const showDetails = async (req, res) => {
         try {
-                const employeeId = req.params.id;
-
-                const employee = await employeeService.getById(employeeId, req.token);
-                const activePosition = await positionService.getById(employeeId, req.token);
+                const employee = await employeeService.getById(req.params.id, req.token);
+                const activePosition = await positionService.getById(req.params.id, req.token);
                 const salary = await salaryService.getById(activePosition?.salaryId, req.token);
                 // Check if active position and get Department name
                 const department = await departmentService.getById(activePosition?.departmentId , req.token);
-                const prevPositions = await positionService.getPrevPositions(employeeId, req.token);
+                const prevPositions = await positionService.getPrevPositions(req.params.id, req.token);
                 // Check if allowed to edit info
-                if (req.user.role !== 'user' || req.user.employeeId === employeeId) {
+                if (req.user.role !== 'user' || req.user.employeeId === req.params.id) {
                         employee.allowEdit = true;
                 }
 
