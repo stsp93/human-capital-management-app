@@ -1,18 +1,34 @@
 <div class="container details bg-white p-5 rounded-4">
-  <h3>Edit Performance Review</h3>
-  <form class="container p-4 m-auto" action="" method="POST">
+  <h3>Add Performance Review</h3>
+  <hr />
+  <form class="container m-auto" action="/reviews/findEmployee" method="POST">
+    <h5>Find Employee</h5>
     <div class="row">
-
-      <div class="col mb-3">
-        <label for="employee" class="form-label">Employee Name</label>
+      <div class="col">
         <input
           type="text"
           class="form-control"
-          id="employee"
-          name="employee"
-          value="{{review.employee.name}}"
-          disabled
+          id="search"
+          name="search"
+          placeholder="Enter Name"
+          value="{{search}}"
         />
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary btn-add rounded-5">Find
+          Employee</button>
+      </div>
+    </div>
+
+  </form>
+  <form class="container p-4 m-auto" method="POST">
+    <div class="row">
+
+      <div class="col mb-3">
+        <label for="employeeId" class="form-label">Employee</label>
+        <select name="employeeId" id="employeeId" class="form-control">
+          {{#generateNameOptions employees.results}}{{/generateNameOptions}}
+        </select>
       </div>
 
       <div class="col mb-3">
@@ -22,8 +38,17 @@
           class="form-control"
           id="reviewer"
           name="reviewer"
-          value="{{review.reviewer.name}}"
+          value="{{reviewer.name}}"
           disabled
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="reviewerId"
+          name="reviewerId"
+          value="{{reviewer._id}}"
+          readonly
+          hidden
         />
       </div>
     </div>
@@ -33,8 +58,7 @@
       <div class="col mb-3">
         <label for="rating" class="form-label">Rating</label>
         <select name="rating" id="rating" class="form-control">
-          {{#generateOptions review.ratings review.rating }}
-          {{/generateOptions}}
+          {{#generateOptions ratings}}{{/generateOptions}}
         </select>
       </div>
 
@@ -50,12 +74,17 @@
       </div>
     </div>
     <div class="row">
-        <label for="comments" class="form-label">Comments</label>
-        <textarea name="comments" id="comments" cols="30" rows="10">{{review.comments}}</textarea>
+      <label for="comments" class="form-label">Comments</label>
+      <textarea
+        name="comments"
+        id="comments"
+        cols="30"
+        rows="10"
+      >{{review.comments}}</textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Save
-      Changes</button>
+    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Add
+      Performance Review</button>
   </form>
 
 </div>

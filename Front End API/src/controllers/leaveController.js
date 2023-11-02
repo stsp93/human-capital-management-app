@@ -73,7 +73,7 @@ const showAdd = async (req, res) => {
 
 const findEmployee = async (req, res) => {
     const employees = await employeeService.getAll(req.body, req.token);
-    res.render('forms/leaveAdd', { employees });
+    res.render('forms/leaveAdd', { employees , search:req.body.search});
 }
 
 const add = async (req, res) => {

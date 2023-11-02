@@ -1,4 +1,5 @@
 const { toQueryString } = require('../helpers/pagination');
+const { checkEmptyFields } = require('../helpers/validation');
 const Requester = require('./Requester');
 
 class LeaveService extends Requester {
@@ -30,12 +31,14 @@ class LeaveService extends Requester {
     }
 
     async edit(id, input, token) {
+        checkEmptyFields(input);
         if(!id) return;
         const leave = await this.putReq(this.endpoints.getById(id),input,token);
         return leave;
     }
 
     async add(input, token) {
+        checkEmptyFields(input);
         const leave = await this.postReq(this.endpoints.main,input,token);
         return leave;
     }

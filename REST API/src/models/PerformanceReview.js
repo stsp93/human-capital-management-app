@@ -19,6 +19,7 @@ const performanceReviewSchema = new Schema({
   },
   comments: {
     type: String,
+    minLength: 10,
   },
   date: {
     type: Date,
