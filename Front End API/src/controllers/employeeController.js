@@ -85,15 +85,22 @@ const showAdd = async (req,res) => {
 const add = async (req,res) => {
         try {
                 await employeeService.add(req.body, req.token);
-                res.redirect('/employees/')
+                res.redirect('/employees')
         }catch(error) {
                 console.log(error);
                 res.render('forms/employeeAdd', {input: req.body,error});
         }
 }
 
-
-
+const remove = async (req, res) => {
+        try {
+                await employeeService.remove(req.params.id, req.token);
+                res.redirect('/employees');
+        }catch (error) {
+                console.log(error);
+                res.redirect('/employees');
+        }
+}
 
 router.get('/add',showAdd);
 router.post('/add',add);
@@ -101,6 +108,7 @@ router.get('/',showAll);
 router.get('/:id', showDetails);
 router.get('/:id/edit',showEdit);
 router.post('/:id/edit',edit);
+router.get('/:id/delete',remove);
 
 
 

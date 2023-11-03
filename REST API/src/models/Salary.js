@@ -10,7 +10,8 @@ const salarySchema = new Schema({
     {
       _id: {
         type:Types.ObjectId,
-        default: new Types.ObjectId(),
+        required: true,
+        auto:true,
       },
       bonusType: {
         type: String,

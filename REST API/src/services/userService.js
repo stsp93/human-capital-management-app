@@ -15,12 +15,13 @@ class UserService extends Service {
   }
 
   async register(user) {
+    user.role = 'user';
+    
+    const newUser = await this.model.create(user);
     // Create blank employee linked with the user
     const newEmployee = await Employee.create({name:'New employee '+ user.username});
-
-    user.employeeId = newEmployee._id;
-    user.role = 'user';
-    const newUser = await this.model.create(user);
+    newUser.employeeId = newEmployee._id;
+    await newUser.save();
 
     const payload = {
       username: newUser.username,
@@ -76,6 +77,13 @@ class UserService extends Service {
     }
 
     return await jwtVerifyAsync(token, JWT_SECRET);
+  }
+
+  async deleteById(id, userId) {
+    // Prevent admin self delete
+    if(userId === id) return res.status(401).json({ message: "You can\'t delete your user account" })
+
+    return await this.model.deleteOne({ _id: id });
   }
 }
 

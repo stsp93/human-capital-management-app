@@ -56,15 +56,11 @@ class Controller {
     }
 
     delete = async (req, res) => {
-        // Only admins can delete
         if (req.user.role === 'admin') {
             try {
                 const id = req.params.id;
-                // Prevent deleting own admin account
-                if(req.user._id === id) return res.status(401).json({ message: "You can\'t delete your user account" })
-
-                // delete entity
-                await this.service.deleteById(id);
+                const adminId = req.user._id
+                await this.service.deleteById(id, adminId);
                 res.status(204).end()
             } catch (error) {
                 this.errorResponse(res, error);

@@ -22,6 +22,9 @@ router.use('/positions', positionController);
 router.use('/salary', salaryController);
 router.use('/leaves', leavesController);
 router.use('/reviews', reviewsController);
+router.use('*', (req, res) => {
+    return res.status(404).json('Not Found');
+})
 
 
 module.exports = router

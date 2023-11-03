@@ -1,0 +1,32 @@
+<div class="container bg-white p-4 rounded-3 table-wrapper">
+  <!-- content header -->
+  <div class="content-header d-flex justify-content-between">
+    <h3 class="content-title">Users List</h3>
+      <a href="/users/add" class="btn btn-primary btn-add rounded-5">
+        <i class="fa-solid fa-user-plus"></i>
+        Add New User
+      </a>
+  </div>
+  <!-- table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users.results}}
+        <tr class="clickable-row" data-href="/users/{{_id}}">
+          <td>{{username}}</td>
+          <td>{{employee.name}}</td>
+          <td>{{role}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <!-- Pagination buttons -->
+  
+  {{>pagination users}}
+</div>

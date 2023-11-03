@@ -1,0 +1,33 @@
+<div class="container details bg-white p-5 rounded-4">
+    <div class="row details-header">
+      <div class="col d-flex gap-3 align-items-end">
+        <span class="details-icon"><i class="fa-solid fa-user"></i></span>
+        <div>
+          <h2>{{userData.username}}</h2>
+          
+        </div>
+      </div>
+      <div class="col d-flex flex-column justify-content-start align-items-end">
+        <a href="/users/{{userData._id}}/edit" class="btn btn-edit btn-cta rounded-5"
+          ><i class="fa-solid fa-wrench"></i> Edit User</a
+        >
+        <a href="/users/{{userData._id}}/edit" class="btn action-link">Change Password</a>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col">
+        <p><strong>UserID:</strong> {{userData._id}}</p>
+        <p><strong>Employee Name:</strong> {{employee.name}}</p>
+        <p><strong>EmployeeID:</strong> {{employee._id}}</p>
+
+      </div>
+      <div class="col">
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <a href="/users/{{userData._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete User</a>
+    </div>
+  </div>
+
+  <script src="/js/confirm.js"></script>

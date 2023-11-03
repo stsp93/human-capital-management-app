@@ -13,6 +13,12 @@ class PositionService extends Service {
         }
     }
 
+    async add(employeeId,input, token) {
+        console.log(input);
+        checkEmptyFields(input);
+        input.employeeId = employeeId;
+        return await this.postReq(this.endpoints.main,input,token);
+    }
 
     async getPrevPositions(id,token) {
         if(!id) return;
@@ -25,6 +31,15 @@ class PositionService extends Service {
         if(!departmentId) return;
         const positions = await this.getReq(this.endpoints.totalActiveInDepartment(departmentId), token);
         return positions;
+    }
+
+    async endContract(id,token) {
+        if(!id) return;
+        const position = await this.getReq(this.endpoints.getById(id),token);
+        console.log(position);
+        position.active = false;
+        position.endDate = Date.now();
+        return await this.putReq(this.endpoints.getById(id),position,token);
     }
 
 }

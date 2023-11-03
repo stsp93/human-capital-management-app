@@ -13,26 +13,6 @@ class SalaryService extends Service {
         }
     }
 
-
-    async getAll(query,token) {
-        const queryString = toQueryString(query);
-        console.log(queryString);
-        const salary = await this.getReq(this.endpoints.getAll(queryString), token);
-        return salary;
-    }
-
-    async getById(id,token) {
-        if(!id) return;
-        const salary= await this.getReq(this.endpoints.getById(id), token);
-        return salary
-    }
-
-    async edit(id, input, token) {
-        if(!id) return;
-        const salary = await this.putReq(this.endpoints.getById(id),input,token);
-        return salary;
-    }
-
     async addBonus(bonusId,input, token) {
         if(!bonusId) return;
         return await this.postReq(this.endpoints.addBonus(bonusId), input, token)

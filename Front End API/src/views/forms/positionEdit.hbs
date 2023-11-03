@@ -1,5 +1,8 @@
 <div class="container details bg-white p-5 rounded-4">
-  <h3>Edit Position</h3>
+  <div class="d-flex justify-content-between">
+    <h3>Edit Position</h3>
+    <a href="/positions/{{position.employeeId}}/endContract" class="btn btn-delete btn-cta rounded-5 px-4 confirm">End Contract</a>
+  </div>
   <form class="container p-4 m-auto" action="" method="POST">
     <div class="row">
 
@@ -76,3 +79,5 @@
   </form>
 
 </div>
+
+<script src="/js/confirm.js"></script>

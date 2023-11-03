@@ -35,9 +35,9 @@
   </div>
   {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="/reviews/{{review._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 delete">Delete Review</a>
+      <a href="/reviews/{{review._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete Review</a>
     </div>
   {{/requireAdmin}}
 </div>
 
-<script src="/js/confirmDelete.js"></script>
+<script src="/js/confirm.js"></script>

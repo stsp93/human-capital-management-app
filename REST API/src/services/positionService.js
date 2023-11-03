@@ -3,6 +3,7 @@ const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 const { QUERY_DEFAULTS } = require('../config/constants')
 const Service = require("./Service");
 const salaryService = require("./salaryService");
+const CustomError = require("../utilities/CustomError");
 
 class PositionService extends Service {
   constructor() {

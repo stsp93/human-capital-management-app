@@ -6,6 +6,7 @@ const departmentController = require('./controllers/departmentController');
 const leaveController = require('./controllers/leaveController');
 const reviewController = require('./controllers/reviewController');
 const salaryController = require('./controllers/salaryController');
+const userController = require('./controllers/userController');
 const { isAuth } = require('./middlewares/authMiddleware');
 
 
@@ -23,6 +24,7 @@ router.use('/departments', departmentController);
 router.use('/leaves', leaveController);
 router.use('/reviews', reviewController);
 router.use('/salary', salaryController);
+router.use('/users', userController);
 
 
 module.exports = router

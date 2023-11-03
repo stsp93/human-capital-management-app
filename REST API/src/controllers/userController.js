@@ -43,7 +43,9 @@ router.get('/logout', userController.logout);
 
 // Admin access
 router.use(requireRoles('admin'));
-router.post('/create', userController.create);
+router.post('/', userController.create);
+router.get('/', userController.getAll);
+router.get('/:id', userController.getById);
 router.delete('/:id', userController.delete);
 router.put('/:id', userController.update);
 

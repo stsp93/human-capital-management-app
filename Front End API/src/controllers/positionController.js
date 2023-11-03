@@ -55,7 +55,19 @@ const add = async (req, res) => {
         }
 }
 
+const endContract = async (req, res) => {
+        try {
+                await positionService.endContract(req.params.id, req.token)
+                res.redirect(`/employees/${req.params.id}`)
+        } catch (error) {
+                console.log(error);
+                res.redirect(`/employees/${req.params.id}`);
+        }
+}
+
+
 router.get('/:id/edit', showEdit);
+router.get('/:id/endContract', endContract);
 router.get('/:id/add', showAdd);
 router.post('/:id/edit', edit);
 router.post('/:id/add', add);

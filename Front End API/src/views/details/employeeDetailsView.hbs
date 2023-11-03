@@ -9,7 +9,7 @@
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
         {{#if employee.allowEdit}}
-        <a href="/employees/{{_id}}/edit" class="btn btn-edit btn-cta rounded-5 {{#unless employee.email}}blink{{/unless}}"
+        <a href="/employees/{{employee._id}}/edit" class="btn btn-edit btn-cta rounded-5 {{#unless employee.email}}blink{{/unless}}"
           ><i class="fa-solid fa-wrench"></i> Edit Infomation</a
         >
         {{/if}}
@@ -56,7 +56,9 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+      <a href="/employees/{{employee._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete Employee</a>
     </div>
     {{/requireAdmin}}
   </div>
+
+  <script src="/js/confirm.js"></script>

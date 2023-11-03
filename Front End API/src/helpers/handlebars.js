@@ -19,6 +19,7 @@ function formatDate(dateString) {
   }
 
   function generateOptions(values, selectedValue) {
+    if(!values) return;
     const options = values.map(value => {
       const selected = value == selectedValue ? 'selected' : '';
       return `<option value="${value}" ${selected}>${value}</option>`;
@@ -28,6 +29,7 @@ function formatDate(dateString) {
   }
 
   function generateNameOptions(data, selectedValue) {
+    if(!data) return;
   const options = data?.map(obj => {
     const value = obj._id;
     const text = obj.name;

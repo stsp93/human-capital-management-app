@@ -1,4 +1,4 @@
-document.querySelector('.delete').addEventListener('click', (e) => {
+document.querySelector('.confirm').addEventListener('click', (e) => {
  
   console.log();
 
