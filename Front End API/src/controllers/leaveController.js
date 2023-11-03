@@ -20,7 +20,7 @@ const showDetails = async (req, res) => {
         const leave = await leaveService.getById(req.params.id, req.token);
         const employee = await employeeService.getById(leave.employeeId, req.token);
 
-        res.render('details/leavesDetailsView', {leave, employee});
+        res.render('details/leavesDetailsView', { leave, employee });
     } catch (error) {
         console.log(error);
         res.render('details/leavesDetailsView', { error });
@@ -44,7 +44,7 @@ const showEdit = async (req, res) => {
     try {
         const leave = await leaveService.getById(req.params.id, req.token);
         const employee = await employeeService.getById(leave.employeeId, req.token);
-        res.render('forms/leaveEdit', { leave , employee});
+        res.render('forms/leaveEdit', { leave, employee });
     } catch (error) {
         console.log(error);
         res.render('forms/leaveEdit', { error });
@@ -59,30 +59,31 @@ const edit = async (req, res) => {
         res.redirect(`/leaves/${leave._id}`)
     } catch (error) {
         console.log(error);
-        res.render('forms/leaveEdit', { error, leave: req.body ,employee });
+        res.render('forms/leaveEdit', { error, leave: req.body, employee });
     }
 }
 
 const showAdd = async (req, res) => {
-    const results = [await employeeService.getById(req.user.employeeId, req.token)];
-    const employees = { results }
+    let employees;
+    if (req.query.search) {
+        employees = await employeeService.getAll(req.query, req.token);
+    }
+    if (!employees?.results.length) {
+        const results = [await employeeService.getById(req.user.employeeId, req.token)];
+        employees = { results }
+    }
     res.render('forms/leaveAdd', { employees })
-}
-
-const findEmployee = async (req, res) => {
-    const employees = await employeeService.getAll(req.body, req.token);
-    res.render('forms/leaveAdd', { employees , search:req.body.search});
 }
 
 const add = async (req, res) => {
     const results = [await employeeService.getById(req.user.employeeId, req.token)];
     try {
         const leave = await leaveService.add(req.body, req.token);
-        
+
         res.redirect(`/leaves/${leave._id}`);
-    } catch(error) {
+    } catch (error) {
         console.log(error);
-        res.render('forms/leaveAdd', { error , employees: {results}});
+        res.render('forms/leaveAdd', { error, employees: { results } });
     }
 }
 
@@ -91,7 +92,7 @@ const remove = async (req, res) => {
         await leaveService.remove(req.params.id, req.token);
         const message = 'Successfully removed'
         res.redirect('/leaves')
-    }catch(error) {
+    } catch (error) {
         console.log(error);
         res.redirect(`/leaves?err=${error}`)
     }
@@ -101,10 +102,8 @@ router.get('/:id/delete', remove);
 router.get('/', showAll);
 router.get('/add', showAdd);
 router.post('/add', add);
-router.post('/findEmployee', findEmployee);
 router.get('/:id', showDetails)
 router.post('/:id/edit', edit)
-
 router.get('/:id/:status(approved|rejected)', resolve)
 router.get('/:id/edit', showEdit)
 

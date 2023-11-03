@@ -38,8 +38,9 @@ const showEdit = async (req, res) => {
                 const userData = await userService.getById(req.params.id, req.token);
                 const employees = await employeeService.getAll(req.query, req.token);
                 if(!employees.results.length) {
+                        //set currently linked employee if any
                         const employee = await employeeService.getById(userData.employeeId, req.token);
-                        if(employee) employees.results = [employee];
+                        if(employee) employees.results = [employee]; 
                 }
                 res.render('forms/userEdit', { userData, roles , employees});
         } catch (error) {

@@ -3,9 +3,10 @@
   <hr>
     {{#requireManager user.role}}
     <form
+    id="findEmployee"
       class="container m-auto"
-      action="/leaves/findEmployee"
-      method="POST"
+      action="/leaves/add"
+      method="GET"
     >
       <h5>Find Employee</h5>
       <div class="row">
@@ -76,9 +77,10 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Save
-      Changes</button>
+    <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Request Leave</button>
   </form>
 
 
 </div>
+
+<script src="/js/findEmployee.js"></script>

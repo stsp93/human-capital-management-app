@@ -60,24 +60,14 @@ const edit = async (req, res) => {
 
 const showAdd = async (req, res) => {
         let reviewer;
-        let employees = {};
-        try {
-                reviewer = await employeeService.getById(req.user.employeeId, req.token);
-                employees = await employeeService.getAll({}, req.token);
-                res.render('forms/reviewAdd', { reviewer, ratings, employees });
-        } catch (error) {
-                console.log(error);
-                res.render('forms/reviewAdd', { error, reviewer, ratings, employees });
-        }
-}
+        let employees;
 
-const findEmployee = async (req, res) => {
-        let reviewer;
-        let employees = {};
         try {
                 reviewer = await employeeService.getById(req.user.employeeId, req.token);
-                employees = await employeeService.getAll(req.body, req.token);
-                res.render('forms/reviewAdd', { employees, reviewer, search: req.body.search, ratings });
+                if (req.query.search) {
+                        employees = await employeeService.getAll(req.query, req.token);
+                }
+                res.render('forms/reviewAdd', { reviewer, ratings, employees });
         } catch (error) {
                 console.log(error);
                 res.render('forms/reviewAdd', { error, reviewer, ratings, employees });
@@ -113,7 +103,6 @@ router.get('/:id/delete', remove);
 router.get('/', showAll);
 router.get('/add', showAdd);
 router.post('/add', add);
-router.post('/findEmployee', findEmployee);
 router.get('/:id', showDetails);
 router.get('/:id/edit', showEdit);
 router.post('/:id/edit', edit);
