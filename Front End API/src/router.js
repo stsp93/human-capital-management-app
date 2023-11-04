@@ -8,6 +8,7 @@ const reviewController = require('./controllers/reviewController');
 const salaryController = require('./controllers/salaryController');
 const userController = require('./controllers/userController');
 const { isAuth } = require('./middlewares/authMiddleware');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 
 // Guest access
@@ -16,6 +17,7 @@ router.get('/', (req,res) => {
 });
 router.use('/auth', authController);
 router.use(isAuth);
+router.use(errorMiddleware)
 
 // Auth access
 router.use('/employees', employeeController);
@@ -25,6 +27,7 @@ router.use('/leaves', leaveController);
 router.use('/reviews', reviewController);
 router.use('/salary', salaryController);
 router.use('/users', userController);
+router.use('*', (req,res) => res.render('404'));
 
 
 module.exports = router
