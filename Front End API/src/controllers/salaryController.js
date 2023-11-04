@@ -1,3 +1,4 @@
+const { requireRoles } = require('../middlewares/authMiddleware');
 const positionService = require('../services/positionService');
 const salaryService = require('../services/salaryService');
 const router = require('express').Router();
@@ -47,11 +48,13 @@ const removeBonus = async (req, res) => {
             res.redirect(`/salary/${req.params.id}/edit`);
     }
 }
-
-
+// manager access
+router.use(requireRoles('manager', 'admin'));
 router.get('/:id/edit',showEdit) 
 router.post('/:id/edit',edit) 
 router.post('/:id/addBonus',addBonus) 
-router.get('/:id/removeBonus',removeBonus) 
+
+// admin access
+router.get('/:id/removeBonus',requireRoles('admin'),removeBonus) 
 
 module.exports = router;

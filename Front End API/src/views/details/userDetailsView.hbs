@@ -8,26 +8,31 @@
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
+        {{#requireAdmin user.role}}
         <a href="/users/{{userData._id}}/edit" class="btn btn-edit btn-cta rounded-5"
           ><i class="fa-solid fa-wrench"></i> Edit User</a
         >
+        {{/requireAdmin}}
         <a href="/users/{{userData._id}}/edit" class="btn action-link">Change Password</a>
       </div>
     </div>
     <hr />
     <div class="row">
       <div class="col">
-        <p><strong>UserID:</strong> {{userData._id}}</p>
-        <p><strong>Employee Name:</strong> {{employee.name}}</p>
-        <p><strong>EmployeeID:</strong> {{employee._id}}</p>
+        <p><strong>Employee Details:</strong> <a href="/employees/{{employee._id}}/details">{{employee.name}}</a></p>
 
+        {{#requireAdmin user.role}}
+        <p><strong>Role:</strong> {{userData.role}}</p>
+        {{/requireAdmin}}
       </div>
       <div class="col">
       </div>
     </div>
+    {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
       <a href="/users/{{userData._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete User</a>
     </div>
+    {{/requireAdmin}}
   </div>
 
   <script src="/js/confirm.js"></script>

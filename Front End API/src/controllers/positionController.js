@@ -1,3 +1,4 @@
+const { requireRoles } = require('../middlewares/authMiddleware');
 const departmentService = require('../services/departmentService');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
@@ -24,7 +25,7 @@ const edit = async (req, res) => {
         const departments = await departmentService.getAll({ limit: 0 }, req.token);
         try {
                 const position = await positionService.edit(req.params.id, req.body, req.token);
-                res.redirect(`/employees/${position.employeeId}`)
+                res.redirect(`/employees/${position.employeeId}/details`)
         } catch (error) {
                 console.log(error);
                 res.render('forms/positionEdit', { error, position: req.body, employee,departments });
@@ -58,14 +59,15 @@ const add = async (req, res) => {
 const endContract = async (req, res) => {
         try {
                 await positionService.endContract(req.params.id, req.token)
-                res.redirect(`/employees/${req.params.id}`)
+                res.redirect(`/employees/${req.params.id}/details`)
         } catch (error) {
                 console.log(error);
-                res.redirect(`/employees/${req.params.id}`);
+                res.redirect(`/employees/${req.params.id}/details`);
         }
 }
 
-
+// manager access
+router.use(requireRoles('manager', 'admin'));
 router.get('/:id/edit', showEdit);
 router.get('/:id/endContract', endContract);
 router.get('/:id/add', showAdd);

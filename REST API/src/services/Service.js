@@ -1,5 +1,6 @@
 const { QUERY_DEFAULTS } = require("../config/constants");
 const CustomError = require("../utilities/CustomError");
+const isAuthorizedUser = require("../utilities/isAuthorizedUser");
 
 class Service {
   constructor(model) {
@@ -37,12 +38,17 @@ class Service {
     return await this.model.create(input);
   }
 
-  async update( input, id) {
-    console.log(id);
+  async update(input, id, user) {
     const entity = await this.model.findById(id);
-    if (entity === null) throw new CustomError('Entity not found', 404)
-
+    const employeeId = entity.employeeId ? entity.employeeId : entity._id;
+    if (!entity) {
+      throw new CustomError('Employee not found', 404);
+    }
+    if (!isAuthorizedUser(user.role, user.employeeId, employeeId)) {
+      throw new CustomError('Unauthorized: Users can only update their own records', 401);
+    }
     Object.assign(entity, input);
+
     return await entity.save();
   }
 

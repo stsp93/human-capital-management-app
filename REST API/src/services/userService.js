@@ -87,6 +87,12 @@ class UserService extends Service {
 
     return await this.model.deleteOne({ _id: id });
   }
+
+  async getById(id, user) {
+    if(user.role === 'user' && user._id !== id) throw new CustomError('Unauthorized access', 401);
+    const result = await this.model.findById(id);
+    return result || {};
+  }
 }
 
 module.exports = new UserService();

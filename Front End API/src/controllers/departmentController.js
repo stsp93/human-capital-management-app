@@ -60,7 +60,7 @@ const showEdit = async (req, res) => {
 const edit = async (req, res) => {
         try {
                 const department = await departmentService.edit(req.params.id, req.body,req.token);
-                res.redirect(`/departments/${department._id}`);
+                res.redirect(`/departments/${department._id}/details`);
         }catch(error) {
                 console.log(error);
                 res.render('forms/departmentEdit', {error});
@@ -94,10 +94,10 @@ const remove = async (req, res) => {
 router.get('/:id/delete', remove);
 
 router.get('/',showAll);
+router.get('/employees',showEmployeesInDepartment);
 router.get('/add',showAdd);
 router.post('/add',add);
-router.get('/employees',showEmployeesInDepartment);
-router.get('/:id',showDetails) 
+router.get('/:id/details',showDetails) 
 router.get('/:id/edit',showEdit) 
 router.post('/:id/edit',edit) 
 

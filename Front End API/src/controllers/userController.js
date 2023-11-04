@@ -1,4 +1,5 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
+const { requireRoles, requireOwnership } = require('../middlewares/authMiddleware');
 const employeeService = require('../services/employeeService');
 const userService = require('../services/userService');
 const router = require('express').Router();
@@ -12,7 +13,7 @@ const showDetails = async (req, res) => {
                 res.render('details/userDetailsView', {userData, employee});
         } catch (error) {
                 console.log(error);
-                res.render('details/userDetailsView', { error });
+                res.redirect(`/users/${req.user._id}/details`);
         }
 };
 
@@ -53,7 +54,7 @@ const edit = async (req, res) => {
         let userData;
         try {
                 userData = await userService.edit(req.params.id,req.body, req.token);
-                res.redirect(`/users/${userData._id}`);
+                res.redirect(`/users/${userData._id}/details`);
         } catch (error) {
                 console.log(error);
                 res.render('forms/userEdit', { error, userData, roles ,employees:{results:[]}});
@@ -74,7 +75,7 @@ const add = async (req, res) => {
         
         try {
                 const user = await userService.add(req.body, req.token);
-                res.redirect(`/users/${user._id}`);
+                res.redirect(`/users/${user._id}/details`);
         } catch (error) {
                 console.log(error);
                 res.render('forms/userAdd', { error,roles});
@@ -91,13 +92,16 @@ const remove = async (req, res) => {
                 res.redirect(`/users?err=${error.message}`);
         }
 }
+// partial manager/user access
+router.get('/:id/details', showDetails);
 
+// admin access
+router.use(requireRoles('admin'));
 router.get('/',showAll);
 router.get('/add', showAdd);
 router.post('/add', add);
 router.get('/:id/edit', showEdit);
 router.post('/:id/edit', edit);
-router.get('/:id', showDetails);
 router.get('/:id/delete',remove);
 
 module.exports = router

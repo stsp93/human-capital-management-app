@@ -48,10 +48,13 @@
             <span class="d-none-inline mx-1">{{user.username}}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="/users/{{user._id}}/details"><i class="fa-solid fa-circle-user"></i> {{user.username}}</a></li>
+            {{#if user.employeeId}}
+            <li><a class="dropdown-item" href="/employees/{{user.employeeId}}/details">Employee Profile</a></li>
+            {{/if}}
             {{#requireAdmin user.role}}
             <li><a class="dropdown-item" href="/users/">Admin Panel</a></li>
             {{/requireAdmin}}
-            <li><a class="dropdown-item" href="/employees/{{user.employeeId}}">Profile</a></li>
             <hr />
             <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
           </ul>

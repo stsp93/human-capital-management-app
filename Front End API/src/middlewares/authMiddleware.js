@@ -26,8 +26,30 @@ function isAuth(req, res, next) {
     next();
 }
 
+function requireRoles(...roles) {
+    return (req, res, next) => {
+      const user = req.user;
+      if (user && roles.includes(user.role)) {
+        next(); 
+      } else {
+        res.redirect('/employees');
+      }
+    };
+  }
+  
+  function requireOwnership(req,res, next) {
+    if(req.user.role === 'user' && req.user.employeeId !== req.params.id) {
+      const error = 'Unauthorized access';
+      return res.redirect(`/employees/${req.user.employeeId}/details?err=${error}`);
+    }
+
+    next();
+  }
+
 
 module.exports = {
     auth,
-    isAuth
+    isAuth,
+    requireRoles,
+    requireOwnership
 }

@@ -17,23 +17,17 @@ class LeaveService extends Service {
       sort = QUERY_DEFAULTS.sort,
       order = QUERY_DEFAULTS.order,
       ...filters } = query;
-    let results;
+
     // User limited access(only own leaves)
-    if (user.role === 'user') {
-      filters = { employeeId: user.employeeId };
-      results = await this.model.find(filters)
-        .sort({ [sort]: order })
-        .limit(+limit)
-        .skip((page - 1) * limit)
-        .populate('employeeId', 'name');
-    } else {
-      results = await this.model.find(query)
+    if (user.role === 'user') filters.employeeId = user.employeeId
+    
+     const results = await this.model.find(filters)
         .sort({ [sort]: order })
         .limit(+limit)
         .skip((page - 1) * limit)
         .populate('employeeId', 'name')
         ;
-    }
+    
     const paginationObj = await this.createPagination(page, limit, filters);
     return { results, ...paginationObj }
   }

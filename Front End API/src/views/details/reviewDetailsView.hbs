@@ -19,12 +19,12 @@
   <hr />
   <div class="row">
     <div class="col">
-      <p><strong>Employee:</strong> <a class="details-link" href="/employees/{{employee._id}}">{{employee.name}}</a></p>
+      <p><strong>Employee:</strong> <a class="details-link" href="/employees/{{employee._id}}/details">{{employee.name}}</a></p>
       <p><strong>Rating:</strong> {{review.rating}}/10</p>
     </div>
     <div class="col">
       <div>
-        <p><strong>Reviewer:</strong> <a class="details-link" href="/employees/{{reviewer._id}}">{{reviewer.name}}</a></p>
+        <p><strong>Reviewer:</strong> <a class="details-link" href="/employees/{{reviewer._id}}/details">{{reviewer.name}}</a></p>
         <p><strong>Date(dd/mm/yy):</strong> {{formatDate review.date}}</p>
       </div>
     </div>

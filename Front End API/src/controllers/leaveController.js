@@ -1,6 +1,7 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
 const leaveService = require('../services/leaveService');
 const employeeService = require('../services/employeeService');
+const { requireRoles, requireOwnership } = require('../middlewares/authMiddleware');
 const router = require('express').Router();
 
 const showAll = async (req, res) => {
@@ -23,7 +24,7 @@ const showDetails = async (req, res) => {
         res.render('details/leavesDetailsView', { leave, employee });
     } catch (error) {
         console.log(error);
-        res.render('details/leavesDetailsView', { error });
+        res.redirect(`/leaves?err=${ error.message }`);
     }
 }
 
@@ -32,7 +33,7 @@ const resolve = async (req, res) => {
         const id = req.params.id
         const status = req.params.status
         await leaveService.resolve(id, status, req.token);
-        res.redirect(`/leaves/${id}`);
+        res.redirect(`/leaves/${id}/details`);
     } catch (error) {
         console.log(error);
         res.render('details/leavesDetailsView', { error });
@@ -47,7 +48,7 @@ const showEdit = async (req, res) => {
         res.render('forms/leaveEdit', { leave, employee });
     } catch (error) {
         console.log(error);
-        res.render('forms/leaveEdit', { error });
+        res.redirect(`/leaves?err=${ error.message }`);
     }
 }
 
@@ -56,7 +57,7 @@ const edit = async (req, res) => {
     try {
         employee = await employeeService.getById(req.body.employeeId, req.token);
         const leave = await leaveService.edit(req.params.id, req.body, req.token)
-        res.redirect(`/leaves/${leave._id}`)
+        res.redirect(`/leaves/${leave._id}/details`)
     } catch (error) {
         console.log(error);
         res.render('forms/leaveEdit', { error, leave: req.body, employee });
@@ -80,7 +81,7 @@ const add = async (req, res) => {
     try {
         const leave = await leaveService.add(req.body, req.token);
 
-        res.redirect(`/leaves/${leave._id}`);
+        res.redirect(`/leaves/${leave._id}/details`);
     } catch (error) {
         console.log(error);
         res.render('forms/leaveAdd', { error, employees: { results } });
@@ -91,20 +92,25 @@ const remove = async (req, res) => {
     try {
         await leaveService.remove(req.params.id, req.token);
         const message = 'Successfully removed'
-        res.redirect('/leaves')
+        res.redirect(`/leaves?message=${message}`);
     } catch (error) {
         console.log(error);
-        res.redirect(`/leaves?err=${error}`)
+        res.redirect(`/leaves?err=${error}`);
     }
 }
-router.get('/:id/delete', remove);
-
+// User acces
 router.get('/', showAll);
 router.get('/add', showAdd);
 router.post('/add', add);
-router.get('/:id', showDetails)
-router.post('/:id/edit', edit)
-router.get('/:id/:status(approved|rejected)', resolve)
+// Partial User access
+router.get('/:id/details', showDetails);
 router.get('/:id/edit', showEdit)
+router.post('/:id/edit', edit)
+
+// manager access
+router.get('/:id/:status(approved|rejected)',requireRoles('manager', 'admin'), resolve);
+
+//admina ccess
+router.get('/:id/delete',requireRoles('admin'), remove);
 
 module.exports = router;

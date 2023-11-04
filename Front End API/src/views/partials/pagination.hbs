@@ -23,6 +23,7 @@
         </a>
       </li>
     {{/if}}
+    {{#if totalPages}}
     <form class="mx-3 goToPage" method="GET">
       <input
         type="number"
@@ -34,7 +35,9 @@
         placeholder="Go to..."
       />
     </form>
-    
+    {{else}}
+    <p class="p-2">No records found...</p>
+    {{/if}}
   </ul>
 </div>
 
