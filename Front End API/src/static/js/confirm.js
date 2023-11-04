@@ -1,9 +1,8 @@
 document.querySelector('.confirm').addEventListener('click', (e) => {
  
-  console.log();
 
-  let input = prompt(`Please enter '${e.target.text}'`,e.target.text);
-  if (input !== e.target.text) {
+  let input = prompt(`Please enter '${e.target.textContent}'`,e.target.textContent);
+  if (input !== e.target.textContent) {
     e.preventDefault();
   } 
 })

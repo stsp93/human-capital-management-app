@@ -34,13 +34,13 @@ class Service {
   }
 
   async create(input) {
-    console.log(input);
     return await this.model.create(input);
   }
 
   async update(input, id, user) {
     const entity = await this.model.findById(id);
     const employeeId = entity.employeeId ? entity.employeeId : entity._id;
+    if(input.password) input = {password:input.password};
     if (!entity) {
       throw new CustomError('Employee not found', 404);
     }

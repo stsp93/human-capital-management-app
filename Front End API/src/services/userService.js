@@ -36,6 +36,15 @@ class EmployeeService extends Service {
         checkEmptyFields(input);
         return await this.putReq(this.endpoints.getById(id),input,token);
     }
+    
+    async changePassword(id,input, token) {
+        if(input.password !== input.rePassword) throw new Error('Passwords don\'t match');
+        checkEmptyFields(input);
+        const payload = {password: input.password};
+        return await this.putReq(this.endpoints.getById(id),payload,token);
+    }
+
+
 }
 
 const employeeService = new EmployeeService();

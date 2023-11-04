@@ -44,12 +44,12 @@ router.post('/login', userController.login);
 router.use(requireRoles('user','manager', 'admin'));
 router.get('/logout', userController.logout);
 router.get('/:id', userController.getById);
+router.put('/:id', userController.update);
 
 // Admin access
 router.use(requireRoles('admin'));
 router.post('/', userController.create);
 router.get('/', userController.getAll);
 router.delete('/:id', userController.delete);
-router.put('/:id', userController.update);
 
 module.exports = router;

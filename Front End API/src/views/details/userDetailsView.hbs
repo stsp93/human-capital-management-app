@@ -13,7 +13,7 @@
           ><i class="fa-solid fa-wrench"></i> Edit User</a
         >
         {{/requireAdmin}}
-        <a href="/users/{{userData._id}}/edit" class="btn action-link">Change Password</a>
+        <a href="/users/{{userData._id}}/changePassword" class="btn action-link">Change Password</a>
       </div>
     </div>
     <hr />
@@ -34,5 +34,6 @@
     </div>
     {{/requireAdmin}}
   </div>
-
+{{#requireAdmin user.role}}
   <script src="/js/confirm.js"></script>
+  {{/requireAdmin}}

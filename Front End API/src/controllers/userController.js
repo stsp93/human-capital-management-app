@@ -92,8 +92,32 @@ const remove = async (req, res) => {
                 res.redirect(`/users?err=${error.message}`);
         }
 }
+
+const showChangePassword = async (req, res) => {
+        try {
+                if(req.user.role === 'user' && req.user._id !== req.params.id) return res.redirect(`/users/${req.user._id}/details`);
+                res.render('forms/changePassword');
+        }catch (error) {
+                console.log(error);
+                res.redirect(`/users?err=${error.message}`);
+        }
+}
+
+const changePassword = async (req, res) => {
+        try {
+                await userService.changePassword(req.params.id, req.body, req.token);
+                const message = 'Password successfully changed'
+                res.redirect(`/users/${req.params.id}/details?message=${message}`);
+        }catch (error) {
+                console.log(error);
+                res.redirect(`/users/${req.params.id}/details?err=${error.message}`);
+        }
+}
+
 // partial manager/user access
 router.get('/:id/details', showDetails);
+router.get('/:id/changePassword', showChangePassword);
+router.post('/:id/changePassword', changePassword);
 
 // admin access
 router.use(requireRoles('admin'));
