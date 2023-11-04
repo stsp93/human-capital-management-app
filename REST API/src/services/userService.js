@@ -5,10 +5,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/constants');
 const { promisify } = require('util');
+const CustomError = require('../utilities/CustomError');
 
 const tokenBlacklist = new Set();
 const jwtSignAsync = promisify(jwt.sign);
 const jwtVerifyAsync = promisify(jwt.verify);
+
 class UserService extends Service {
   constructor() {
     super(User);
@@ -81,7 +83,7 @@ class UserService extends Service {
 
   async deleteById(id, userId) {
     // Prevent admin self delete
-    if(userId === id) return res.status(401).json({ message: "You can\'t delete your user account" })
+    if(userId === id) throw new CustomError("Forbidden self delete", 403);
 
     return await this.model.deleteOne({ _id: id });
   }

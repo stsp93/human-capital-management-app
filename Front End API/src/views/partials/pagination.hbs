@@ -8,11 +8,14 @@
       </li>
     {{/if}}
 
-{{#if totalPages}}
-    <li class="page-item">
-      <a class="page-link">{{currentPage}}</a>
-    </li>
-{{/if}}
+    {{#if totalPages}}
+      <li class="page-item">
+        <a class="page-link">{{currentPage}}</a>
+      </li>
+      <li class="page-item">
+          <span class="page-link disabled">/ {{totalPages}}</span>
+      </li>
+    {{/if}}
     {{#if nextPage}}
       <li class="page-item">
         <a class="page-link" href="?{{nextPage}}" aria-label="Next">
@@ -20,5 +23,38 @@
         </a>
       </li>
     {{/if}}
+    <form class="mx-3 goToPage" method="GET">
+      <input
+        type="number"
+        min="1"
+        max="{{totalPages}}"
+        class="form-control"
+        id="page"
+        name="page"
+        placeholder="Go to..."
+      />
+    </form>
+    
   </ul>
 </div>
+
+<script>
+      const form = document.querySelector('.goToPage');
+
+    form.addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      const queryObj = new URLSearchParams(location.search);
+      queryObj.forEach((value, key) => {
+        if (key !== "page") {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = key;
+            hiddenInput.value = value;
+        
+            form.appendChild(hiddenInput);
+          }
+      });
+      form.submit(); 
+    });
+
+</script>

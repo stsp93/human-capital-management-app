@@ -6,7 +6,7 @@
         <div>
           <h2>{{department.name}}</h2>
           <h5><strong>Total Employees:</strong> {{department.totalEmployees}}</h5>
-          <a class="link" href="/departments/{{department._id}}/employees">Check Employees <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="link" href="/departments/employees?departmentId={{department._id}}">Check Employees <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">

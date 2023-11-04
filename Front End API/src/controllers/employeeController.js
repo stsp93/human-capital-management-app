@@ -42,7 +42,6 @@ const showAll = async (req, res) => {
                 employees.results.forEach((emp, i) => {
                         emp.position.department = departments[i];
                 });
-                
                 attachPaginationHrefs(employees, req.query);
                 res.render('tables/employeesList', { employees });
         } catch (error) {

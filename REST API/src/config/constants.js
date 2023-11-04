@@ -4,10 +4,11 @@ const JWT_SECRET = '912hrn9 N)& N70 *12o1928n9@) U@';
 
 const QUERY_DEFAULTS = {
     page: 1,
-    limit: 5,
+    limit: 1,
     sort: '_id',
     order: 'asc',
     search: '',
+    minSearchChars: 1,
 }
 
 module.exports = {

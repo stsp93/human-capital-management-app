@@ -17,7 +17,7 @@ const showAll= async (req, res) => {
 
 const showEmployeesInDepartment = async (req, res) => {
         try {
-                const query = {departmentId: req.params.id}
+                const query = req.query
                 const positions = await positionService.getAll(query, req.token);
                 const department = await departmentService.getById(query.departmentId, req.token);
                 const employees = await Promise.all(positions.results.map(pos => employeeService.getById(pos.employeeId, req.token)))
@@ -96,8 +96,8 @@ router.get('/:id/delete', remove);
 router.get('/',showAll);
 router.get('/add',showAdd);
 router.post('/add',add);
+router.get('/employees',showEmployeesInDepartment);
 router.get('/:id',showDetails) 
-router.get('/:id/employees',showEmployeesInDepartment);
 router.get('/:id/edit',showEdit) 
 router.post('/:id/edit',edit) 
 

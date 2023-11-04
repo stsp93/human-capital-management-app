@@ -1,5 +1,8 @@
 <div class="container bg-white p-4 rounded-3 table-wrapper">
   <!-- content header -->
+<h5>Search by Name</h5>
+  {{> searchForm}}
+  <hr>
   <div class="content-header d-flex justify-content-between">
     <h3 class="content-title">Employees List</h3>
     {{#requireManager user.role}}

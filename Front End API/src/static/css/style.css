@@ -135,6 +135,10 @@ main {
   filter: brightness(0.97);
 }
 
+.goToPage {
+  width: 100px;
+}
+
 /* Details */
 
 .action-link {

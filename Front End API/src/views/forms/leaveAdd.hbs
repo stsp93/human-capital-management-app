@@ -1,33 +1,8 @@
 <div class="container details bg-white p-5 rounded-4">
   <h3>Request Leave</h3>
   <hr>
-    {{#requireManager user.role}}
-    <form
-    id="findEmployee"
-      class="container m-auto"
-      action="/leaves/add"
-      method="GET"
-    >
-      <h5>Find Employee</h5>
-      <div class="row">
-
-        <div class="col">
-          <input
-            type="text"
-            class="form-control"
-            id="search"
-            name="search"
-            placeholder="Enter Name"
-            value="{{search}}"
-          />
-        </div>
-        <div class="col">
-          <button type="submit" class="btn btn-primary btn-add rounded-5">Find
-        Employee</button>
-        </div>
-      </div>
-      
-    </form>
+  {{#requireManager user.role}}
+    {{> searchForm}}
   {{/requireManager}}
   <form class="container p-4 m-auto" action="/leaves/add" method="POST">
     <div class="row">
@@ -82,5 +57,3 @@
 
 
 </div>
-
-<script src="/js/findEmployee.js"></script>

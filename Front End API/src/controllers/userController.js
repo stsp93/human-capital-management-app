@@ -88,7 +88,7 @@ const remove = async (req, res) => {
                 res.redirect('/users');
         }catch (error) {
                 console.log(error);
-                res.redirect('/users');
+                res.redirect(`/users?err=${error.message}`);
         }
 }
 

@@ -19,7 +19,7 @@
                 {{#each departments.results}}
                 <tr class="clickable-row" data-href="/departments/{{_id}}">
                   <td>{{name}}</td>
-                  <td><a class="link" href="/departments/{{_id}}/employees">Check Employees <i class="fa-solid fa-arrow-right"></i></a></td>
+                  <td><a class="link" href="/departments/employees?departmentId={{_id}}">Check Employees <i class="fa-solid fa-arrow-right"></i></a></td>
                 </tr>
                 {{/each}}
               </tbody>
