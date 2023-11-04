@@ -31,7 +31,6 @@ const showDetails = async (req, res) => {
 
 const showAll = async (req, res) => {
         try {
-                if (!req.query.page) req.query.page = 1;
                 const employees = await employeeService.getAll(req.query, req.token);
                 // Get positions
                 const positions = await Promise.all(employees.results.map((emp) => positionService.getById(emp._id, req.token)));

@@ -8,6 +8,7 @@
               </a>
               {{/requireManager}}
             </div>
+            {{> searchForm}}
             <!-- table -->
             <div class="p-2 rounded-4">
               <a href="?sort=date" class="btn btn-primary ml-1">Sort By Date &darr;</a>
@@ -25,8 +26,8 @@
               <tbody>
                 {{#each reviews.results}}
                 <tr class="clickable-row" data-href="/reviews/{{_id}}/details">
-                  <td>{{employeeId.name}}</td>
-                  <td>{{reviewerId.name}}</td>
+                  <td><a class="link" href="/employees/{{employee._id}}/details">{{employee.name}}</a></td>
+                  <td><a class="link" href="/employees/{{reviewer._id}}/details">{{reviewer.name}}</a></td>
                   <td>{{rating}}/10</td>
                   <td>{{formatDate date}}</td>
                 </tr>

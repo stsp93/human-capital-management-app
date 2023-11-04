@@ -6,8 +6,11 @@ const router = require('express').Router();
 
 const showAll = async (req, res) => {
     try {
-        if (!req.query.page) req.query.page = 1;
-        const leaves = await leaveService.getAll(req.query, req.token)
+        const leaves = await leaveService.getAll(req.query, req.token);
+        const employees = await Promise.all(leaves.results.map((leave) => employeeService.getById(leave.employeeId, req.token)));
+                leaves.results.forEach((leave, i) => {
+                        leave.employee = employees[i];
+                });
         attachPaginationHrefs(leaves, req.query)
         res.render('tables/leavesList', { leaves });
     } catch (error) {

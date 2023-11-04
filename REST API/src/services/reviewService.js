@@ -14,15 +14,19 @@ class ReviewService extends Service {
       limit = QUERY_DEFAULTS.limit,
       sort = QUERY_DEFAULTS.sort,
       order = QUERY_DEFAULTS.order,
+      search = QUERY_DEFAULTS.search,
       ...filters } = query;
+
+    if (search && user.role !== 'user') return await this.employeeNameSearch(page, limit, search)
+
     if (user.role === 'user') filters.employeeId = user.employeeId;
     const pagination = await this.createPagination(page, limit, filters);
+
 
     const results = await this.model.find(filters)
       .sort({ [sort]: order })
       .limit(+limit)
       .skip((page - 1) * limit)
-      .populate('employeeId reviewerId', 'name name');
 
     return { results, ...pagination }
   }
@@ -34,5 +38,6 @@ class ReviewService extends Service {
     }
     return await review;
   }
+
 }
 module.exports = new ReviewService()

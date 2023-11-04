@@ -9,8 +9,16 @@ const ratings = reviewService.getRatings();
 
 const showAll = async (req, res) => {
         try {
-                if (!req.query.page) req.query.page = 1;
                 const reviews = await reviewsService.getAll(req.query, req.token);
+                const employees = await Promise.all(reviews.results.map((rev) => employeeService.getById(rev.employeeId, req.token)));
+                reviews.results.forEach((rev, i) => {
+                        rev.employee = employees[i];
+                });
+                const reviewers = await Promise.all(reviews.results.map((rev) => employeeService.getById(rev.reviewerId, req.token)));
+                reviews.results.forEach((rev, i) => {
+                        rev.reviewer = reviewers[i];
+                });
+
                 attachPaginationHrefs(reviews, req.query);
                 console.log(reviews);
                 res.render('tables/reviewsList', { reviews });

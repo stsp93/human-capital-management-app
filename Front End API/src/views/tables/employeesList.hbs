@@ -32,7 +32,7 @@
         <tr class="clickable-row" data-href="/employees/{{_id}}/details">
           <td>{{name}}</td>
           <td>{{position.name}}</td>
-          <td>{{position.department.name}}</td>
+          <td><a class="link" href="/departments/{{position.department._id}}/details">{{position.department.name}}</a></td>
           <td>{{email}}</td>
           <td>{{phone}}</td>
         </tr>

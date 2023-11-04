@@ -16,7 +16,10 @@ class LeaveService extends Service {
       limit = QUERY_DEFAULTS.limit,
       sort = QUERY_DEFAULTS.sort,
       order = QUERY_DEFAULTS.order,
+      search = QUERY_DEFAULTS.search,
       ...filters } = query;
+
+      if(search && user.role !== 'user') return await this.employeeNameSearch(page, limit, search)
 
     // User limited access(only own leaves)
     if (user.role === 'user') filters.employeeId = user.employeeId
@@ -25,11 +28,9 @@ class LeaveService extends Service {
         .sort({ [sort]: order })
         .limit(+limit)
         .skip((page - 1) * limit)
-        .populate('employeeId', 'name')
-        ;
     
-    const paginationObj = await this.createPagination(page, limit, filters);
-    return { results, ...paginationObj }
+    const pagination = await this.createPagination(page, limit, filters);
+    return { results, ...pagination }
   }
 
   async getById(id, user) {

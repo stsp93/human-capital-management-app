@@ -15,8 +15,8 @@ class Service {
       search = QUERY_DEFAULTS.search,
       ...filters } = query;
       if(QUERY_DEFAULTS.minSearchChars > search.length) search = '';
-      filters.name = { $regex: new RegExp(search,'gi') }
-      filters.username = { $regex: new RegExp(search,'gi') }
+      filters.name = { $regex: new RegExp(search,'i') }
+      filters.username = { $regex: new RegExp(search,'i') }
 
     const pagination = await this.createPagination(page, limit, filters);
 
@@ -69,6 +69,42 @@ class Service {
   async countDocs(query) {
     const docsCount = await this.model.countDocuments(query);
     return docsCount;
+  }
+
+  async employeeNameSearch(page, limit, employeeName) {
+    const aggregationPipeline = [
+        {
+          '$lookup': {
+            'from': 'employees',
+            'localField': 'employeeId',
+            'foreignField': '_id',
+            'as': 'employee'
+          }
+        }, {
+          '$match': {
+            'employee.name': {'$regex': new RegExp(employeeName, 'i')}
+          }
+        }, {
+          '$facet': {
+            'count': [{'$count': 'total'}],
+            'results': [{ '$skip': 0}, {'$limit': 5}]
+          }
+        }, {
+          '$project': {'count': {'$arrayElemAt': ['$count', 0]},'results': 1}
+        }
+      ]
+  
+    const [{results, count}] = await this.model.aggregate(aggregationPipeline);
+    console.log(results);
+    const totalPages = Math.ceil(count?.total / limit) || null;
+    const pagination = {
+      currentPage: page,
+      totalPages,
+      prevPage: page > 1 ? page - 1 : null,
+      nextPage:
+        page < totalPages ? page + 1 : null,
+    };
+    return { results, ...pagination };
   }
 }
 

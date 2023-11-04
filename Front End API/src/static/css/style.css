@@ -3,7 +3,7 @@
   --indigo: #4c6ef5;
   --indigo-dark: #364fc7;
   --white: #fff;
-  --gray-dark: #343a40;
+  --gray-dark: #212529;;
   --gray: #adb5bd;
   --gray-9: #212529;
   --gray-light: #dee2e6;
@@ -153,11 +153,11 @@ main {
   font-size: 80px;
 }
 
-.details-link, details:active{
+.link, details:active{
   color: var(--gray-dark);
 }
 
-.details-link:hover, details:focus{
+.link:hover, details:focus{
   color: var(--indigo-dark);
 }
 
