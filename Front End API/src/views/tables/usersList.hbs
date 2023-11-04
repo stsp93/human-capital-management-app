@@ -2,10 +2,14 @@
   <!-- content header -->
   <h5>Search by Username</h5>
   {{> searchForm}}
+  <div class="p-2 rounded-4">
+  <a href="?sort=username" class="btn btn-primary ml-1">Sort By Username &darr;</a>
+  <a href="?sort=username&order=desc" class="btn btn-primary">Sort By Username &uparrow;</a>
+  </div>
   <hr>
   <div class="content-header d-flex justify-content-between">
     <h3 class="content-title">Users List</h3>
-      <a href="/users/add" class="btn btn-primary btn-add rounded-5">
+      <a href="/users/add" class="btn btn-primary btn-add rounded-5 py-2">
         <i class="fa-solid fa-user-plus"></i>
         Add New User
       </a>

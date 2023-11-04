@@ -1,10 +1,16 @@
         <div class="container bg-white p-4 rounded-3 table-wrapper">
             <!-- content header -->
+            
             <div class="content-header d-flex justify-content-between">
               <h3 class="content-title">Leave Requests</h3>
-              <a href="/leaves/add" class="btn btn-primary btn-add rounded-5">
+              <a href="/leaves/add" class="btn btn-primary btn-add rounded-5 py-2">
                 <i class="fa-solid fa-plus"></i> Request Leave
               </a>
+            </div>
+            <div class="p-2 rounded-4">
+              <a href="?sort=startDate" class="btn btn-primary ml-1">Sort By Start</a>
+              <a href="?sort=endDate" class="btn btn-primary ml-1">Sort By End</a>
+              <a href="?sort=status" class="btn btn-primary">Sort By Status</a>
             </div>
             <!-- table -->
             <table class="table table-striped">

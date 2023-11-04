@@ -3,12 +3,16 @@
             <div class="content-header d-flex justify-content-between">
               <h3 class="content-title">Reviews List</h3>
               {{#requireManager user.role}}
-              <a href="/reviews/add" class="btn btn-primary btn-add rounded-5">
+              <a href="/reviews/add" class="btn btn-primary btn-add rounded-5 py-2">
                 <i class="fa-solid fa-plus"></i> Write a review
               </a>
               {{/requireManager}}
             </div>
             <!-- table -->
+            <div class="p-2 rounded-4">
+              <a href="?sort=date" class="btn btn-primary ml-1">Sort By Date &darr;</a>
+              <a href="?sort=date&order=desc" class="btn btn-primary ml-1">Sort By Date &uparrow;</a>
+            </div>
             <table class="table table-striped">
               <thead>
                 <tr>
