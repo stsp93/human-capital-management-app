@@ -38,7 +38,7 @@ window.addEventListener("resize", () => {
 
 clickableRows.forEach((el) => {
   el.addEventListener("click", (ev) => {
-    window.document.location = el.dataset.href;
+    window.open(el.dataset.href);
   });
 });
 

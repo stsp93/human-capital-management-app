@@ -9,7 +9,7 @@
         <label for="employeeId" class="form-label">Linked Employee</label>
         <select name="employeeId" id="employeeId" class="form-control">
           {{#generateNameOptions
-            employees.results employee.name
+            employees.results userData.employeeId
           }}{{/generateNameOptions}}
         </select>
 

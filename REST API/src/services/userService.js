@@ -93,6 +93,14 @@ class UserService extends Service {
     const result = await this.model.findById(id);
     return result || {};
   }
+
+  async getAll(query) {
+    const queryObj = this.formatQuery(query)
+    
+    queryObj.filters.username = { $regex: new RegExp(queryObj.search, 'i') }
+
+    return await this.querySearch(queryObj);
+  }
 }
 
 module.exports = new UserService();

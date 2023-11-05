@@ -10,25 +10,14 @@ class ReviewService extends Service {
   }
 
   async getAll(query, user) {
-    let { page = QUERY_DEFAULTS.page,
-      limit = QUERY_DEFAULTS.limit,
-      sort = QUERY_DEFAULTS.sort,
-      order = QUERY_DEFAULTS.order,
-      search = QUERY_DEFAULTS.search,
-      ...filters } = query;
+    const queryObj = this.formatQuery(query);
 
-    if (search && user.role !== 'user') return await this.employeeNameSearch(page, limit, search)
+    if(queryObj.search && user.role !== 'user') return await this.employeeRefNameSearch(queryObj.page, queryObj.limit, queryObj.search)
 
-    if (user.role === 'user') filters.employeeId = user.employeeId;
-    const pagination = await this.createPagination(page, limit, filters);
-
-
-    const results = await this.model.find(filters)
-      .sort({ [sort]: order })
-      .limit(+limit)
-      .skip((page - 1) * limit)
-
-    return { results, ...pagination }
+  // User limited access(only own reviews)
+  if (user.role === 'user') queryObj.filters.employeeId = user.employeeId
+  
+  return await this.querySearch(queryObj);
   }
 
   async getById(reviewId, user) {

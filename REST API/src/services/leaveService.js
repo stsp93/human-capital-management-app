@@ -12,25 +12,14 @@ class LeaveService extends Service {
 
 
   async getAll(query, user) {
-    let { page = QUERY_DEFAULTS.page,
-      limit = QUERY_DEFAULTS.limit,
-      sort = QUERY_DEFAULTS.sort,
-      order = QUERY_DEFAULTS.order,
-      search = QUERY_DEFAULTS.search,
-      ...filters } = query;
+      const queryObj = this.formatQuery(query);
 
-      if(search && user.role !== 'user') return await this.employeeNameSearch(page, limit, search)
-
+      if(queryObj.search && user.role !== 'user') return await this.employeeRefNameSearch(queryObj)
+    
     // User limited access(only own leaves)
-    if (user.role === 'user') filters.employeeId = user.employeeId
+    if (user.role === 'user') queryObj.filters.employeeId = user.employeeId
     
-     const results = await this.model.find(filters)
-        .sort({ [sort]: order })
-        .limit(+limit)
-        .skip((page - 1) * limit)
-    
-    const pagination = await this.createPagination(page, limit, filters);
-    return { results, ...pagination }
+    return await this.querySearch(queryObj);
   }
 
   async getById(id, user) {

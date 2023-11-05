@@ -27,7 +27,7 @@
       {{#each users.results}}
         <tr class="clickable-row" data-href="/users/{{_id}}/details">
           <td>{{username}}</td>
-          <td>{{employee.name}}</td>
+          <td><a class="link" href="/employees/{{employee._id}}/details">{{employee.name}}</a></td>
           <td>{{role}}</td>
         </tr>
       {{/each}}
