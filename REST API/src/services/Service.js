@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const { QUERY_DEFAULTS } = require("../config/constants");
 const CustomError = require("../utilities/CustomError");
 const isAuthorizedUser = require("../utilities/isAuthorizedUser");
@@ -7,7 +8,13 @@ class Service {
     this.model = model;
   }
 
+  checkId(id) {
+    if(!isValidObjectId(id)) throw new CustomError(`${this.model.modelName} not found`, 404);
+  }
+
+
   async getById(id) {
+    this.checkId(id);
     const result = await this.model.findById(id);
     return result || {};
   }
@@ -17,11 +24,12 @@ class Service {
   }
 
   async update(input, id, user) {
+    this.checkId(id);
     const entity = await this.model.findById(id);
     const employeeId = entity.employeeId ? entity.employeeId : entity._id;
     if (input.password) input = { password: input.password };
     if (!entity) {
-      throw new CustomError('Employee not found', 404);
+      throw new CustomError('Entity not found', 404);
     }
     if (!isAuthorizedUser(user.role, user.employeeId, employeeId)) {
       throw new CustomError('Unauthorized: Users can only update their own records', 401);
@@ -32,7 +40,7 @@ class Service {
   }
 
   async deleteById(id) {
-
+    this.checkId(id)
     return await this.model.deleteOne({ _id: id });
   }
 

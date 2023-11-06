@@ -1,4 +1,5 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
+const { requireRoles } = require('../middlewares/authMiddleware');
 const departmentService = require('../services/departmentService');
 const employeeService = require('../services/employeeService');
 const positionService = require('../services/positionService');
@@ -85,22 +86,27 @@ const remove = async (req, res) => {
         try {
                 await departmentService.remove(req.params.id, req.token);
                 const message = 'Successfully removed'
-                res.redirect('/departments')
+                res.redirect(`/departments?message=${message}`)
         } catch (error) {
                 console.log(error);
                 res.redirect(`/departments?err=${error}`)
         }
 }
-router.get('/:id/delete', remove);
+
 
 router.get('/',showAll);
 router.get('/employees',showEmployeesInDepartment);
+router.get('/:id/details',showDetails) 
+
+// Manager access
+router.use(requireRoles('admin', 'manager'))
 router.get('/add',showAdd);
 router.post('/add',add);
-router.get('/:id/details',showDetails) 
 router.get('/:id/edit',showEdit) 
 router.post('/:id/edit',edit) 
 
+// admin access
+router.get('/:id/delete',requireRoles('admin'), remove);
 
 
 module.exports = router

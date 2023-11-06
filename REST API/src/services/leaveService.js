@@ -60,17 +60,17 @@ class LeaveService extends Service {
   async update(input, id, user) {
     this.checkId(id);
     const leave = await this.model.findById(id);
-
-    if (!entity) {
+    if(leave.status !== 'pending') throw Error('Leave is already resolved') ;
+    if (!leave) {
       throw new CustomError('Entity not found', 404);
     }
-    if (!isAuthorizedUser(user.role, user.employeeId, employeeId)) {
+    if (!isAuthorizedUser(user.role, user.employeeId, leave.employeeId)) {
       throw new CustomError('Unauthorized: Users can only update their own records', 401);
     }
     input.muteAt = input.startDate;
-    Object.assign(entity, input);
+    Object.assign(leave, input);
 
-    return await entity.save();
+    return await leave.save();
   }
 }
 module.exports = new LeaveService()

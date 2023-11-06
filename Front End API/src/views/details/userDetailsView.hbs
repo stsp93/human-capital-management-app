@@ -30,7 +30,7 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="/users/{{userData._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete User</a>
+      <a href="/users/{{userData._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm"><i class="fa-regular fa-circle-xmark"></i> Delete User</a>
     </div>
     {{/requireAdmin}}
   </div>

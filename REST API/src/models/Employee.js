@@ -20,6 +20,12 @@ const employeeSchema = new Schema({
   
 });
 
+employeeSchema.index({ name: 1 }, {
+  collation: {
+      locale: 'en',
+  }
+})
+
 const Employee = model('Employee', employeeSchema);
 
 

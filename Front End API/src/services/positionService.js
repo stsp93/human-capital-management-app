@@ -1,4 +1,4 @@
-const { toQueryString } = require('../helpers/pagination');
+const { checkEmptyFields } = require('../helpers/validation');
 const Service = require('./Service');
 
 class PositionService extends Service {
@@ -14,7 +14,6 @@ class PositionService extends Service {
     }
 
     async add(employeeId,input, token) {
-        console.log(input);
         checkEmptyFields(input);
         input.employeeId = employeeId;
         return await this.postReq(this.endpoints.main,input,token);

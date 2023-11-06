@@ -1,6 +1,6 @@
 <div class="container details bg-white p-5 rounded-4">
   <h3>Edit Salary</h3>
-  <form class="container p-3 m-auto" method="POST">
+  <form class="container p-4 m-auto" method="POST">
     <div class="row">
 
       <div class="col mb-3">
@@ -48,7 +48,7 @@
   {{/if}}
 <hr>
   <h4>Add Bonus</h4>
-  <form class="container p-3 m-auto" method="POST" action="/salary/{{salary._id}}/addBonus">
+  <form class="container p-4 m-auto" method="POST" action="/salary/{{salary._id}}/addBonus">
     <div class="row">
     <div class="col mb-3">
       <label for="bonusType" class="form-label">Bonus Type</label>
@@ -73,7 +73,7 @@
     </div>
 
     </div>
-        <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4">Add bonus</button>
+        <button type="submit" class="btn btn-primary btn-add rounded-5 mt-4 px-4 py-2"><i class="fa-solid fa-plus"></i> Add bonus</button>
     
   </form>
 

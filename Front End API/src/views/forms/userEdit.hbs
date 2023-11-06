@@ -1,8 +1,9 @@
 <div class="container details bg-white p-5 rounded-4">
   <h3>Edit User</h3>
   <hr />
+  <h6 class="px-3">Search Employee Name</h6>
   {{> searchForm}}
-  <form class="container p-4 m-auto" method="POST" action="/users/{{userData._id}}/edit">
+  <form class="container p-3 m-auto" method="POST" action="/users/{{userData._id}}/edit">
     <div class="row">
 
       <div class="col mb-3">

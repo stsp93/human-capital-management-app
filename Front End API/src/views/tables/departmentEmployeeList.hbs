@@ -15,7 +15,7 @@
               <tbody>
                 {{#each positions.results}}
                 <tr class="clickable-row" data-href="/employees/{{employeeId}}/details">
-                  <td>{{employee.name}}</td>
+                  <td><a class="link" href="/employees/{{employee._id}}/details">{{employee.name}}</a></td>
                   <td>{{name}}</td>
                   <td>{{formatDate startDate}}</td>
                 </tr>

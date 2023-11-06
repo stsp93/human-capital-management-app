@@ -32,7 +32,7 @@
       <div class="col">
         <div>
           {{#if activePosition._id}}
-          <p><strong>Department:</strong> {{department.name}}</p>
+          <p><strong>Department:</strong><a class="link" href="/departments/{{department._id}}/details"> {{department.name}}</a></p>
           <p><strong>Position:</strong> {{activePosition.name}}</p>
           <p><strong>Start Date(dd/mm/yy):</strong> {{formatDate activePosition.startDate}}</p>
           {{/if}}
@@ -56,7 +56,7 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="/employees/{{employee._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete Employee</a>
+      <a href="/employees/{{employee._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm"><i class="fa-regular fa-circle-xmark"></i> Delete Employee</a>
     </div>
     {{/requireAdmin}}
   </div>

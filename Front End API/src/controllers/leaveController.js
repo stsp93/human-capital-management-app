@@ -87,7 +87,7 @@ const add = async (req, res) => {
         res.redirect(`/leaves/${leave._id}/details`);
     } catch (error) {
         console.log(error);
-        res.render('forms/leaveAdd', { error, employees: { results } });
+        res.render('forms/leaveAdd', { error,leave:req.body, employees: { results } });
     }
 }
 

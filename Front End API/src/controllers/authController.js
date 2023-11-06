@@ -16,7 +16,7 @@ const register = async (req, res) => {
         try {
                 const newUser = await authService.register(input);
                 res.cookie('session', newUser.token, { httpOnly: true });
-                res.status(201).redirect(`/employees/${newUser.employeeId}/details`);
+                res.status(201).redirect(`/users/${newUser._id}/details`);
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('registerView', { ...authLayout, error, input });
@@ -28,7 +28,7 @@ const login = async (req, res) => {
         try {
                 const user = await authService.login(input);
                 res.cookie('session', user.token, { httpOnly: true });
-                res.status(201).redirect(`/employees/${user.employeeId}/details`);
+                res.status(201).redirect(`/users/${user._id}/details`);
         } catch (error) {
                 console.log(error);
                 res.status(error.status || 400).render('loginView', { ...authLayout, error, input });

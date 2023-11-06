@@ -1,5 +1,5 @@
 const { attachPaginationHrefs } = require('../helpers/pagination');
-const { requireRoles, requireOwnership } = require('../middlewares/authMiddleware');
+const { requireRoles } = require('../middlewares/authMiddleware');
 const employeeService = require('../services/employeeService');
 const userService = require('../services/userService');
 const router = require('express').Router();
@@ -53,11 +53,13 @@ const showEdit = async (req, res) => {
 const edit = async (req, res) => {
         let userData;
         try {
+                const linked = (await userService.getAll({employeeId: req.body.employeeId}, req.token)).results.length > 0
+                if(linked && req.body.noLink === undefined) throw new Error('Employee is already linked');
                 userData = await userService.edit(req.params.id,req.body, req.token);
                 res.redirect(`/users/${userData._id}/details`);
         } catch (error) {
                 console.log(error);
-                res.render('forms/userEdit', { error, userData, roles ,employees:{results:[]}});
+                res.render('forms/userEdit', { error, userData: req.body, roles ,employees:{results:[]}});
         }
 }
 
@@ -67,13 +69,15 @@ const showAdd = async (req, res) => {
                 res.render('forms/userAdd', { employees ,roles});
         } catch (error) {
                 console.log(error);
-                res.render('forms/userAdd', { error,roles });
+                res.render('forms/userAdd', { error,userData: req.body,roles });
         }
 }
 
 const add = async (req, res) => {
         
         try {
+                const linked = (await userService.getAll({employeeId: req.body.employeeId}, req.token)).results.length > 0
+                if(linked && req.body.noLink === undefined) throw new Error('Employee is already linked');
                 const user = await userService.add(req.body, req.token);
                 res.redirect(`/users/${user._id}/details`);
         } catch (error) {
@@ -86,7 +90,8 @@ const add = async (req, res) => {
 const remove = async (req, res) => {
         try {
                 await userService.remove(req.params.id, req.token);
-                res.redirect('/users');
+                const message = 'Successfully Removed';
+                res.redirect(`/users?message=${message}`);
         }catch (error) {
                 console.log(error);
                 res.redirect(`/users?err=${error.message}`);

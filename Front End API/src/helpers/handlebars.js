@@ -51,5 +51,5 @@ module.exports = {
     leaveNotResolved,
     generateOptions,
     inputDate,
-    generateNameOptions
+    generateNameOptions,
 }

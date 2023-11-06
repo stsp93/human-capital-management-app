@@ -8,9 +8,11 @@
         </div>
       </div>
       <div class="col d-flex flex-column justify-content-start align-items-end">
+        {{#leaveNotResolved leave.status}}
         <a href="/leaves/{{leave._id}}/edit" class="btn btn-edit btn-cta rounded-5"
           ><i class="fa-solid fa-wrench"></i> Edit Leave</a
         >
+        {{/leaveNotResolved}}
       </div>
     </div>
     <hr />
@@ -28,8 +30,8 @@
           <p><strong>Rejected/Approved:</strong> {{leave.status}}</p>
           {{#leaveNotResolved leave.status}}
                     {{#requireManager user.role}}
-                        <div><a class="btn btn-cta btn-edit rounded-5 px-3" href="/leaves/{{leave._id}}/approved">Approve</a>
-                        <a class="btn btn-cta btn-delete rounded-5 px-3" href="/leaves/{{leave_id}}/rejected">Reject</a></div>
+                        <div><a class="btn btn-cta btn-primary rounded-5 px-3 confirm" href="/leaves/{{leave._id}}/approved">Approve</a>
+                        <a class="btn btn-cta btn-delete rounded-5 px-3 confirm" href="/leaves/{{leave._id}}/rejected">Reject</a></div>
                     {{/requireManager}}
                   {{/leaveNotResolved}}
         </div>
@@ -37,7 +39,7 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="/leaves/{{leave._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm">Delete Leave</a>
+      <a href="/leaves/{{leave._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4 confirm"><i class="fa-regular fa-circle-xmark"></i> Delete Leave</a>
     </div>
     {{/requireAdmin}}
   </div>

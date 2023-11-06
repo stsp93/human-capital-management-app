@@ -69,6 +69,7 @@ class PositionService extends Service {
   }
 
   async update( input, id) {
+    this.checkId(id);
     const position = await this.model.findOne({employeeId: id, active: true});
     if (position === null) throw new CustomError('Position not found', 404)
 

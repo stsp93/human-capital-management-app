@@ -24,7 +24,7 @@ const showDetails = async (req, res) => {
         } catch (error) {
                 console.log(error);
                 if (error.status === 401) res.redirect('/auth/login');
-                res.render('details/employeeDetailsView', { error });
+                res.redirect(`/employees?err=${error.message}`)
         }
 };
 
@@ -98,7 +98,8 @@ const add = async (req, res) => {
 const remove = async (req, res) => {
         try {
                 await employeeService.remove(req.params.id, req.token);
-                res.redirect('/employees');
+                const message = 'Successfully removed'
+                res.redirect(`/employees?message=${message}`);
         } catch (error) {
                 console.log(error);
                 const message = 'Successfully removed'

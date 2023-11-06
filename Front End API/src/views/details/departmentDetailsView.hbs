@@ -26,7 +26,7 @@
     </div>
     {{#requireAdmin user.role}}
     <div class="d-flex justify-content-end">
-      <a href="/departments/{{department._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4">Delete Employee</a>
+      <a href="/departments/{{department._id}}/delete" class="btn btn-delete btn-cta rounded-5 px-4"><i class="fa-regular fa-circle-xmark"></i> Delete Department</a>
     </div>
     {{/requireAdmin}}
   </div>
