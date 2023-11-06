@@ -4,7 +4,8 @@
   "description": "HCM App",
   "main": "index.js",
   "scripts": {
-    "start": "cd ./src/ & nodemon index.js"
+    "start": "cd ./src/ & index.js",
+    "start-dev": "cd ./src/ & nodemon index.js"
   },
   "keywords": [],
   "author": "",

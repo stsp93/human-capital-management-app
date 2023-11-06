@@ -1,11 +1,17 @@
-# Human Capital Management (HCM)
+# Human Capital Management REST Api
 
-
-## REST Api
 
 It supports multiple user roles - `user`, `manager`, and `admin`, each with different access rights.
 
 To use this API, you need to authenticate and include a valid token in your requests.
+
+## Getting Started
+Rest requires MongoDB and Node.js installed.
+
+1. Navigate to REST API dir
+2. ```npm i```
+3. Configure ```./src/config``` (if needed)
+4. ```npm start```
 
 ### Routes
 
