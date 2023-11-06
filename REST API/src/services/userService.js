@@ -89,9 +89,12 @@ class UserService extends Service {
   }
 
   async getById(id, user) {
-    if(user.role === 'user' && user._id !== id) throw new CustomError('Unauthorized access', 401);
-    const result = await this.model.findById(id);
-    return result || {};
+    if(user._id !== id &&
+      (user.role === 'user' || user.role === 'manager')) throw new CustomError('Unauthorized access', 401);
+      
+    const {_id,username,employeeId,role} = await this.model.findById(id);
+    
+    return {_id,username,employeeId,role} ;
   }
 
   async getAll(query) {
