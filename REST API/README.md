@@ -16,9 +16,15 @@ To use this API, you need to authenticate and include a valid token in your requ
   - POST `/users/login` - Log in and receive an access token.
 - User Access
   - GET `/users/logout` - Log out.
+
+#### User
+
+- User Access
+  - GET `/users/:id` - Get user info.
+  - PUT `/users/:id` - Update user(User/Admin change pass only). 
 - Admin Access
+  - GET `/users/` - Get all. 
   - POST `/users/create` - Create a new user. 
-  - PUT `/users/:id` - Update user. 
 
 #### Employee
 
@@ -65,9 +71,9 @@ To use this API, you need to authenticate and include a valid token in your requ
   - GET `/leaves/:id` - Retrieve one leave.
   - GET `/leaves/` - Retrieve all leaves.
   - POST `/leaves/` - Create leave request.
+  - PUT `/leaves/:id` - Update leave request.
 - Admin/Manager Access
   - GET `/leaves/:id/:status(approved|rejected)` - Approve/Reject a leave request.
-  - PUT `/leaves/:id` - Update leave request.
 
 #### Performance Review
 
@@ -88,4 +94,26 @@ To use this API, you need to authenticate and include a valid token in your requ
   `/leaves/:id` - Delete a specific leave.  
   `/reviews/:id` - Delete a specific review.
 
+
+#### Additional Info
+
+##### Query String
+You can use query strings when retrieving multiple records, 
+
+`?search=` search for a name/username
+
+`?page=` spec page 
+
+`?limit=` page limit
+
+`?sort=` sort by propery (asc default)
+
+`?order=` 'asc','desc','1','-1'
+
+##### Positon:
+When assigning a new position, the old one(if any) is becoming inactive with end date be equal to the start date of the new one
+
+##### Leave:
+When leave is requested it has pending status and stays active until the start date.
+If approved stays active until the end of the year (Year of the end date)
 
