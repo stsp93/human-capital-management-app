@@ -11,8 +11,7 @@ class ReviewService extends Service {
 
   async getAll(query, user) {
     const queryObj = this.formatQuery(query);
-
-    if(queryObj.search && user.role !== 'user') return await this.employeeRefNameSearch(queryObj.page, queryObj.limit, queryObj.search)
+    if(queryObj.search && user.role !== 'user') return await this.employeeRefNameSearch(queryObj)
 
   // User limited access(only own reviews)
   if (user.role === 'user') queryObj.filters.employeeId = user.employeeId

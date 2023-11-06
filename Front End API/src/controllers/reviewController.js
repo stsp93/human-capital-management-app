@@ -20,7 +20,6 @@ const showAll = async (req, res) => {
                 });
 
                 attachPaginationHrefs(reviews, req.query);
-                console.log(reviews);
                 res.render('tables/reviewsList', { reviews });
         } catch (error) {
                 console.log(error);

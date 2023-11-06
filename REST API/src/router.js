@@ -11,7 +11,7 @@ const { requireRoles } = require('./middlewares/authMiddleware');
 
 
 router.get('/', (req, res) => {
-    res.json(['Hello World']);
+    res.json(['Hello from HCM REST API']);
 });
 
 router.use('/users', userController);

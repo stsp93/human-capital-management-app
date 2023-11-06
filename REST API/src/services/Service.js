@@ -72,6 +72,7 @@ class Service {
    * Performs aggregation to search by entry's employeeId
    */ 
   async employeeRefNameSearch(queryObj) {
+
     const aggregationPipeline = [
       {
         '$lookup': {
