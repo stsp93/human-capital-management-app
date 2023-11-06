@@ -12,26 +12,18 @@ class PositionService extends Service {
 
   // Override limiting user role
   async getAll(query, user) {
-    // pagination
-    const { page = QUERY_DEFAULTS.page,
-      limit = QUERY_DEFAULTS.limit,
-      ...filters } = query;
-    const pagination = await this.createPagination(page, limit, filters);
-    
-    let results;
-    if (user.role === 'user') {
-      results = await this.model.find(filters)
-        .limit(+limit)
-        .skip((page - 1) * limit)
-        .select('-salaryId')
-    } else {
-      results = await this.model.find(filters)
-        .limit(+limit)
-        .skip((page - 1) * limit)
-    }
-
-    return { results, ...pagination }
+    const queryObj = this.formatQuery(query)
+  
+    const results = await this.querySearch(queryObj);
+    if (user.role === 'user'){ 
+      results.results.forEach(r => {
+        r.salaryId = null;
+      })
   }
+
+    return results;
+  }
+
 
   // get by employee id
   async getById(employeeId, user) {
