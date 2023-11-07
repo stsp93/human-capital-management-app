@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./Front End API
+      dockerfile: Dockerfile.front
+    ports:
+      - "3030:3030"    
+    depends_on:
+      - db
+  backend: 
+    build:
+      context: ./REST API
+      dockerfile: Dockerfile.back
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    volumes:
+      - hcm_db:/data/db
+    image: mongo:latest
+    ports:
+      - "27017:27017"  
+volumes:
+   hcm_db:

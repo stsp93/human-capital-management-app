@@ -12,10 +12,11 @@ app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'main.hbs',
     helpers: hbsHelpers,
-    partialsDir: __dirname + '/views/partials'
+    partialsDir: __dirname + '/views/partials',
 }));
+app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
-app.use(express.static('static'));
+app.use(express.static(__dirname + '/static'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(COOKIE_SECRET));
 app.use(auth);
