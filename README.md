@@ -1,6 +1,10 @@
 # Human Capital Management System
 
-The project is split into two main components: a REST API and a WEB API.
+The project goal is to create a production like software that could cover the needs of an hr team in a small/medium company.
+It is is split into two main components: a REST API and a WEB API, that communicate through HTTP.
+App monitoring supported with Prometheus and Grafana.
+The project has Dockerfiles inside and can be containerized.
+
 
 ## Installation
 - Clone the Repository and follow the links below
