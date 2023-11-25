@@ -12,6 +12,7 @@ The Human Capital Management Web API is built using Express.js and Handlebars an
 
 ### Preview
 
+![HCM](https://github.com/stsp93/human-capital-management-app/raw/main/hcm.bmp)
 ![List](https://github.com/stsp93/human-capital-management-app/raw/main/list.bmp)
 ![Review](https://github.com/stsp93/human-capital-management-app/raw/main/review.bmp)
 ![Position](https://github.com/stsp93/human-capital-management-app/raw/main/position.bmp)
