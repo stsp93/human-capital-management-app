@@ -9,3 +9,9 @@ The Human Capital Management Web API is built using Express.js and Handlebars an
 3. ```npm i```
 4. Configure REST_URL in ```.src/config/constants``` (if needed)
 5. ```npm start```
+
+### Preview
+
+![List](https://github.com/stsp93/human-capital-management-app/raw/main/list.bmp)
+![Review](https://github.com/stsp93/human-capital-management-app/raw/main/review.bmp)
+![Position](https://github.com/stsp93/human-capital-management-app/raw/main/position.bmp)
