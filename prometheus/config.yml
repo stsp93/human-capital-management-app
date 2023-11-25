@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'frontend'
+    static_configs:
+      - targets: ['frontend:3030']
+
+  - job_name: 'backend'
+    static_configs:
+      - targets: ['backend:3000']
+
+    # - job_name: integrations/nodejs
+    #   static_configs:
+    #     - targets: ['localhost:4001']
+    #   relabel_configs:
+    #     - replacement: '127.0.0.1:3030'
+    #       target_label: instance
+    #   metric_relabel_configs:
+    #   - action: keep
+    #     regex: nodejs_active_handles_total|nodejs_active_requests_total|nodejs_eventloop_lag_p50_seconds|nodejs_eventloop_lag_p99_seconds|nodejs_eventloop_lag_seconds|nodejs_external_memory_bytes|nodejs_gc_duration_seconds_count|nodejs_gc_duration_seconds_sum|nodejs_heap_size_total_bytes|nodejs_heap_size_used_bytes|nodejs_heap_space_size_used_bytes|nodejs_version_info|process_cpu_seconds_total|process_cpu_system_seconds_total|process_cpu_user_seconds_total|process_resident_memory_bytes|process_start_time_seconds
+    #     source_labels:
+    #     - __name__

@@ -53,7 +53,8 @@ const showEdit = async (req, res) => {
 const edit = async (req, res) => {
         let userData;
         try {
-                const linked = (await userService.getAll({employeeId: req.body.employeeId}, req.token)).results.length > 0
+                const linkedResults = (await userService.getAll({employeeId: req.body.employeeId}, req.token)).results
+                const linked = linkedResults.length && linkedResults[0]._id !== req.params.id
                 if(linked && req.body.noLink === undefined) throw new Error('Employee is already linked');
                 userData = await userService.edit(req.params.id,req.body, req.token);
                 res.redirect(`/users/${userData._id}/details`);

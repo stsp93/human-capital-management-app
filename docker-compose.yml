@@ -1,3 +1,4 @@
+version: '3'
 services:
   frontend:
     build:
@@ -5,8 +6,7 @@ services:
       dockerfile: Dockerfile.front
     ports:
       - "3030:3030"    
-    depends_on:
-      - db
+
   backend: 
     build:
       context: ./REST API
@@ -15,11 +15,31 @@ services:
       - "3000:3000"
     depends_on:
       - db
+
   db:
     volumes:
       - hcm_db:/data/db
     image: mongo:latest
     ports:
-      - "27017:27017"  
+      - "27018:27017"
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/config.yml
+    command:
+      - '--config.file=/etc/prometheus/config.yml'
+    ports:
+      - '9090:9090'
+
+  grafana:
+    image: grafana/grafana-enterprise
+    ports:
+      - '5000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
 volumes:
    hcm_db:
+   prometheus-data:
+   grafana-storage: {}
